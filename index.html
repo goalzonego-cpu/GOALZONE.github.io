@@ -18,7 +18,8 @@ nav{background:#fff;position:sticky;top:0;z-index:10;border-bottom:1px solid #ee
 .search-wrap{max-width:1100px;margin:28px auto;padding:0 24px}
 .search-wrap input{width:100%;padding:16px 20px;border-radius:12px;border:1px solid #1f1f1f;background:#141414;color:#fff;font-size:15px;outline:none}
 main{max-width:1100px;margin:0 auto 40px;padding:0 24px;display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
-.card{background:#fff;border-radius:18px;border:1px solid #e9e9e9;padding:24px;display:flex;flex-direction:column}
+.card{background:#fff;border-radius:18px;border:1px solid #e9e9e9;padding:24px;display:flex;flex-direction:column;cursor:pointer;transition:transform .1s}
+.card:active{transform:scale(.97)}
 .badge{font-size:10px;font-weight:800;letter-spacing:.8px;text-transform:uppercase;padding:5px 8px;border-radius:6px;margin-bottom:14px;width:fit-content}
 .card-laliga .badge{background:#ffeaea;color:#E10600}
 .card-champions .badge{background:#eef2ff;color:#1020ff}
@@ -34,37 +35,33 @@ footer{background:#000;color:#666;text-align:center;padding:40px 20px;border-top
 <body>
 <header><div class="logo"><img src="IMG_3855.png" alt="GOALZONE"></div><a class="tiktok-mini" href="https://www.tiktok.com/@goalzone_go" target="_blank">TikTok →</a></header>
 <nav><div class="nav-content">
-<a class="active">ÚLTIMAS</a>
-<a>LALIGA</a>
-<a>CHAMPIONS</a>
-<a>PREMIER</a>
+<a class="active">ÚLTIMAS</a><a>LALIGA</a><a>CHAMPIONS</a><a>PREMIER</a>
 </div></nav>
 <div class="search-wrap"><input type="text" placeholder="Buscar equipo, jugador, competición..."></div>
 
 <main>
-<a href="laliga.html" lass="card card-laliga" style="text-decoration:none">
-</a>
+<div class="card card-laliga" onclick="location.href='laliga.html'">
 <span class="badge">LaLiga</span>
-<img class="league-logo" src="https://a3.espncdn.com/combiner/i?img=%2Fi%2Fleaguelogos%2Fsoccer%2F500%2F15.png" alt="LaLiga">
+<img class="league-logo" src="https://a3.espncdn.com/combiner/i?img=%2Fi%2Fleaguelogos%2Fsoccer%2F500%2F15.png">
 <h3>LaLiga EA Sports</h3>
 <p>Resultados, clasificación y última hora del fútbol español.</p>
 </div>
 
-<div class="card card-champions">
+<div class="card card-champions" onclick="location.href='champions.html'">
 <span class="badge">Champions</span>
-<img class="league-logo" src="https://a3.espncdn.com/combiner/i?img=%2Fi%2Fleaguelogos%2Fsoccer%2F500%2F2.png" alt="Champions">
+<img class="league-logo" src="https://a3.espncdn.com/combiner/i?img=%2Fi%2Fleaguelogos%2Fsoccer%2F500%2F2.png">
 <h3>Champions League</h3>
 <p>Sorteos, partidos y goles de la máxima competición.</p>
 </div>
 
-<div class="card card-premier">
+<div class="card card-premier" onclick="location.href='premier.html'">
 <span class="badge">Premier League</span>
-<img class="league-logo" src="https://a3.espncdn.com/combiner/i?img=%2Fi%2Fleaguelogos%2Fsoccer%2F500%2F23.png" alt="Premier">
+<img class="league-logo" src="https://a3.espncdn.com/combiner/i?img=%2Fi%2Fleaguelogos%2Fsoccer%2F500%2F23.png">
 <h3>Premier League</h3>
 <p>Toda la acción de Inglaterra con GOALZONE.</p>
 </div>
 </main>
 
-<footer><p>© 2026 GOALZONE — Minimal Football Media</p><a class="tiktok-btn" href="https://www.tiktok.com/@goalzone_go" target="_blank">Ver en TikTok @goalzone_go</a></footer>
+<footer><p>© 2026 GOALZONE</p><a class="tiktok-btn" href="https://www.tiktok.com/@goalzone_go" target="_blank">Ver en TikTok @goalzone_go</a></footer>
 </body>
 </html>
