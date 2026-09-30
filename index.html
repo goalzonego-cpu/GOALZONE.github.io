@@ -19,15 +19,13 @@ nav{background:#fff;position:sticky;top:0;z-index:10;border-bottom:1px solid #ee
 .search-wrap input{width:100%;padding:16px 20px;border-radius:12px;border:1px solid #1f1f1f;background:#141414;color:#fff;font-size:15px;outline:none}
 .search-wrap input:focus{border-color:#E10600}
 main{max-width:1100px;margin:0 auto 40px;padding:0 24px;display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
-.card{background:#fff;border-radius:18px;border:1px solid #e9e9e9;padding:24px;transition:.25s;cursor:pointer;display:flex;flex-direction:column;align-items:flex-start}
-.card:hover{transform:translateY(-4px);box-shadow:0 12px 30px rgba(0,0,0,.2);border-color:#000}
-.badge{font-size:10px;font-weight:800;letter-spacing:.8px;text-transform:uppercase;padding:5px 8px;border-radius:6px;margin-bottom:14px}
+.card{background:#fff;border-radius:18px;border:1px solid #e9e9e9;padding:24px;transition:.25s;cursor:pointer;display:flex;flex-direction:column}
+.card:hover{transform:translateY(-4px);border-color:#000}
+.badge{font-size:10px;font-weight:800;letter-spacing:.8px;text-transform:uppercase;padding:5px 8px;border-radius:6px;margin-bottom:14px;width:fit-content}
 .card-laliga .badge{background:#ffeaea;color:#E10600}
 .card-champions .badge{background:#eef2ff;color:#1020ff}
 .card-premier .badge{background:#f3e8ff;color:#37003c}
-
-/* LOGOS REALES */
-.league-logo{width:90px;height:90px;object-fit:contain;margin-bottom:18px;background:#f7f7f7;border-radius:14px;padding:10px}
+.league-logo{width:100%;height:110px;object-fit:contain;margin-bottom:18px;background:#f7f7f7;border-radius:14px;padding:12px}
 .card h3{font-size:17px;font-weight:800;margin-bottom:6px;color:#000}
 .card p{color:#777;font-size:13px;line-height:1.4}
 footer{background:#000;color:#666;text-align:center;padding:40px 20px;border-top:1px solid #1a1a1a}
@@ -48,21 +46,21 @@ footer{background:#000;color:#666;text-align:center;padding:40px 20px;border-top
 <main id="grid">
 <div class="card card-laliga" data-cat="laliga">
 <span class="badge">LaLiga</span>
-<img class="league-logo" src="https://upload.wikimedia.org/wikipedia/commons/1/13/LaLiga.svg" alt="LaLiga">
+<img class="league-logo" src="https://a3.espncdn.com/combiner/i?img=%2Fi%2Fleaguelogos%2Fsoccer%2F500%2F15.png" alt="LaLiga">
 <h3>LaLiga EA Sports</h3>
 <p>Resultados, clasificación y última hora del fútbol español.</p>
 </div>
 
 <div class="card card-champions" data-cat="champions">
 <span class="badge">Champions</span>
-<img class="league-logo" src="https://upload.wikimedia.org/wikipedia/commons/b/bf/UEFA_Champions_League_logo_2.svg" alt="Champions">
+<img class="league-logo" src="https://a3.espncdn.com/combiner/i?img=%2Fi%2Fleaguelogos%2Fsoccer%2F500%2F2.png" alt="Champions">
 <h3>Champions League</h3>
 <p>Sorteos, partidos y goles de la máxima competición.</p>
 </div>
 
 <div class="card card-premier" data-cat="premier">
 <span class="badge">Premier League</span>
-<img class="league-logo" src="https://upload.wikimedia.org/wikipedia/en/f/f2/Premier_League_Logo.svg" alt="Premier">
+<img class="league-logo" src="https://a3.espncdn.com/combiner/i?img=%2Fi%2Fleaguelogos%2Fsoccer%2F500%2F23.png" alt="Premier">
 <h3>Premier League</h3>
 <p>Toda la acción de Inglaterra con GOALZONE.</p>
 </div>
