@@ -1,113 +1,72 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GOALZONE - Noticias de fútbol</title>
-    <style>
-        * { box-sizing: border-box; margin: 0; padding: 0; }
-        body { font-family: Arial, Helvetica, sans-serif; background: #f4f5f7; color: #111; }
-        header { background: #071b12; color: white; padding: 15px 20px; }
-        .header-content { max-width: 1100px; margin: auto; display: flex; justify-content: space-between; align-items: center; gap: 20px; }
-        
-        /* LOGO AJUSTADO */
-        .logo img { height: 45px; width: auto; display: block; }
-
-        .search { background: white; border-radius: 20px; padding: 9px 15px; color: #777; min-width: 180px; }
-        nav { background: white; border-bottom: 1px solid #ddd; overflow-x: auto; position: sticky; top: 0; z-index: 10; }
-        .nav-content { max-width: 1100px; margin: auto; display: flex; gap: 25px; padding: 15px 20px; white-space: nowrap; }
-        nav a { text-decoration: none; color: #222; font-weight: bold; }
-        nav a:hover { color: #16a765; }
-        main { max-width: 1100px; margin: 30px auto; padding: 0 20px; }
-        .section-title { font-size: 25px; margin-bottom: 20px; }
-        .main-news { background: #071b12; color: white; border-radius: 15px; padding: 35px; margin-bottom: 30px; }
-        .tag { display: inline-block; background: #20d879; color: #071b12; padding: 6px 10px; border-radius: 5px; font-size: 12px; font-weight: bold; margin-bottom: 15px; }
-        .main-news h1 { font-size: 38px; line-height: 1.1; margin-bottom: 15px; }
-        .main-news p { color: #d5d5d5; font-size: 17px; line-height: 1.5; }
-        .news-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
-        .news-card { background: white; border-radius: 12px; overflow: hidden; border: 1px solid #ddd; transition: transform 0.2s; }
-        .news-card:hover { transform: translateY(-3px); }
-        .news-image { height: 160px; background: #dfe3e5; display: flex; align-items: center; justify-content: center; font-size: 45px; }
-        .news-content { padding: 18px; }
-        .news-content small { color: #16a765; font-weight: bold; }
-        .news-content h3 { margin-top: 8px; font-size: 19px; line-height: 1.25; }
-        .news-content p { margin-top: 10px; color: #666; line-height: 1.4; }
-        .categories { display: grid; grid-template-columns: repeat(4, 1fr); gap: 15px; margin-top: 35px; }
-        .category { background: white; padding: 22px; border-radius: 10px; text-align: center; font-weight: bold; border: 1px solid #ddd; cursor: pointer; }
-        .category:hover { background: #071b12; color: white; }
-        footer { background: #071b12; color: #aaa; text-align: center; padding: 30px; margin-top: 50px; }
-        @media (max-width: 750px) {
-            .header-content { flex-direction: column; align-items: stretch; }
-            .search { width: 100%; }
-            .main-news h1 { font-size: 28px; }
-            .news-grid { grid-template-columns: 1fr; }
-            .categories { grid-template-columns: repeat(2, 1fr); }
-        }
-    </style>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GOALZONE - Noticias de fútbol</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}body{font-family:Arial;background:#f4f5f7;color:#111}
+header{background:#071b12;color:#fff;padding:15px 20px}.header-content{max-width:1100px;margin:auto;display:flex;justify-content:space-between;align-items:center}
+.logo img{height:45px;width:auto;display:block}
+nav{background:#fff;border-bottom:1px solid #ddd;position:sticky;top:0;z-index:10}.nav-content{max-width:1100px;margin:auto;display:flex;gap:25px;padding:15px 20px;overflow-x:auto}
+nav a{text-decoration:none;color:#222;font-weight:bold}
+main{max-width:1100px;margin:30px auto;padding:0 20px}.section-title{font-size:25px;margin-bottom:20px}
+.news-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.news-card{background:#fff;border-radius:12px;border:1px solid #ddd;overflow:hidden}
+.news-image{height:160px;background:#dfe3e5;display:flex;align-items:center;justify-content:center;font-size:45px}
+.news-content{padding:18px}.news-content small{color:#16a765;font-weight:bold}
+.news-content h3{margin-top:8px;font-size:17px;line-height:1.3}.news-content p{margin-top:10px;color:#666;font-size:14px}
+.news-content a{display:inline-block;margin-top:12px;color:#071b12;background:#20d879;padding:8px 12px;border-radius:6px;text-decoration:none;font-weight:bold;font-size:13px}
+.social-box{background:#fff;border-radius:15px;padding:30px;margin-top:35px;text-align:center;border:1px solid #ddd}
+.social-box h3{font-size:22px}.social-box p{color:#666;margin-top:8px}
+.tiktok-btn{display:inline-block;margin-top:18px;background:#000;color:#fff;padding:14px 28px;border-radius:10px;text-decoration:none;font-weight:bold;font-size:16px}
+footer{background:#071b12;color:#aaa;text-align:center;padding:30px;margin-top:50px}
+footer a{color:#20d879;text-decoration:none}
+@media(max-width:750px){.news-grid{grid-template-columns:1fr}}
+</style>
 </head>
 <body>
-    <header>
-        <div class="header-content">
-            <div class="logo">
-                <img src="IMG_3855.png" alt="GOALZONE">
-            </div>
-            <div class="search">🔎 Buscar noticias...</div>
+<header><div class="header-content"><div class="logo"><img src="IMG_3855.png" alt="GOALZONE"></div></div></header>
+<nav><div class="nav-content"><a href="#">Últimas</a><a href="#">LaLiga</a><a href="#">Champions</a><a href="#">Premier</a></div></nav>
+
+<main>
+<h2 class="section-title">Últimas noticias</h2>
+<div class="news-grid" id="grid"><p>Cargando noticias...</p></div>
+
+<!-- APARTADO TIKTOK GOALZONE_GO -->
+<div class="social-box">
+  <h3>🔥 SÍGUENOS EN TIKTOK</h3>
+  <p>Los goles y fichajes en 30 segundos antes que en la web</p>
+  <a class="tiktok-btn" href="https://www.tiktok.com/@goalzone_go" target="_blank">🎵 @goalzone_go - Seguir</a>
+  <p style="margin-top:20px; font-size:12px; color:#999">Sube un TikTok y pon el link aquí para que aparezca tu último video en la web</p>
+</div>
+
+</main>
+
+<footer>
+  <p>© 2026 GOALZONE</p>
+  <p style="margin-top:10px;"><a href="https://www.tiktok.com/@goalzone_go" target="_blank">TikTok: @goalzone_go</a> | Fuente noticias: MARCA (agregador legal)</p>
+</footer>
+
+<script>
+fetch('noticias.json?v='+Date.now())
+.then(res=>res.json())
+.then(data=>{
+  const grid=document.getElementById('grid');
+  if(!data || data.length==0){ grid.innerHTML='<p>Aún no hay noticias. Ve a Actions y dale a Run workflow.</p>'; return; }
+  grid.innerHTML='';
+  data.forEach(n=>{
+    grid.innerHTML+=`
+      <article class="news-card">
+        <div class="news-image">⚽</div>
+        <div class="news-content">
+          <small>${n.fuente}</small>
+          <h3>${n.titulo}</h3>
+          <p>${n.resumen}</p>
+          <a href="${n.link}" target="_blank">Leer más →</a>
         </div>
-    </header>
-    <nav>
-        <div class="nav-content">
-            <a href="#">Últimas</a>
-            <a href="#">LaLiga</a>
-            <a href="#">Champions</a>
-            <a href="#">Premier League</a>
-            <a href="#">Fichajes</a>
-            <a href="#">Internacional</a>
-        </div>
-    </nav>
-    <main>
-        <h2 class="section-title">Últimas noticias</h2>
-        <article class="main-news">
-            <div class="tag">ÚLTIMA HORA</div>
-            <h1>Bienvenido a GOALZONE</h1>
-            <p>Todas las noticias del mundo del fútbol, resultados, fichajes y actualidad en un solo lugar.</p>
-        </article>
-        <div class="news-grid">
-            <article class="news-card">
-                <div class="news-image">⚽</div>
-                <div class="news-content">
-                    <small>LALIGA</small>
-                    <h3>Las últimas novedades del fútbol español</h3>
-                    <p>Toda la actualidad de los principales equipos.</p>
-                </div>
-            </article>
-            <article class="news-card">
-                <div class="news-image">🏆</div>
-                <div class="news-content">
-                    <small>CHAMPIONS</small>
-                    <h3>Toda la actualidad de la Champions League</h3>
-                    <p>Noticias y novedades de la competición europea.</p>
-                </div>
-            </article>
-            <article class="news-card">
-                <div class="news-image">🔄</div>
-                <div class="news-content">
-                    <small>FICHAJES</small>
-                    <h3>Mercado de fichajes y rumores</h3>
-                    <p>Las últimas novedades del mercado.</p>
-                </div>
-            </article>
-        </div>
-        <h2 class="section-title" style="margin-top: 40px;">Explora GOALZONE</h2>
-        <div class="categories">
-            <div class="category">⚽ LaLiga</div>
-            <div class="category">🏆 Champions</div>
-            <div class="category">🏴 Premier League</div>
-            <div class="category">🔄 Fichajes</div>
-        </div>
-    </main>
-    <footer>
-        <p>© 2026 GOALZONE</p>
-        <p>Noticias y actualidad del mundo del fútbol</p>
-    </footer>
+      </article>`;
+  });
+}).catch(()=>{ document.getElementById('grid').innerHTML='Activa las noticias en Actions > Run workflow'; });
+</script>
 </body>
 </html>
