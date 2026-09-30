@@ -7,72 +7,78 @@
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap');
 *{box-sizing:border-box;margin:0;padding:0}
-body{font-family:'Inter',Arial,sans-serif;background:#0a0a0a;color:#111}
+body{font-family:'Inter',Arial,sans-serif;background:#0a0a0a}
 header{background:#000;padding:18px 24px;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid #1a1a1a}
-.logo img{height:38px;filter:brightness(1.2)}
+.logo img{height:38px}
 .tiktok-mini{color:#fff;text-decoration:none;font-size:13px;font-weight:600;border:1px solid #222;padding:8px 14px;border-radius:100px}
-.tiktok-mini:hover{background:#fff;color:#000}
 nav{background:#fff;position:sticky;top:0;z-index:10;border-bottom:1px solid #eee}
 .nav-content{max-width:1100px;margin:0 auto;display:flex;gap:32px;padding:0 24px}
-.nav-content a{cursor:pointer;font-weight:600;color:#888;font-size:13px;letter-spacing:.8px;text-transform:uppercase;padding:18px 0 16px;border-bottom:2px solid transparent;transition:.2s}
+.nav-content a{cursor:pointer;font-weight:600;color:#888;font-size:13px;letter-spacing:.8px;text-transform:uppercase;padding:18px 0 16px;border-bottom:2px solid transparent}
 .nav-content a.active{color:#000;border-bottom:2px solid #E10600}
-.nav-content a:hover{color:#000}
 .search-wrap{max-width:1100px;margin:28px auto;padding:0 24px}
-.search-wrap input{width:100%;padding:16px 20px;border-radius:12px;border:1px solid #1f1f1f;background:#141414;color:#fff;font-size:15px;outline:none;transition:.2s}
-.search-wrap input::placeholder{color:#555}
-.search-wrap input:focus{border-color:#E10600;box-shadow:0 0 0 4px rgba(225,6,0,.15)}
+.search-wrap input{width:100%;padding:16px 20px;border-radius:12px;border:1px solid #1f1f1f;background:#141414;color:#fff;font-size:15px;outline:none}
+.search-wrap input:focus{border-color:#E10600}
 main{max-width:1100px;margin:0 auto 40px;padding:0 24px;display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
-.card{background:#fff;border-radius:18px;border:1px solid #e9e9e9;padding:28px 24px;text-align:left;transition:.2s;cursor:pointer}
-.card:hover{transform:translateY(-3px);box-shadow:0 12px 30px rgba(0,0,0,.08);border-color:#000}
-.card .icon{width:48px;height:48px;background:#000;color:#fff;display:flex;align-items:center;justify-content:center;border-radius:12px;font-size:22px;margin-bottom:18px}
-.card:nth-child(2) .icon{background:#E10600}
-.card h3{font-size:17px;font-weight:800;margin-bottom:6px;letter-spacing:-.3px}
+.card{background:#fff;border-radius:18px;border:1px solid #e9e9e9;padding:24px;transition:.25s;cursor:pointer;display:flex;flex-direction:column;align-items:flex-start}
+.card:hover{transform:translateY(-4px);box-shadow:0 12px 30px rgba(0,0,0,.2);border-color:#000}
+.badge{font-size:10px;font-weight:800;letter-spacing:.8px;text-transform:uppercase;padding:5px 8px;border-radius:6px;margin-bottom:14px}
+.card-laliga .badge{background:#ffeaea;color:#E10600}
+.card-champions .badge{background:#eef2ff;color:#1020ff}
+.card-premier .badge{background:#f3e8ff;color:#37003c}
+
+/* LOGOS REALES */
+.league-logo{width:90px;height:90px;object-fit:contain;margin-bottom:18px;background:#f7f7f7;border-radius:14px;padding:10px}
+.card h3{font-size:17px;font-weight:800;margin-bottom:6px;color:#000}
 .card p{color:#777;font-size:13px;line-height:1.4}
-.badge{display:inline-block;font-size:10px;font-weight:800;letter-spacing:.8px;text-transform:uppercase;color:#E10600;background:#ffeaea;padding:5px 8px;border-radius:6px;margin-bottom:14px}
-footer{background:#000;color:#666;text-align:center;padding:40px 20px;margin-top:20px;border-top:1px solid #1a1a1a}
-footer p{font-size:12px;letter-spacing:.5px}
-.tiktok-btn{display:inline-block;background:#E10600;color:#fff;padding:12px 22px;border-radius:100px;text-decoration:none;font-weight:800;font-size:14px;margin-top:16px;transition:.2s}
-.tiktok-btn:hover{background:#fff;color:#000}
-@media(max-width:800px){main{grid-template-columns:1fr}.nav-content{gap:18px;overflow-x:auto}}
+footer{background:#000;color:#666;text-align:center;padding:40px 20px;border-top:1px solid #1a1a1a}
+.tiktok-btn{display:inline-block;background:#E10600;color:#fff;padding:12px 22px;border-radius:100px;text-decoration:none;font-weight:800;font-size:14px;margin-top:16px}
+@media(max-width:800px){main{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
-<header>
-<div class="logo"><img src="IMG_3855.png" alt="GOALZONE"></div>
-<a class="tiktok-mini" href="https://www.tiktok.com/@goalzone_go" target="_blank">TikTok →</a>
-</header>
-
+<header><div class="logo"><img src="IMG_3855.png" alt="GOALZONE"></div><a class="tiktok-mini" href="https://www.tiktok.com/@goalzone_go" target="_blank">TikTok →</a></header>
 <nav><div class="nav-content">
-<a id="btn-todas" class="active" onclick="filtrar('todas')">Últimas</a>
-<a id="btn-laliga" onclick="filtrar('laliga')">LaLiga</a>
-<a id="btn-champions" onclick="filtrar('champions')">Champions</a>
-<a id="btn-premier" onclick="filtrar('premier')">Premier</a>
+<a id="btn-todas" class="active" onclick="filtrar('todas')">ÚLTIMAS</a>
+<a id="btn-laliga" onclick="filtrar('laliga')">LALIGA</a>
+<a id="btn-champions" onclick="filtrar('champions')">CHAMPIONS</a>
+<a id="btn-premier" onclick="filtrar('premier')">PREMIER</a>
 </div></nav>
-
 <div class="search-wrap"><input id="buscador" type="text" placeholder="Buscar equipo, jugador, competición..." onkeyup="buscar()"></div>
 
 <main id="grid">
-<div class="card" data-cat="laliga"><span class="badge">LaLiga</span><div class="icon">⚽</div><h3>LaLiga EA Sports</h3><p>Resultados, clasificación y última hora del fútbol español.</p></div>
-<div class="card" data-cat="champions"><span class="badge" style="color:#000;background:#f0f0f0">Champions</span><div class="icon">🏆</div><h3>Champions League</h3><p>Sorteos, partidos y goles de la máxima competición.</p></div>
-<div class="card" data-cat="premier"><span class="badge">Premier League</span><div class="icon">🔥</div><h3>Premier League</h3><p>Toda la acción de Inglaterra con GOALZONE.</p></div>
+<div class="card card-laliga" data-cat="laliga">
+<span class="badge">LaLiga</span>
+<img class="league-logo" src="https://upload.wikimedia.org/wikipedia/commons/1/13/LaLiga.svg" alt="LaLiga">
+<h3>LaLiga EA Sports</h3>
+<p>Resultados, clasificación y última hora del fútbol español.</p>
+</div>
+
+<div class="card card-champions" data-cat="champions">
+<span class="badge">Champions</span>
+<img class="league-logo" src="https://upload.wikimedia.org/wikipedia/commons/b/bf/UEFA_Champions_League_logo_2.svg" alt="Champions">
+<h3>Champions League</h3>
+<p>Sorteos, partidos y goles de la máxima competición.</p>
+</div>
+
+<div class="card card-premier" data-cat="premier">
+<span class="badge">Premier League</span>
+<img class="league-logo" src="https://upload.wikimedia.org/wikipedia/en/f/f2/Premier_League_Logo.svg" alt="Premier">
+<h3>Premier League</h3>
+<p>Toda la acción de Inglaterra con GOALZONE.</p>
+</div>
 </main>
 
-<footer>
-<p>© 2026 GOALZONE — Minimal Football Media</p>
-<a class="tiktok-btn" href="https://www.tiktok.com/@goalzone_go" target="_blank">Ver en TikTok @goalzone_go</a>
-</footer>
+<footer><p>© 2026 GOALZONE — Minimal Football Media</p><a class="tiktok-btn" href="https://www.tiktok.com/@goalzone_go" target="_blank">Ver en TikTok @goalzone_go</a></footer>
 
 <script>
 function filtrar(cat){
 document.querySelectorAll('.nav-content a').forEach(a=>a.classList.remove('active'));
 document.getElementById('btn-'+cat).classList.add('active');
-document.querySelectorAll('.card').forEach(c=>{
-c.style.display=(cat=='todas'||c.dataset.cat==cat)?'block':'none';
-});
+document.querySelectorAll('.card').forEach(c=>{c.style.display=(cat=='todas'||c.dataset.cat==cat)?'flex':'none';});
 }
 function buscar(){
 let t=document.getElementById('buscador').value.toLowerCase();
-document.querySelectorAll('.card').forEach(c=>{c.style.display=c.innerText.toLowerCase().includes(t)?'block':'none';});
+document.querySelectorAll('.card').forEach(c=>{c.style.display=c.innerText.toLowerCase().includes(t)?'flex':'none';});
 }
 </script>
 </body>
