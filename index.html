@@ -4,25 +4,60 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>GOALZONE</title>
-<link rel="stylesheet" href="style.css">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}body{font-family:Arial;background:#f4f5f7}
+header{background:#071b12;padding:14px 20px}.logo img{height:42px}
+nav{background:#fff;border-bottom:1px solid #ddd;position:sticky;top:0;z-index:5}
+.nav-content{max-width:1100px;margin:0 auto;display:flex;gap:20px;padding:14px 20px}
+.nav-content a{cursor:pointer;font-weight:800;color:#222;border-bottom:3px solid transparent;padding-bottom:5px}
+.nav-content a.active{border-bottom:3px solid #20d879}
+.search-wrap{max-width:1100px;margin:20px auto;padding:0 20px}
+.search-wrap input{width:100%;padding:14px 16px;border-radius:12px;border:1px solid #ddd;font-size:16px}
+main{max-width:1100px;margin:0 auto 24px;padding:0 20px;display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+.card{background:#fff;border-radius:14px;border:1px solid #ddd;padding:22px;text-align:center}
+.card .icon{font-size:42px;margin-bottom:12px}
+.card h3{margin-bottom:6px} .card p{color:#666;font-size:14px}
+footer{background:#071b12;color:#aaa;text-align:center;padding:28px;margin-top:40px}
+.tiktok-btn{display:inline-block;background:#fff;color:#000;padding:11px 20px;border-radius:10px;text-decoration:none;font-weight:800;margin-top:10px}
+@media(max-width:800px){main{grid-template-columns:1fr}}
+</style>
 </head>
 <body>
-<header><div class="logo"><img src="IMG_3855.png"></div></header>
-
+<header><div class="logo"><img src="IMG_3855.png" alt="GOALZONE"></div></header>
 <nav><div class="nav-content">
-  <a id="btn-todas" class="active" onclick="filtrar('todas')">Últimas</a>
-  <a id="btn-laliga" onclick="filtrar('laliga')">LaLiga</a>
-  <a id="btn-champions" onclick="filtrar('champions')">Champions</a>
-  <a id="btn-premier" onclick="filtrar('premier')">Premier</a>
+<a id="btn-todas" class="active" onclick="filtrar('todas')">Últimas</a>
+<a id="btn-laliga" onclick="filtrar('laliga')">LaLiga</a>
+<a id="btn-champions" onclick="filtrar('champions')">Champions</a>
+<a id="btn-premier" onclick="filtrar('premier')">Premier</a>
 </div></nav>
 
-<main><div class="news-grid" id="grid">Cargando noticias...</div></main>
+<div class="search-wrap"><input id="buscador" type="text" placeholder="🔍 Buscar noticia, equipo, jugador..." onkeyup="buscar()"></div>
+
+<main id="grid">
+<div class="card" data-cat="laliga"><div class="icon">⚽</div><h3>LaLiga</h3><p>Noticias, resultados y clasificación</p></div>
+<div class="card" data-cat="champions"><div class="icon">🏆</div><h3>Champions</h3><p>Sorteos, partidos y goles</p></div>
+<div class="card" data-cat="premier"><div class="icon">🔥</div><h3>Premier</h3><p>Lo último de Inglaterra</p></div>
+</main>
 
 <footer>
-  <p>© 2026 GOALZONE</p>
-  <a class="tiktok-btn" href="https://www.tiktok.com/@goalzone_go" target="_blank">🎵 @goalzone_go en TikTok</a>
+<p>© 2026 GOALZONE</p>
+<a class="tiktok-btn" href="https://www.tiktok.com/@goalzone_go" target="_blank">🎵 @goalzone_go en TikTok</a>
 </footer>
 
-<script src="app.js"></script>
+<script>
+function filtrar(cat){
+document.querySelectorAll('.nav-content a').forEach(a=>a.classList.remove('active'));
+document.getElementById('btn-'+cat).classList.add('active');
+document.querySelectorAll('.card').forEach(c=>{
+if(cat=='todas' || c.dataset.cat==cat) c.style.display='block'; else c.style.display='none';
+});
+}
+function buscar(){
+let txt=document.getElementById('buscador').value.toLowerCase();
+document.querySelectorAll('.card').forEach(c=>{
+c.style.display=c.innerText.toLowerCase().includes(txt)?'block':'none';
+});
+}
+</script>
 </body>
 </html>
