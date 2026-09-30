@@ -44,21 +44,26 @@ footer{background:#000;color:#666;text-align:center;padding:40px 20px;border-top
 <div class="search-wrap"><input id="buscador" type="text" placeholder="Buscar equipo, jugador, competición..." onkeyup="buscar()"></div>
 
 <main id="grid">
-<div class="card card-laliga" data-cat="laliga">
+
 <span class="badge">LaLiga</span>
 <img class="league-logo" src="https://a3.espncdn.com/combiner/i?img=%2Fi%2Fleaguelogos%2Fsoccer%2F500%2F15.png" alt="LaLiga">
 <h3>LaLiga EA Sports</h3>
 <p>Resultados, clasificación y última hora del fútbol español.</p>
 </div>
-
-<div class="card card-champions" data-cat="champions">
+<div class="card card-laliga" data-cat="laliga" onclick="location.href='laliga.html'">
+...
+</div>
+<div class="card card-champions" data-cat="champions" onclick="location.href='champions.html'">
+...
+</div>
 <span class="badge">Champions</span>
 <img class="league-logo" src="https://a3.espncdn.com/combiner/i?img=%2Fi%2Fleaguelogos%2Fsoccer%2F500%2F2.png" alt="Champions">
 <h3>Champions League</h3>
 <p>Sorteos, partidos y goles de la máxima competición.</p>
 </div>
-
-<div class="card card-premier" data-cat="premier">
+<div class="card card-premier" data-cat="premier" onclick="location.href='premier.html'">
+...
+</div>
 <span class="badge">Premier League</span>
 <img class="league-logo" src="https://a3.espncdn.com/combiner/i?img=%2Fi%2Fleaguelogos%2Fsoccer%2F500%2F23.png" alt="Premier">
 <h3>Premier League</h3>
