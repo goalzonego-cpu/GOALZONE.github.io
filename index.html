@@ -5,25 +5,43 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>GOALZONE</title>
 <style>
-*{box-sizing:border-box;margin:0;padding:0}body{font-family:Arial;background:#f4f5f7}
-header{background:#071b12;padding:14px 20px}.logo img{height:42px}
-nav{background:#fff;border-bottom:1px solid #ddd;position:sticky;top:0;z-index:5}
-.nav-content{max-width:1100px;margin:0 auto;display:flex;gap:20px;padding:14px 20px}
-.nav-content a{cursor:pointer;font-weight:800;color:#222;border-bottom:3px solid transparent;padding-bottom:5px}
-.nav-content a.active{border-bottom:3px solid #20d879}
-.search-wrap{max-width:1100px;margin:20px auto;padding:0 20px}
-.search-wrap input{width:100%;padding:14px 16px;border-radius:12px;border:1px solid #ddd;font-size:16px}
-main{max-width:1100px;margin:0 auto 24px;padding:0 20px;display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
-.card{background:#fff;border-radius:14px;border:1px solid #ddd;padding:22px;text-align:center}
-.card .icon{font-size:42px;margin-bottom:12px}
-.card h3{margin-bottom:6px} .card p{color:#666;font-size:14px}
-footer{background:#071b12;color:#aaa;text-align:center;padding:28px;margin-top:40px}
-.tiktok-btn{display:inline-block;background:#fff;color:#000;padding:11px 20px;border-radius:10px;text-decoration:none;font-weight:800;margin-top:10px}
-@media(max-width:800px){main{grid-template-columns:1fr}}
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap');
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Inter',Arial,sans-serif;background:#0a0a0a;color:#111}
+header{background:#000;padding:18px 24px;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid #1a1a1a}
+.logo img{height:38px;filter:brightness(1.2)}
+.tiktok-mini{color:#fff;text-decoration:none;font-size:13px;font-weight:600;border:1px solid #222;padding:8px 14px;border-radius:100px}
+.tiktok-mini:hover{background:#fff;color:#000}
+nav{background:#fff;position:sticky;top:0;z-index:10;border-bottom:1px solid #eee}
+.nav-content{max-width:1100px;margin:0 auto;display:flex;gap:32px;padding:0 24px}
+.nav-content a{cursor:pointer;font-weight:600;color:#888;font-size:13px;letter-spacing:.8px;text-transform:uppercase;padding:18px 0 16px;border-bottom:2px solid transparent;transition:.2s}
+.nav-content a.active{color:#000;border-bottom:2px solid #E10600}
+.nav-content a:hover{color:#000}
+.search-wrap{max-width:1100px;margin:28px auto;padding:0 24px}
+.search-wrap input{width:100%;padding:16px 20px;border-radius:12px;border:1px solid #1f1f1f;background:#141414;color:#fff;font-size:15px;outline:none;transition:.2s}
+.search-wrap input::placeholder{color:#555}
+.search-wrap input:focus{border-color:#E10600;box-shadow:0 0 0 4px rgba(225,6,0,.15)}
+main{max-width:1100px;margin:0 auto 40px;padding:0 24px;display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.card{background:#fff;border-radius:18px;border:1px solid #e9e9e9;padding:28px 24px;text-align:left;transition:.2s;cursor:pointer}
+.card:hover{transform:translateY(-3px);box-shadow:0 12px 30px rgba(0,0,0,.08);border-color:#000}
+.card .icon{width:48px;height:48px;background:#000;color:#fff;display:flex;align-items:center;justify-content:center;border-radius:12px;font-size:22px;margin-bottom:18px}
+.card:nth-child(2) .icon{background:#E10600}
+.card h3{font-size:17px;font-weight:800;margin-bottom:6px;letter-spacing:-.3px}
+.card p{color:#777;font-size:13px;line-height:1.4}
+.badge{display:inline-block;font-size:10px;font-weight:800;letter-spacing:.8px;text-transform:uppercase;color:#E10600;background:#ffeaea;padding:5px 8px;border-radius:6px;margin-bottom:14px}
+footer{background:#000;color:#666;text-align:center;padding:40px 20px;margin-top:20px;border-top:1px solid #1a1a1a}
+footer p{font-size:12px;letter-spacing:.5px}
+.tiktok-btn{display:inline-block;background:#E10600;color:#fff;padding:12px 22px;border-radius:100px;text-decoration:none;font-weight:800;font-size:14px;margin-top:16px;transition:.2s}
+.tiktok-btn:hover{background:#fff;color:#000}
+@media(max-width:800px){main{grid-template-columns:1fr}.nav-content{gap:18px;overflow-x:auto}}
 </style>
 </head>
 <body>
-<header><div class="logo"><img src="IMG_3855.png" alt="GOALZONE"></div></header>
+<header>
+<div class="logo"><img src="IMG_3855.png" alt="GOALZONE"></div>
+<a class="tiktok-mini" href="https://www.tiktok.com/@goalzone_go" target="_blank">TikTok →</a>
+</header>
+
 <nav><div class="nav-content">
 <a id="btn-todas" class="active" onclick="filtrar('todas')">Últimas</a>
 <a id="btn-laliga" onclick="filtrar('laliga')">LaLiga</a>
@@ -31,17 +49,17 @@ footer{background:#071b12;color:#aaa;text-align:center;padding:28px;margin-top:4
 <a id="btn-premier" onclick="filtrar('premier')">Premier</a>
 </div></nav>
 
-<div class="search-wrap"><input id="buscador" type="text" placeholder="🔍 Buscar noticia, equipo, jugador..." onkeyup="buscar()"></div>
+<div class="search-wrap"><input id="buscador" type="text" placeholder="Buscar equipo, jugador, competición..." onkeyup="buscar()"></div>
 
 <main id="grid">
-<div class="card" data-cat="laliga"><div class="icon">⚽</div><h3>LaLiga</h3><p>Noticias, resultados y clasificación</p></div>
-<div class="card" data-cat="champions"><div class="icon">🏆</div><h3>Champions</h3><p>Sorteos, partidos y goles</p></div>
-<div class="card" data-cat="premier"><div class="icon">🔥</div><h3>Premier</h3><p>Lo último de Inglaterra</p></div>
+<div class="card" data-cat="laliga"><span class="badge">LaLiga</span><div class="icon">⚽</div><h3>LaLiga EA Sports</h3><p>Resultados, clasificación y última hora del fútbol español.</p></div>
+<div class="card" data-cat="champions"><span class="badge" style="color:#000;background:#f0f0f0">Champions</span><div class="icon">🏆</div><h3>Champions League</h3><p>Sorteos, partidos y goles de la máxima competición.</p></div>
+<div class="card" data-cat="premier"><span class="badge">Premier League</span><div class="icon">🔥</div><h3>Premier League</h3><p>Toda la acción de Inglaterra con GOALZONE.</p></div>
 </main>
 
 <footer>
-<p>© 2026 GOALZONE</p>
-<a class="tiktok-btn" href="https://www.tiktok.com/@goalzone_go" target="_blank">🎵 @goalzone_go en TikTok</a>
+<p>© 2026 GOALZONE — Minimal Football Media</p>
+<a class="tiktok-btn" href="https://www.tiktok.com/@goalzone_go" target="_blank">Ver en TikTok @goalzone_go</a>
 </footer>
 
 <script>
@@ -49,14 +67,12 @@ function filtrar(cat){
 document.querySelectorAll('.nav-content a').forEach(a=>a.classList.remove('active'));
 document.getElementById('btn-'+cat).classList.add('active');
 document.querySelectorAll('.card').forEach(c=>{
-if(cat=='todas' || c.dataset.cat==cat) c.style.display='block'; else c.style.display='none';
+c.style.display=(cat=='todas'||c.dataset.cat==cat)?'block':'none';
 });
 }
 function buscar(){
-let txt=document.getElementById('buscador').value.toLowerCase();
-document.querySelectorAll('.card').forEach(c=>{
-c.style.display=c.innerText.toLowerCase().includes(txt)?'block':'none';
-});
+let t=document.getElementById('buscador').value.toLowerCase();
+document.querySelectorAll('.card').forEach(c=>{c.style.display=c.innerText.toLowerCase().includes(t)?'block':'none';});
 }
 </script>
 </body>
