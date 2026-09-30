@@ -1,68 +1,17 @@
 <!DOCTYPE html>
 <html lang="es">
-<head>
-<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>GOALZONE</title>
-<style>
-*{box-sizing:border-box;margin:0;padding:0}body{font-family:Arial;background:#f4f5f7;color:#111}
-header{background:#071b12;color:#fff;padding:15px 20px}.header-content{max-width:1100px;margin:auto;display:flex;justify-content:space-between;align-items:center}
-.logo img{height:45px;width:auto;display:block}
-nav{background:#fff;border-bottom:1px solid #ddd;position:sticky;top:0;z-index:10}.nav-content{max-width:1100px;margin:auto;display:flex;gap:25px;padding:15px 20px;overflow-x:auto}
-nav a{text-decoration:none;color:#222;font-weight:bold;cursor:pointer}
-main{max-width:1100px;margin:30px auto;padding:0 20px}.section-title{font-size:25px;margin-bottom:20px}
-.news-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
-.news-card{background:#fff;border-radius:12px;border:1px solid #ddd;overflow:hidden}
-.news-image{height:160px;background:#dfe3e5;display:flex;align-items:center;justify-content:center;font-size:45px}
-.news-content{padding:18px}.news-content small{color:#16a765;font-weight:bold}
-.news-content h3{margin-top:8px;font-size:17px;line-height:1.3}.news-content p{margin-top:10px;color:#666;font-size:14px}
-.news-content a{display:inline-block;margin-top:12px;color:#071b12;background:#20d879;padding:8px 12px;border-radius:6px;text-decoration:none;font-weight:bold;font-size:13px}
-footer{background:#071b12;color:#aaa;text-align:center;padding:30px;margin-top:50px}
-footer a{color:#20d879;text-decoration:none}
-.tiktok-footer{margin-top:20px; padding-top:20px; border-top:1px solid #1a3d2a}
-.tiktok-btn{display:inline-block;background:#fff;color:#000;padding:12px 22px;border-radius:8px;text-decoration:none;font-weight:bold;margin-top:10px}
-@media(max-width:750px){.news-grid{grid-template-columns:1fr}}
-</style>
-</head>
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GOALZONE</title><link rel="stylesheet" href="style.css"></head>
 <body>
-<header><div class="header-content"><div class="logo"><img src="IMG_3855.png" alt="GOALZONE"></div></div></header>
-
+<header><div class="logo"><img src="IMG_3855.png"></div></header>
 <nav><div class="nav-content">
-  <a onclick="filtrar('todas')" id="btn-todas" style="border-bottom:3px solid #20d879">Últimas</a>
-  <a onclick="filtrar('laliga')" id="btn-laliga">LaLiga</a>
-  <a onclick="filtrar('champions')" id="btn-champions">Champions</a>
-  <a onclick="filtrar('premier')" id="btn-premier">Premier</a>
+  <a id="btn-todas" class="active" onclick="filtrar('todas')">Últimas</a>
+  <a id="btn-laliga" onclick="filtrar('laliga')">LaLiga</a>
+  <a id="btn-champions" onclick="filtrar('champions')">Champions</a>
+  <a id="btn-premier" onclick="filtrar('premier')">Premier</a>
 </div></nav>
-
-<main>
-<h2 class="section-title">Últimas noticias</h2>
-<div class="news-grid" id="grid"><p>Cargando...</p></div>
-</main>
-
-<footer>
-  <p>© 2026 GOALZONE</p>
-  <div class="tiktok-footer">
-    <p style="color:white;">Síguenos en TikTok</p>
-    <a class="tiktok-btn" href="https://www.tiktok.com/@goalzone_go" target="_blank">🎵 @goalzone_go</a>
-  </div>
-</footer>
-
-<script>
-let todasNoticias = [];
-function mostrar(lista){
-  const grid=document.getElementById('grid'); grid.innerHTML='';
-  lista.forEach(n=>{
-    grid.innerHTML+=`<article class="news-card"><div class="news-image">⚽</div><div class="news-content"><small>${n.fuente} - ${n.categoria||'futbol'}</small><h3>${n.titulo}</h3><p>${n.resumen}</p><a href="${n.link}" target="_blank">Leer más →</a></div></article>`;
-  });
-}
-function filtrar(cat){
-  document.querySelectorAll('.nav-content a').forEach(a=>a.style.borderBottom='none');
-  const btn = document.getElementById('btn-'+cat); if(btn) btn.style.borderBottom='3px solid #20d879';
-  if(cat=='todas') mostrar(todasNoticias);
-  else mostrar(todasNoticias.filter(n=>n.categoria==cat));
-}
-fetch('noticias.json?v='+Date.now()).then(r=>r.json()).then(data=>{
-  todasNoticias=data; mostrar(data);
-}).catch(()=>{document.getElementById('grid').innerHTML='Ve a Actions > Run workflow para activar noticias';});
-</script>
+<main><div class="news-grid" id="grid">Cargando...</div></main>
+<footer><p>© 2026 GOALZONE</p><a class="tiktok-btn" href="https://www.tiktok.com/@goalzone_go" target="_blank">🎵 @goalzone_go</a></footer>
+<script src="app.js"></script>
 </body>
 </html>
