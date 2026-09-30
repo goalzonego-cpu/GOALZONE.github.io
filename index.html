@@ -3,242 +3,57 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
     <title>GOALZONE - Noticias de fútbol</title>
-
     <style>
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: Arial, Helvetica, sans-serif; background: #f4f5f7; color: #111; }
+        header { background: #071b12; color: white; padding: 15px 20px; }
+        .header-content { max-width: 1100px; margin: auto; display: flex; justify-content: space-between; align-items: center; gap: 20px; }
+        
+        /* LOGO AJUSTADO */
+        .logo img { height: 45px; width: auto; display: block; }
 
-        body {
-            font-family: Arial, Helvetica, sans-serif;
-            background: #f4f5f7;
-            color: #111;
-        }
-
-        /* CABECERA */
-        header {
-            background: #071b12;
-            color: white;
-            padding: 20px;
-        }
-
-        .header-content {
-            max-width: 1100px;
-            margin: auto;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            gap: 20px;
-        }
-
-        .logo {
-            font-size: 30px;
-            font-weight: 900;
-            letter-spacing: 1px;
-        }
-
-        .logo span {
-            color: #20d879;
-        }
-
-        .search {
-            background: white;
-            border-radius: 20px;
-            padding: 9px 15px;
-            color: #777;
-            min-width: 180px;
-        }
-
-        /* MENÚ */
-        nav {
-            background: white;
-            border-bottom: 1px solid #ddd;
-            overflow-x: auto;
-        }
-
-        .nav-content {
-            max-width: 1100px;
-            margin: auto;
-            display: flex;
-            gap: 25px;
-            padding: 15px 20px;
-            white-space: nowrap;
-        }
-
-        nav a {
-            text-decoration: none;
-            color: #222;
-            font-weight: bold;
-        }
-
-        nav a:hover {
-            color: #16a765;
-        }
-
-        /* CONTENIDO */
-        main {
-            max-width: 1100px;
-            margin: 30px auto;
-            padding: 0 20px;
-        }
-
-        .section-title {
-            font-size: 25px;
-            margin-bottom: 20px;
-        }
-
-        /* NOTICIA PRINCIPAL */
-        .main-news {
-            background: #071b12;
-            color: white;
-            border-radius: 15px;
-            padding: 35px;
-            margin-bottom: 30px;
-        }
-
-        .tag {
-            display: inline-block;
-            background: #20d879;
-            color: #071b12;
-            padding: 6px 10px;
-            border-radius: 5px;
-            font-size: 12px;
-            font-weight: bold;
-            margin-bottom: 15px;
-        }
-
-        .main-news h1 {
-            font-size: 38px;
-            line-height: 1.1;
-            margin-bottom: 15px;
-        }
-
-        .main-news p {
-            color: #d5d5d5;
-            font-size: 17px;
-            line-height: 1.5;
-        }
-
-        /* TARJETAS */
-        .news-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 20px;
-        }
-
-        .news-card {
-            background: white;
-            border-radius: 12px;
-            overflow: hidden;
-            border: 1px solid #ddd;
-        }
-
-        .news-image {
-            height: 160px;
-            background: #dfe3e5;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 45px;
-        }
-
-        .news-content {
-            padding: 18px;
-        }
-
-        .news-content small {
-            color: #16a765;
-            font-weight: bold;
-        }
-
-        .news-content h3 {
-            margin-top: 8px;
-            font-size: 19px;
-            line-height: 1.25;
-        }
-
-        .news-content p {
-            margin-top: 10px;
-            color: #666;
-            line-height: 1.4;
-        }
-
-        /* SECCIONES */
-        .categories {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 15px;
-            margin-top: 35px;
-        }
-
-        .category {
-            background: white;
-            padding: 22px;
-            border-radius: 10px;
-            text-align: center;
-            font-weight: bold;
-            border: 1px solid #ddd;
-        }
-
-        /* PIE */
-        footer {
-            background: #071b12;
-            color: #aaa;
-            text-align: center;
-            padding: 30px;
-            margin-top: 50px;
-        }
-
-        /* MÓVIL */
+        .search { background: white; border-radius: 20px; padding: 9px 15px; color: #777; min-width: 180px; }
+        nav { background: white; border-bottom: 1px solid #ddd; overflow-x: auto; position: sticky; top: 0; z-index: 10; }
+        .nav-content { max-width: 1100px; margin: auto; display: flex; gap: 25px; padding: 15px 20px; white-space: nowrap; }
+        nav a { text-decoration: none; color: #222; font-weight: bold; }
+        nav a:hover { color: #16a765; }
+        main { max-width: 1100px; margin: 30px auto; padding: 0 20px; }
+        .section-title { font-size: 25px; margin-bottom: 20px; }
+        .main-news { background: #071b12; color: white; border-radius: 15px; padding: 35px; margin-bottom: 30px; }
+        .tag { display: inline-block; background: #20d879; color: #071b12; padding: 6px 10px; border-radius: 5px; font-size: 12px; font-weight: bold; margin-bottom: 15px; }
+        .main-news h1 { font-size: 38px; line-height: 1.1; margin-bottom: 15px; }
+        .main-news p { color: #d5d5d5; font-size: 17px; line-height: 1.5; }
+        .news-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+        .news-card { background: white; border-radius: 12px; overflow: hidden; border: 1px solid #ddd; transition: transform 0.2s; }
+        .news-card:hover { transform: translateY(-3px); }
+        .news-image { height: 160px; background: #dfe3e5; display: flex; align-items: center; justify-content: center; font-size: 45px; }
+        .news-content { padding: 18px; }
+        .news-content small { color: #16a765; font-weight: bold; }
+        .news-content h3 { margin-top: 8px; font-size: 19px; line-height: 1.25; }
+        .news-content p { margin-top: 10px; color: #666; line-height: 1.4; }
+        .categories { display: grid; grid-template-columns: repeat(4, 1fr); gap: 15px; margin-top: 35px; }
+        .category { background: white; padding: 22px; border-radius: 10px; text-align: center; font-weight: bold; border: 1px solid #ddd; cursor: pointer; }
+        .category:hover { background: #071b12; color: white; }
+        footer { background: #071b12; color: #aaa; text-align: center; padding: 30px; margin-top: 50px; }
         @media (max-width: 750px) {
-
-            .header-content {
-                flex-direction: column;
-                align-items: stretch;
-            }
-
-            .search {
-                width: 100%;
-            }
-
-            .main-news h1 {
-                font-size: 28px;
-            }
-
-            .news-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .categories {
-                grid-template-columns: repeat(2, 1fr);
-            }
+            .header-content { flex-direction: column; align-items: stretch; }
+            .search { width: 100%; }
+            .main-news h1 { font-size: 28px; }
+            .news-grid { grid-template-columns: 1fr; }
+            .categories { grid-template-columns: repeat(2, 1fr); }
         }
     </style>
 </head>
-
 <body>
-
-    <!-- CABECERA -->
     <header>
         <div class="header-content">
-
             <div class="logo">
-                <img src="IMG_3855.png" alt="GOALZONE"
+                <img src="IMG_3855.png" alt="GOALZONE">
             </div>
-
-            <div class="search">
-                🔎 Buscar noticias...
-            </div>
-
+            <div class="search">🔎 Buscar noticias...</div>
         </div>
     </header>
-
-
-    <!-- MENÚ -->
     <nav>
         <div class="nav-content">
             <a href="#">Últimas</a>
@@ -249,125 +64,50 @@
             <a href="#">Internacional</a>
         </div>
     </nav>
-
-
-    <!-- CONTENIDO -->
     <main>
-
         <h2 class="section-title">Últimas noticias</h2>
-
-        <!-- NOTICIA PRINCIPAL -->
         <article class="main-news">
-
             <div class="tag">ÚLTIMA HORA</div>
-
-            <h1>
-                Bienvenido a GOALZONE
-            </h1>
-
-            <p>
-                Todas las noticias del mundo del fútbol,
-                resultados, fichajes y actualidad en un solo lugar.
-            </p>
-
+            <h1>Bienvenido a GOALZONE</h1>
+            <p>Todas las noticias del mundo del fútbol, resultados, fichajes y actualidad en un solo lugar.</p>
         </article>
-
-
-        <!-- NOTICIAS -->
         <div class="news-grid">
-
             <article class="news-card">
-
                 <div class="news-image">⚽</div>
-
                 <div class="news-content">
                     <small>LALIGA</small>
-
-                    <h3>
-                        Las últimas novedades del fútbol español
-                    </h3>
-
-                    <p>
-                        Toda la actualidad de los principales equipos.
-                    </p>
+                    <h3>Las últimas novedades del fútbol español</h3>
+                    <p>Toda la actualidad de los principales equipos.</p>
                 </div>
-
             </article>
-
-
             <article class="news-card">
-
                 <div class="news-image">🏆</div>
-
                 <div class="news-content">
                     <small>CHAMPIONS</small>
-
-                    <h3>
-                        Toda la actualidad de la Champions League
-                    </h3>
-
-                    <p>
-                        Noticias y novedades de la competición europea.
-                    </p>
+                    <h3>Toda la actualidad de la Champions League</h3>
+                    <p>Noticias y novedades de la competición europea.</p>
                 </div>
-
             </article>
-
-
             <article class="news-card">
-
                 <div class="news-image">🔄</div>
-
                 <div class="news-content">
                     <small>FICHAJES</small>
-
-                    <h3>
-                        Mercado de fichajes y rumores
-                    </h3>
-
-                    <p>
-                        Las últimas novedades del mercado.
-                    </p>
+                    <h3>Mercado de fichajes y rumores</h3>
+                    <p>Las últimas novedades del mercado.</p>
                 </div>
-
             </article>
-
         </div>
-
-
-        <!-- CATEGORÍAS -->
-        <h2 class="section-title" style="margin-top: 40px;">
-            Explora GOALZONE
-        </h2>
-
+        <h2 class="section-title" style="margin-top: 40px;">Explora GOALZONE</h2>
         <div class="categories">
-
-            <div class="category">
-                ⚽ LaLiga
-            </div>
-
-            <div class="category">
-                🏆 Champions
-            </div>
-
-            <div class="category">
-                🏴 Premier League
-            </div>
-
-            <div class="category">
-                🔄 Fichajes
-            </div>
-
+            <div class="category">⚽ LaLiga</div>
+            <div class="category">🏆 Champions</div>
+            <div class="category">🏴 Premier League</div>
+            <div class="category">🔄 Fichajes</div>
         </div>
-
     </main>
-
-
-    <!-- PIE DE PÁGINA -->
     <footer>
         <p>© 2026 GOALZONE</p>
         <p>Noticias y actualidad del mundo del fútbol</p>
     </footer>
-
 </body>
 </html>
