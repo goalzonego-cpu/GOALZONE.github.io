@@ -15,28 +15,32 @@ nav{background:#fff;position:sticky;top:0;z-index:10;border-bottom:1px solid #ee
 .nav-content{max-width:1100px;margin:0 auto;display:flex;gap:28px;padding:0 24px;overflow:auto}
 .nav-content a{cursor:pointer;font-weight:700;color:#888;font-size:12px;letter-spacing:.8px;text-transform:uppercase;padding:18px 0 16px;border-bottom:2px solid transparent;white-space:nowrap}
 .nav-content a.active{color:#000;border-bottom:2px solid #E10600}
-.search-wrap{max-width:1100px;margin:18px auto 0;padding:0 24px}
+.search-wrap{max-width:1100px;margin:28px auto;padding:0 24px}
 .search-wrap input{width:100%;padding:16px 20px;border-radius:12px;border:1px solid #1f1f1f;background:#141414;color:#fff;font-size:15px;outline:none}
-/* CARRUSEL NUEVO */
-.carousel-wrap{max-width:1100px;margin:16px auto 24px;padding:0 24px;overflow:hidden}
-.carousel-track{display:flex;gap:12px;width:max-content;animation:scroll 35s linear infinite}
-.carousel-track img{width:280px;height:160px;object-fit:cover;border-radius:14px;flex-shrink:0;border:1px solid #1a1a1a}
-.carousel-wrap:hover .carousel-track{animation-play-state:paused}
-@keyframes scroll{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+
+/* HERO UNA SOLA IMAGEN GRANDE */
+.hero-wrap{max-width:1100px;margin:0 auto 28px;padding:0 24px}
+.hero{position:relative;width:100%;height:380px;border-radius:18px;overflow:hidden;background:#111;border:1px solid #1a1a1a}
+.hero img{position:absolute;top:0;left:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity.8s ease}
+.hero img.active{opacity:1}
+.hero-dots{position:absolute;bottom:14px;left:50%;transform:translateX(-50%);display:flex;gap:6px}
+.hero-dots span{width:6px;height:6px;border-radius:100px;background:rgba(255,255,255,.4)}
+.hero-dots span.active{background:#fff;width:18px}
 
 main{max-width:1100px;margin:0 auto 40px;padding:0 24px;display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
 .card{background:#fff;border-radius:18px;border:1px solid #e9e9e9;padding:24px;display:flex;flex-direction:column;cursor:pointer}
 .badge{font-size:10px;font-weight:800;letter-spacing:.8px;text-transform:uppercase;padding:5px 8px;border-radius:6px;margin-bottom:14px;width:fit-content}
-.card-laliga .badge{background:#ffeaea;color:#E10600}
-.card-champions .badge{background:#eef2ff;color:#1020ff}
-.card-premier .badge{background:#f3e8ff;color:#37003c}
-.cal-btn{background:#000;color:#fff;border:1px solid #222;padding:6px 10px;border-radius:100px;font-size:10px;font-weight:700;text-decoration:none;margin-bottom:14px}
+.card-laliga.badge{background:#ffeaea;color:#E10600}
+.card-champions.badge{background:#eef2ff;color:#1020ff}
+.card-premier.badge{background:#f3e8ff;color:#37003c}
+.cal-btn{background:#000;color:#fff;border:1px solid #222;padding:6px 10px;border-radius:100px;font-size:10px;font-weight:700;text-decoration:none;margin-bottom:14px;margin-left:8px}
+.card-top{display:flex;justify-content:space-between;align-items:center}
 .league-logo{width:100%;height:110px;object-fit:contain;margin-bottom:18px;background:#f7f7f7;border-radius:14px;padding:12px}
 .card h3{font-size:17px;font-weight:800;margin-bottom:6px;color:#000}
 .card p{color:#777;font-size:13px;line-height:1.4}
 footer{background:#000;color:#666;text-align:center;padding:40px 20px;border-top:1px solid #1a1a1a}
 .tiktok-btn{display:inline-block;background:#E10600;color:#fff;padding:12px 22px;border-radius:100px;text-decoration:none;font-weight:800;font-size:14px;margin-top:16px}
-@media(max-width:800px){main{grid-template-columns:1fr}.carousel-track img{width:200px;height:120px}}
+@media(max-width:800px){main{grid-template-columns:1fr}.hero{height:220px}}
 </style>
 </head>
 <body>
@@ -51,14 +55,12 @@ footer{background:#000;color:#666;text-align:center;padding:40px 20px;border-top
 
 <div class="search-wrap"><input id="buscador" type="text" placeholder="Buscar equipo, jugador, competición..." onkeyup="buscar()"></div>
 
-<!-- CARRUSEL DE IMÁGENES -->
-<div class="carousel-wrap">
-  <div class="carousel-track" id="track">
-    <img src="https://images.unsplash.com/photo-1522778119026-d647f0596c20?w=600">
-    <img src="https://images.unsplash.com/photo-1431324155629-1a6deb1dec8d?w=600">
-    <img src="https://images.unsplash.com/photo-1579952363873-27f3bfad9c0d?w=600">
-    <img src="https://images.unsplash.com/photo-1489944440615-453fc2b6a9a9?w=600">
-    <img src="https://images.unsplash.com/photo-1553778263-73a83bab9b0c?w=600">
+<div class="hero-wrap">
+  <div class="hero" id="hero">
+    <img class="active" src="https://images.unsplash.com/photo-1522778119026-d647f0596c20?w=1200">
+    <img src="https://images.unsplash.com/photo-1431324155629-1a6deb1dec8d?w=1200">
+    <img src="https://images.unsplash.com/photo-1579952363873-27f3bfad9c0d?w=1200">
+    <div class="hero-dots" id="dots"></div>
   </div>
 </div>
 
@@ -68,4 +70,62 @@ footer{background:#000;color:#666;text-align:center;padding:40px 20px;border-top
 <img class="league-logo" src="https://a3.espncdn.com/combiner/i?img=%2Fi%2Fleaguelogos%2Fsoccer%2F500%2F15.png">
 <h3>LaLiga EA Sports</h3>
 <p>Resultados, clasificación y última hora del fútbol español.</p>
-</div
+</div>
+
+<div class="card card-champions" data-cat="champions" onclick="location.href='champions.html'">
+<span class="badge">Champions</span>
+<img class="league-logo" src="https://a3.espncdn.com/combiner/i?img=%2Fi%2Fleaguelogos%2Fsoccer%2F500%2F2.png">
+<h3>Champions League</h3>
+<p>Sorteos, partidos y goles de la máxima competición.</p>
+</div>
+
+<div class="card card-premier" data-cat="premier">
+<div class="card-top">
+<span class="badge">Premier League</span>
+<a class="cal-btn" href="calendario-premier.html" onclick="event.stopPropagation()">📅 Calendario</a>
+</div>
+<div onclick="location.href='premier.html'">
+<img class="league-logo" src="https://a3.espncdn.com/combiner/i?img=%2Fi%2Fleaguelogos%2Fsoccer%2F500%2F23.png">
+<h3>Premier League</h3>
+<p>Toda la acción de Inglaterra con GOALZONE.</p>
+</div>
+</div>
+</main>
+
+<footer><p>© 2026 GOALZONE</p><a class="tiktok-btn" href="https://www.tiktok.com/@goalzone_go" target="_blank">Ver en TikTok @goalzone_go</a></footer>
+
+<script>
+function filtrar(cat){
+  document.querySelectorAll('.nav-content a').forEach(a=>a.classList.remove('active'));
+  document.getElementById('btn-'+cat).classList.add('active');
+  document.querySelectorAll('.card').forEach(c=>{
+    c.style.display = (cat=='todas' || c.dataset.cat==cat)? 'flex' : 'none';
+  });
+}
+function buscar(){
+  let t=document.getElementById('buscador').value.toLowerCase();
+  document.querySelectorAll('.card').forEach(c=>{
+    c.style.display = c.innerText.toLowerCase().includes(t)? 'flex' : 'none';
+  });
+}
+// SLIDER UNA IMAGEN GRANDE
+let idx=0;
+const imgs=document.querySelectorAll('#hero img');
+const dotsCont=document.getElementById('dots');
+imgs.forEach((_,i)=>{
+  let d=document.createElement('span');
+  if(i==0) d.classList.add('active');
+  dotsCont.appendChild(d);
+});
+const dots=dotsCont.querySelectorAll('span');
+function nextSlide(){
+  imgs[idx].classList.remove('active');
+  dots[idx].classList.remove('active');
+  idx=(idx+1)%imgs.length;
+  imgs[idx].classList.add('active');
+  dots[idx].classList.add('active');
+}
+setInterval(nextSlide,3500);
+</script>
+</body>
+</html>
