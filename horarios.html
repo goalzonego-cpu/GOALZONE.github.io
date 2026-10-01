@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Horarios - GOALZONE</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap');
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:Inter;background:#0a0a0a;color:#fff}
+header{background:#000;padding:18px 24px;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid #1a1a1a}
+.logo img{height:38px}.back{color:#fff;text-decoration:none;font-size:13px;border:1px solid #222;padding:8px 14px;border-radius:100px}
+.wrap{max-width:900px;margin:24px auto;padding:0 24px}
+.cal{background:#fff;border-radius:18px;padding:18px;color:#000}
+.cal-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px}
+.cal-head h2{font-size:18px;font-weight:800;text-transform:capitalize}
+.cal-head button{background:#000;color:#fff;border:none;width:32px;height:32px;border-radius:100px;cursor:pointer}
+.weekdays{display:grid;grid-template-columns:repeat(7,1fr);text-align:center;font-size:10px;color:#999;font-weight:700;margin-bottom:6px}
+.days{display:grid;grid-template-columns:repeat(7,1fr);gap:6px}
+.day{height:52px;border:1px solid #f0f0f0;border-radius:12px;display:flex;flex-direction:column;align-items:center;justify-content:center;cursor:pointer;position:relative}
+.day.today{border-color:#000;border-width:2px}
+.day.has{ background:#fafafa }
+.day.selected{background:#000;color:#fff;border-color:#000}
+.day b{font-size:13px}.dots{display:flex;gap:3px;margin-top:3px}
+.dot{width:5px;height:5px;border-radius:100px}
+.dot.laliga{background:#E10600}.dot.premier{background:#37003C}.dot.ucl{background:#0a3cff}
+.legend{display:flex;gap:12px;margin:14px 2px;font-size:11px;font-weight:700;color:#666}
+.matches{margin-top:18px}
+.m{background:#fff;color:#000;border-radius:14px;padding:14px 16px;margin-bottom:10px;display:flex;justify-content:space-between;align-items:center}
+.m small{font-size:10px;font-weight:800;letter-spacing:.6px;padding:4px 7px;border-radius:6px;color:#fff}
+.m small.laliga{background:#E10600}.m small.premier{background:#37003C}.m small.ucl{background:#0a3cff}
+.m b{font-size:14px}
+.load{color:#666;text-align:center;padding:20px;font-size:13px}
+</style>
+</head>
+<body>
+<header><a href="index.html" class="logo"><img src="IMG_3855.png"></a><a class="back" href="index.html">← Volver</a></header>
+<div class="wrap">
+<div class="cal">
+<div class="cal-head"><button onclick="changeMonth(-1)">‹</button><h2 id="monthYear"></h2><button onclick="changeMonth(1)">›</button></div>
+<div class="weekdays"><div>L</div><div>M</div><div>X</div><div>J</div><div>V</div><div>S</div><div>D</div></div>
+<div class="days" id="days"></div>
+<div class="legend"><div><span class="dot laliga" style="display:inline-block"></span> LaLiga</div><div><span class="dot premier" style="display:inline-block"></span> Premier</div><div><span class="dot ucl" style="display:inline-block"></span> Champions</div></div>
+</div>
+<div class="matches" id="matches"><div class="load">Cargando partidos oficiales...</div></div>
+</div>
+
+<script>
+let cur = new Date(); cur.setDate(1);
+let allMatches = {}; // key YYYY-MM-DD -> [{league, home, away, time}]
+let selectedDate = new Date().toISOString().slice(0,10);
+
+const LEAGUES = [
+ {id:'esp.1', name:'laliga', label:'LaLiga'},
+ {id:'eng.1', name:'premier', label:'Premier'},
+ {id:'uefa.champions', name:'ucl', label:'UCL'}
+];
+
+function fmt(d){ return d.toISOString().slice(0,10); }
+function ymd(y,m,d){ return `${y}-${String(m).padStart(2,'0')}-${String(d).padStart(2,'0')}` }
+
+async function fetchLeague(leagueId, from, to){
+  let fromS = from.replace(/-/g,'');
+  let toS = to.replace(/-/g,'');
+  // ESPN acepta rango YYYYMMDD-YYYYMMDD
+  let url = `https://site.api.espn.com/apis/site/v2/sports/soccer/${leagueId}/scoreboard?dates=${fromS}-${toS}`;
+  try{
+    let r = await fetch(url);
+    let j = await r.json();
+    let evs = j.events || [];
+    evs.forEach(ev=>{
+      let date = new Date(ev.date);
+      let key = fmt(date);
+      let home = ev.competitions[0].competitors.find(c=>c.homeAway=='home').team.shortDisplayName;
+      let away = ev.competitions[0].competitors.find(c=>c.homeAway=='away').team.shortDisplayName;
+      let time = date.toLocaleTimeString('es-ES',{hour:'2-digit',minute:'2-digit'});
+      if(!allMatches[key]) allMatches[key]=[];
+      let map = { 'esp.1':'laliga', 'eng.1':'premier', 'uefa.champions':'ucl' };
+      allMatches[key].push({league: map[leagueId], label: LEAGUES.find(l=>l.id==leagueId).label, home, away, time});
+    });
+  }catch(e){ console.log('fail', leagueId, e); }
+}
+
+async function loadMonth(){
+  allMatches = {};
+  let y = cur.getFullYear(), m = cur.getMonth();
+  let first = new Date(y,m,1);
+  let last = new Date(y,m+1,0);
+  let from = fmt(first), to = fmt(last);
+  document.getElementById('matches').innerHTML='<div class="load">Cargando partidos oficiales...</div>';
+  await Promise.all(LEAGUES.map(l=>fetchLeague(l.id, from, to)));
+  renderCal();
+  renderMatches(selectedDate);
+}
+
+function renderCal(){
+  let y=cur.getFullYear(), m=cur.getMonth();
+  document.getElementById('monthYear').innerText = new Date(y,m).toLocaleDateString('es-ES',{month:'long',year:'numeric'});
+  let firstDay = new Date(y,m,1).getDay(); firstDay = firstDay==0?6:firstDay-1;
+  let daysIn = new Date(y,m+1,0).getDate();
+  let html='';
+  for(let i=0;i<firstDay;i++) html+=`<div></div>`;
+  for(let d=1;d<=daysIn;d++){
+    let key = ymd(y,m+1,d);
+    let list = allMatches[key] || [];
+    let isToday = new Date().toDateString() == new Date(y,m,d).toDateString();
+    let isSel = key==selectedDate;
+    let dots = list.map(x=>`<span class="dot ${x.league}"></span>`).join('');
+    // solo 3 dots max
+    html+=`<div class="day ${isToday?'today':''} ${isSel?'selected':''} ${list.length?'has':''}" onclick="pick('${key}')"><b>${d}</b><div class="dots">${dots}</div></div>`;
+  }
+  document.getElementById('days').innerHTML=html;
+}
+
+function pick(key){
+  selectedDate=key;
+  renderCal();
+  renderMatches(key);
+}
+
+function renderMatches(key){
+  let list = allMatches[key] || [];
+  let title = new Date(key).toLocaleDateString('es-ES',{weekday:'long', day:'numeric', month:'long'});
+  if(list.length==0){
+    document.getElementById('matches').innerHTML=`<h3 style="margin-bottom:10px;text-transform:capitalize
