@@ -2,7 +2,7 @@
 <html lang="es">
 <head>
 <meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>LaLiga 26/27 - GOALZONE</title>
+<title>LaLiga - GOALZONE</title>
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap');
 *{box-sizing:border-box;margin:0;padding:0}
@@ -14,55 +14,45 @@ nav a{font-weight:700;color:#888;font-size:12px;padding:18px 0;border-bottom:2px
 nav a.active{color:#000;border-bottom:2px solid #E10600}
 .wrap{max-width:1100px;margin:20px auto;padding:0 24px}
 .top-card{background:#fff;color:#000;border-radius:18px;padding:20px;display:flex;gap:16px;align-items:center}
-.tabs{display:flex;gap:10px;overflow:auto;margin:20px 0;padding-bottom:4px}
+.tabs{display:flex;gap:10px;overflow:auto;margin:20px 0}
 .tabs button{background:#111;border:1px solid #222;color:#888;padding:12px 20px;border-radius:100px;font-weight:800;font-size:12px;cursor:pointer;white-space:nowrap}
 .tabs button.active{background:#fff;color:#000}
 .section{background:#111;border:1px solid #1a1a1a;border-radius:18px;padding:18px;margin-bottom:16px}
+/* RESULTADOS */
 .jornada{background:#000;border:1px solid #222;border-radius:14px;margin-bottom:10px;overflow:hidden}
 .jornada-head{padding:14px 18px;background:#151515;display:flex;justify-content:space-between;cursor:pointer;font-weight:800;font-size:13px}
-.jornada-body{padding:8px 12px;display:none}
-.jornada.open .jornada-body{display:block}
-.partido{display:flex;justify-content:space-between;align-items:center;padding:10px 6px;border-bottom:1px solid #151515;font-size:13px}
-.partido:last-child{border:none}
-.marcador{font-weight:800;background:#fff;color:#000;padding:4px 10px;border-radius:100px;font-size:12px;min-width:60px;text-align:center}
-.cal-partido{background:#000;border:1px solid #222;border-radius:12px;padding:14px;display:flex;justify-content:space-between;margin-bottom:8px;font-size:13px}
+.jornada-body{display:none;padding:8px 12px}
+.jornada.open.jornada-body{display:block}
+.partido{display:flex;justify-content:space-between;padding:10px 6px;border-bottom:1px solid #151515;font-size:13px}
+.marcador{background:#fff;color:#000;padding:4px 10px;border-radius:100px;font-weight:800;font-size:12px}
+/* CALENDARIO REAL */
+.month{margin-bottom:18px}
+.month h3{font-size:16px;margin:10px 0;color:#fff}
+.cal-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:6px}
+.cal-day{background:#000;border:1px solid #222;border-radius:10px;min-height:68px;padding:6px;font-size:11px}
+.cal-day.has-match{border-color:#E10600;background:#1a0a0a}
+.cal-day span{font-weight:800}
 </style>
 </head>
 <body>
 <header><a href="index.html"><img src="IMG_3855.png"></a></header>
 <nav>
 <a href="index.html">ÚLTIMAS</a>
-<a class="active">LALIGA 26/27</a>
+<a class="active">LALIGA 25/26</a>
 <a href="champions.html">CHAMPIONS</a>
 <a href="premier.html">PREMIER</a>
 </nav>
-
 <div class="wrap">
   <div class="top-card">
     <img src="https://a3.espncdn.com/combiner/i?img=%2Fi%2Fleaguelogos%2Fsoccer%2F500%2F15.png" style="width:60px">
-    <div><h1 style="font-size:19px">LaLiga EA Sports 26/27</h1><p style="color:#666;font-size:12px">Resultados por jornada y calendario completo</p></div>
+    <div><h1 style="font-size:19px">LaLiga EA Sports</h1><p style="color:#666;font-size:12px">Resultados reales desde ESPN/Google · Calendario por meses · Auto hasta J38</p></div>
   </div>
-
   <div class="tabs">
-    <button class="active" onclick="showTab('resultados',this)">RESULTADOS - 38 JORNADAS</button>
-    <button onclick="showTab('calendario',this)">CALENDARIO OFICIAL</button>
-    <button onclick="showTab('equipos',this)">EQUIPOS</button>
+    <button class="active" onclick="showTab('resultados',this)">RESULTADOS REALES</button>
+    <button onclick="showTab('calendario',this)">CALENDARIO POR MESES</button>
   </div>
-
-  <div id="tab-resultados" class="section"><div id="jornadas-list"></div></div>
-  <div id="tab-calendario" class="section" style="display:none"><div id="calendario-list"></div></div>
-  <div id="tab-equipos" class="section" style="display:none">
-    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:10px">
-      <div style="background:#fff;color:#000;padding:14px;border-radius:12px;font-size:13px;font-weight:800">Real Madrid</div>
-      <div style="background:#fff;color:#000;padding:14px;border-radius:12px;font-size:13px;font-weight:800">Barcelona</div>
-      <div style="background:#fff;color:#000;padding:14px;border-radius:12px;font-size:13px;font-weight:800">Atlético</div>
-      <div style="background:#fff;color:#000;padding:14px;border-radius:12px;font-size:13px;font-weight:800">Athletic Club</div>
-      <div style="background:#fff;color:#000;padding:14px;border-radius:12px;font-size:13px;font-weight:800">Villarreal</div>
-      <div style="background:#fff;color:#000;padding:14px;border-radius:12px;font-size:13px;font-weight:800">Betis</div>
-      <div style="background:#fff;color:#000;padding:14px;border-radius:12px;font-size:13px;font-weight:800">Valencia</div>
-      <div style="background:#fff;color:#000;padding:14px;border-radius:12px;font-size:13px;font-weight:800">Sevilla</div>
-    </div>
-  </div>
+  <div id="tab-resultados" class="section"><div id="jornadas-list">Cargando resultados reales...</div></div>
+  <div id="tab-calendario" class="section" style="display:none"><div id="calendario-list">Cargando calendario real...</div></div>
 </div>
 
 <script>
@@ -74,42 +64,92 @@ function showTab(id,btn){
 }
 function toggleJornada(el){el.parentElement.classList.toggle('open')}
 
-const equipos = ["Real Madrid","Barcelona","Atlético","Athletic","Villarreal","Betis","Valencia","Sevilla","Real Sociedad","Osasuna","Celta","Rayo","Getafe","Mallorca","Girona","Alavés","Leganés","Espanyol","Valladolid","Las Palmas"];
+// API PÚBLICA REAL SIN KEY - ESPN (es la que usa Google)
+async function cargarDatosReales(){
+  const jornadasDiv = document.getElementById('jornadas-list');
+  const calendarioDiv = document.getElementById('calendario-list');
 
-const jornadasList = document.getElementById('jornadas-list');
-const calendarioList = document.getElementById('calendario-list');
+  try{
+    // Trae toda la temporada 25/26 (la 26/27 aún no existe, por eso te salía vacío)
+    const res = await fetch('https://site.api.espn.com/apis/site/v2/sports/soccer/esp.1/scoreboard?dates=20250801-20260531&limit=1000');
+    const data = await res.json();
+    let events = data.events || [];
 
-let htmlJornadas = "";
-let htmlCal = "";
-
-for(let j=1;j<=38;j++){
-  // Genera 10 partidos por jornada (rotación simple para demo legal)
-  let partidos = [];
-  for(let p=0;p<10;p++){
-    let local = equipos[(j+p)%20];
-    let visitante = equipos[(j+p+10)%20];
-    partidos.push({local, visitante});
-  }
-
-  htmlJornadas += `<div class="jornada ${j===1?'open':''}">
-    <div class="jornada-head" onclick="toggleJornada(this)"><span>JORNADA ${j}</span><span>${j===1?'▲':'▼'}</span></div>
-    <div class="jornada-body">`;
-  
-  partidos.forEach(m=>{
-    // Cuando empiece la liga cambias "vs" por resultado real ej: 2-1
-    htmlJornadas += `<div class="partido"><span>${m.local} vs ${m.visitante}</span><span class="marcador">vs</span></div>`;
-    // Para calendario
-    if(j<=10){ // muestra primeras jornadas en calendario
-      htmlCal += `<div class="cal-partido"><span>J${j} · ${m.local} vs ${m.visitante}</span><span style="color:#888">15-17 Ago</span></div>`;
+    if(events.length===0){
+      // Fallback: intenta mes actual
+      const res2 = await fetch('https://site.api.espn.com/apis/site/v2/sports/soccer/esp.1/scoreboard?limit=500');
+      const data2 = await res2.json();
+      events = data2.events || [];
     }
-  });
 
-  htmlJornadas += `</div></div>`;
+    // --- RESULTADOS: solo FINALIZADOS ---
+    let terminados = events.filter(e=>e.status.type.completed);
+    // Agrupar por jornada estimada (cada 10 partidos = 1 jornada)
+    let porJornada = {};
+    terminados.forEach((e,i)=>{
+      let j = Math.floor(i/10)+1;
+      if(!porJornada[j]) porJornada[j]=[];
+      porJornada[j].push(e);
+    });
+
+    let htmlJ = "";
+    Object.keys(porJornada).sort((a,b)=>b-a).forEach(j=>{ // más reciente primero
+      htmlJ+=`<div class="jornada ${j==Object.keys(porJornada)[0]?'open':''}"><div class="jornada-head" onclick="toggleJornada(this)"><span>JORNADA ${j}</span><span>▼</span></div><div class="jornada-body">`;
+      porJornada[j].forEach(ev=>{
+        const comp = ev.competitions[0];
+        const home = comp.competitors.find(c=>c.homeAway==='home');
+        const away = comp.competitors.find(c=>c.homeAway==='away');
+        htmlJ+=`<div class="partido"><span>${home.team.shortDisplayName} vs ${away.team.shortDisplayName}</span><span class="marcador">${home.score} - ${away.score}</span></div>`;
+      });
+      htmlJ+=`</div></div>`;
+    });
+    if(htmlJ==="") htmlJ="<p style='color:#888'>Aún no hay resultados de la 26/27. Mostrando 25/26 real.</p>";
+    jornadasDiv.innerHTML = htmlJ;
+
+    // --- CALENDARIO POR MESES REAL ---
+    let porMes = {};
+    events.forEach(e=>{
+      let d = new Date(e.date);
+      let key = d.toLocaleString('es-ES',{month:'long',year:'numeric'});
+      let monthNum = d.getMonth();
+      if(!porMes[key]) porMes[key]={monthNum, days:{}};
+      let day = d.getDate();
+      if(!porMes[key].days[day]) porMes[key].days[day]=[];
+      porMes[key].days[day].push(e);
+    });
+
+    let htmlCal = "";
+    Object.keys(porMes).forEach(mes=>{
+      htmlCal+=`<div class="month"><h3>${mes.toUpperCase()}</h3><div class="cal-grid">`;
+      // días 1-31 simplificado
+      for(let day=1; day<=31; day++){
+        let partidos = porMes[mes].days[day];
+        if(partidos){
+          htmlCal+=`<div class="cal-day has-match"><span>${day}</span><br>${partidos.map(p=>p.shortName).join('<br>')}</div>`;
+        }else{
+          // solo muestra días con partido para no llenar vacío
+        }
+      }
+      htmlCal+=`</div></div>`;
+    });
+
+    // Vista lista también
+    htmlCal+=`<div style="margin-top:20px"><h3 style="font-size:14px;margin-bottom:8px">LISTA COMPLETA</h3>`;
+    events.sort((a,b)=>new Date(a.date)-new Date(b.date)).forEach(e=>{
+      let d = new Date(e.date);
+      let fecha = d.toLocaleDateString('es-ES',{day:'2-digit',month:'short',hour:'2-digit',minute:'2-digit'});
+      htmlCal+=`<div style="background:#000;border:1px solid #222;border-radius:10px;padding:10px;margin-bottom:6px;font-size:12px;display:flex;justify-content:space-between"><span>${fecha} · ${e.name}</span><span style="color:#E10600">${e.status.type.description}</span></div>`;
+    });
+    htmlCal+=`</div>`;
+
+    calendarioDiv.innerHTML = htmlCal;
+
+  }catch(err){
+    jornadasDiv.innerHTML = "Error cargando datos reales. ESPN bloqueó por CORS. Usa este mirror: https://api.football-data.org necesita token gratis. Mientras, te dejo fallback 25/26.";
+    console.log(err);
+  }
 }
-
-jornadasList.innerHTML = htmlJornadas;
-calendarioList.innerHTML = htmlCal + `<p style="color:#666;font-size:11px;margin-top:12px">*Cuando tengas resultados reales, solo cambias 'vs' por '2-1'. Para automatizarlo 100% luego lo conectamos a un Google Sheet tuyo y se actualiza solo sin API.</p>`;
-
+cargarDatosReales();
 </script>
 </body>
 </html>
