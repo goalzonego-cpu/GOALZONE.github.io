@@ -50,8 +50,6 @@ main{max-width:1100px;margin:0 auto 40px;padding:0 24px;display:grid;grid-templa
 footer{background:#000;color:#666;text-align:center;padding:40px 20px;border-top:1px solid #1a1a1a}
 .tiktok-btn{display:inline-block;background:#E10600;color:#fff;padding:12px 22px;border-radius:100px;text-decoration:none;font-weight:800;font-size:14px;margin-top:16px}
 @media(max-width:800px){main{grid-template-columns:1fr}.hero{height:220px}}
-
-/* NUEVO ABOUT */
 .about-grid{display:grid;grid-template-columns:1.15fr.85fr;gap:20px}
 .about-text h2{font-size:26px;line-height:1.1;margin-bottom:16px}
 .about-text p{color:#a8a8a8;font-size:14.5px;line-height:1.8;margin-bottom:14px}
@@ -69,7 +67,6 @@ footer{background:#000;color:#666;text-align:center;padding:40px 20px;border-top
 </head>
 <body>
 <header><div class="logo"><img src="IMG_3855.png" alt="GOALZONE"></div><a class="tiktok-mini" href="https://www.tiktok.com/@goalzone_go" target="_blank">TikTok →</a></header>
-
 <nav>
 <div class="nav-content">
 <a id="btn-todas" class="active" onclick="filtrar('todas')">ÚLTIMAS</a>
@@ -79,7 +76,6 @@ footer{background:#000;color:#666;text-align:center;padding:40px 20px;border-top
 </div>
 <div class="hamburger" onclick="openMenu()"><span></span><span></span><span></span></div>
 </nav>
-
 <div id="overlay" onclick="closeMenu()"></div>
 <div id="sideMenu">
 <h2>MENÚ <span onclick="closeMenu()" style="cursor:pointer">✕</span></h2>
@@ -89,10 +85,9 @@ footer{background:#000;color:#666;text-align:center;padding:40px 20px;border-top
 <a onclick="filtrar('premier');closeMenu()">PREMIER <small>Premier League</small></a>
 <a href="#redes" onclick="closeMenu()">REDES <small>Sociales</small></a>
 <a href="acerca.html" onclick="closeMenu()">ACERCA DE NOSOTROS <small>Quiénes somos</small></a>
+<a href="contacto.html" onclick="closeMenu()">CONTACTO <small>Escríbenos</small></a>
 </div>
-
 <div class="search-wrap"><input id="buscador" type="text" placeholder="Buscar equipo, jugador, competición..." onkeyup="buscar()"></div>
-
 <div class="hero-wrap">
   <div class="hero" id="hero">
     <img class="active" src="https://images.unsplash.com/photo-1522778119026-d647f0596c20?w=1200">
@@ -101,7 +96,6 @@ footer{background:#000;color:#666;text-align:center;padding:40px 20px;border-top
     <div class="hero-dots" id="dots"><span class="active"></span><span></span><span></span></div>
   </div>
 </div>
-
 <main id="grid">
 <div class="card card-laliga" data-cat="laliga" onclick="location.href='laliga.html'">
 <span class="badge">LaLiga</span>
@@ -122,10 +116,7 @@ footer{background:#000;color:#666;text-align:center;padding:40px 20px;border-top
 <p>Toda la acción de Inglaterra con GOALZONE.</p>
 </div>
 </main>
-
 <div class="section" id="redes"><h2>Redes</h2><p>Síguenos en todas nuestras plataformas para no perderte nada.</p><div class="redes"><a href="https://www.tiktok.com/@goalzone_go" target="_blank">TikTok @goalzone_go</a><a href="#">Instagram</a></div></div>
-
-<!-- NUEVO ACERCA DE NOSOTROS CON CARRUSEL -->
 <div class="section" id="nosotros" style="padding:0;background:transparent;border:none">
   <div class="about-grid">
     <div class="section" style="margin:0">
@@ -138,7 +129,6 @@ footer{background:#000;color:#666;text-align:center;padding:40px 20px;border-top
       </div>
       <a class="btn-about" href="acerca.html">Conoce nuestra historia completa →</a>
     </div>
-
     <div class="carousel-about" id="carouselAbout">
       <div class="tag-about">TikTok @goalzone_go</div>
       <img class="active" src="tk1.jpg">
@@ -149,9 +139,7 @@ footer{background:#000;color:#666;text-align:center;padding:40px 20px;border-top
     </div>
   </div>
 </div>
-
 <footer><p>© 2026 GOALZONE</p><a class="tiktok-btn" href="https://www.tiktok.com/@goalzone_go" target="_blank">Ver en TikTok @goalzone_go</a></footer>
-
 <script>
 function filtrar(cat){
   document.querySelectorAll('.nav-content a').forEach(a=>a.classList.remove('active'));
@@ -168,7 +156,6 @@ function buscar(){
 }
 function openMenu(){document.getElementById('sideMenu').classList.add('show');document.getElementById('overlay').classList.add('show')}
 function closeMenu(){document.getElementById('sideMenu').classList.remove('show');document.getElementById('overlay').classList.remove('show')}
-
 let idx=0;
 const imgs=document.querySelectorAll('#hero img');
 const dots=document.querySelectorAll('#dots span');
@@ -177,8 +164,6 @@ setInterval(()=>{
   idx=(idx+1)%imgs.length;
   imgs[idx].classList.add('active'); dots[idx].classList.add('active');
 },3500);
-
-// carrusel nosotros
 let idx2=0;
 const imgs2=document.querySelectorAll('#carouselAbout img');
 const dots2=document.querySelectorAll('#dotsAbout span');
@@ -186,7 +171,3 @@ setInterval(()=>{
   imgs2[idx2].classList.remove('active'); dots2[idx2].classList.remove('active');
   idx2=(idx2+1)%imgs2.length;
   imgs2[idx2].classList.add('active'); dots2[idx2].classList.add('active');
-},3000);
-</script>
-</body>
-</html>
