@@ -3,79 +3,28 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Acerca de Nosotros - GOALZONE</title>
+<title>Acerca - GOAL ZONE</title>
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800;900&display=swap');
-*{box-sizing:border-box;margin:0;padding:0}
-body{font-family:'Inter',sans-serif;background:#0a0a0a;color:#fff}
-header{background:#000;padding:18px 24px;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid #1a1a1a;position:sticky;top:0;z-index:10}
-.logo img{height:38px}
-.tiktok-mini{color:#fff;text-decoration:none;font-size:13px;font-weight:600;border:1px solid #222;padding:8px 14px;border-radius:100px}
-.back{display:inline-block;margin:24px;color:#888;text-decoration:none;font-size:13px;font-weight:600}
-.wrap{max-width:1100px;margin:0 auto;padding:0 24px 40px;display:grid;grid-template-columns:1.2fr.8fr;gap:24px}
-.text{background:#111;border:1px solid #1a1a1a;border-radius:20px;padding:36px}
-.badge{display:inline-block;background:#fff;color:#000;padding:6px 14px;border-radius:100px;font-size:11px;font-weight:800;margin-bottom:20px}
-.text h1{font-size:36px;font-weight:900;line-height:.95;letter-spacing:-1px;margin-bottom:20px}
-.text h1 span{color:#E10600}
-.text p{color:#a8a8a8;font-size:15px;line-height:1.8;margin-bottom:16px}
-.text b{color:#fff}
-.values{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:28px}
-.values div{background:#161616;border:1px solid #222;border-radius:14px;padding:16px}
-.values div b{display:block;font-size:13px;margin-bottom:4px}
-.values div span{font-size:11px;color:#777;line-height:1.4;display:block}
-.carousel{position:relative;background:#000;border:1px solid #1a1a1a;border-radius:20px;overflow:hidden;height:560px;position:sticky;top:90px}
-.carousel img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity.7s}
-.carousel img.active{opacity:1}
-.tag{position:absolute;top:14px;left:14px;z-index:3;background:#fff;color:#000;padding:7px 14px;border-radius:100px;font-size:11px;font-weight:800}
-.dots{position:absolute;bottom:14px;left:50%;transform:translateX(-50%);display:flex;gap:6px;z-index:3}
-.dots span{width:6px;height:6px;background:rgba(255,255,255,.4);border-radius:10px;transition:.3s}
-.dots span.active{background:#fff;width:22px}
-.cta{display:block;margin-top:24px;background:#fff;color:#000;text-align:center;padding:16px;border-radius:14px;font-weight:800;text-decoration:none}
-@media(max-width:850px){.wrap{grid-template-columns:1fr}.carousel{height:460px;position:relative;top:0}.values{grid-template-columns:1fr}}
+body{margin:0;background:#0a0a0a;color:#fff;font-family:Arial;text-align:center}
+nav{background:#111;padding:15px;display:flex;gap:20px;justify-content:center}
+nav a{color:#fff;text-decoration:none;font-weight:bold}
+h1{color:#ff0033;margin:20px}
+.caja{max-width:600px;margin:20px auto;background:#111;padding:15px;border-radius:12px}
+.caja img{width:100%;border-radius:10px}
 </style>
 </head>
 <body>
-<header>
-  <div class="logo"><a href="index.html"><img src="IMG_3855.png" alt="GOALZONE"></a></div>
-  <a class="tiktok-mini" href="https://www.tiktok.com/@goalzone_go" target="_blank">TikTok →</a>
-</header>
-
-<a class="back" href="index.html">← Volver al inicio</a>
-
-<div class="wrap">
-  <div class="text">
-    <div class="badge">NUESTRA HISTORIA</div>
-    <h1>El fútbol no son solo <span>90 minutos.</span></h1>
-    <p><b>Queremos contar el fútbol de una forma diferente, combinando creatividad, objetividad y pasión para que cada aficionado pueda disfrutar, descubrir y opinar sobre este deporte.</b></p>
-    <p>Desde las grandes estrellas hasta las historias que muchas veces pasan desapercibidas, desde Goalzone_go buscamos ir más allá del resultado: analizar, informar y entretener con nuestro estilo único.</p>
-    <p>Porque el fútbol no son solo 90 minutos. Son historias, opiniones, emociones, polémicas, curiosidades y momentos que merecen ser contados.</p>
-
-    <div class="values">
-      <div><b>Creatividad</b><span>Ediciones que nadie más hace, con nuestro sello GO</span></div>
-      <div><b>Objetividad</b><span>Sin ser del Madrid o del Barça, contamos lo que pasa</span></div>
-      <div><b>Pasión</b><span>Vivimos el fútbol 24/7 desde Vinalesa</span></div>
-    </div>
-
-    <a class="cta" href="https://www.tiktok.com/@goalzone_go" target="_blank">Síguenos en TikTok @goalzone_go →</a>
-  </div>
-
-  <div class="carousel" id="carousel">
-    <div class="tag">TikTok @goalzone_go</div>
-    <img class="active" src="tk1.jpg">
-    <img src="tk2.jpg">
-    <img src="tk3.jpg">
-    <img src="tk4.jpg">
-    <div class="dots" id="dots"><span class="active"></span><span></span><span></span><span></span></div>
-  </div>
+<nav>
+<a href="index.html">Inicio</a>
+<a href="noticias.html">Noticias</a>
+<a href="premier.html">Premier</a>
+<a href="acerca.html">Acerca</a>
+</nav>
+<h1>GOAL ZONE en TikTok</h1>
+<div class="caja">
+<img src="tk4.jpg">
+<p>Síguenos en TikTok para resultados diarios</p>
+<p><a href="https://www.tiktok.com/@goalzone" style="color:#ff0033">tiktok.com/@goalzone</a></p>
 </div>
-
-<script>
-let i=0;const imgs=document.querySelectorAll('#carousel img');const dots=document.querySelectorAll('#dots span');
-setInterval(()=>{
-  imgs[i].classList.remove('active');dots[i].classList.remove('active');
-  i=(i+1)%imgs.length;
-  imgs[i].classList.add('active');dots[i].classList.add('active');
-},3000);
-</script>
 </body>
 </html>
