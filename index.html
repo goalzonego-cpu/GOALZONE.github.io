@@ -40,7 +40,7 @@ main{max-width:1100px;margin:0 auto 40px;padding:0 24px;display:grid;grid-templa
 #sideMenu{position:fixed;top:0;right:0;width:300px;height:100%;background:#fff;color:#000;z-index:30;transform:translateX(100%);transition:.3s;padding:24px}
 #sideMenu.show{transform:translateX(0)}
 #sideMenu h2{display:flex;justify-content:space-between;font-size:18px;font-weight:800;margin-bottom:20px}
-#sideMenu a{display:block;padding:14px 0;border-bottom:1px solid #eee;text-decoration:none;color:#000;font-weight:700;font-size:13px}
+#sideMenu a{display:block;padding:14px 0;border-bottom:1px solid #eee;text-decoration:none;color:#000;font-weight:700;font-size:13px;cursor:pointer}
 #sideMenu a small{display:block;color:#888;font-weight:400;font-size:11px;margin-top:3px}
 .section{max-width:1100px;margin:0 auto 20px;padding:28px 24px;background:#111;border-radius:18px;border:1px solid #1a1a1a}
 .section h2{font-size:20px;font-weight:800;margin-bottom:10px;color:#fff}
@@ -79,13 +79,13 @@ footer{background:#000;color:#666;text-align:center;padding:40px 20px;border-top
 <div id="overlay" onclick="closeMenu()"></div>
 <div id="sideMenu">
 <h2>MENÚ <span onclick="closeMenu()" style="cursor:pointer">✕</span></h2>
-<a onclick="filtrar('todas');closeMenu()">ÚLTIMAS <small>Todo</small></a>
-<a onclick="filtrar('laliga');closeMenu()">LALIGA <small>EA Sports</small></a>
-<a onclick="filtrar('champions');closeMenu()">CHAMPIONS <small>Champions League</small></a>
-<a onclick="filtrar('premier');closeMenu()">PREMIER <small>Premier League</small></a>
+<a onclick="filtrar('todas')">ÚLTIMAS <small>Todo</small></a>
+<a onclick="filtrar('laliga')">LALIGA <small>EA Sports</small></a>
+<a onclick="filtrar('champions')">CHAMPIONS <small>Champions League</small></a>
+<a onclick="filtrar('premier')">PREMIER <small>Premier League</small></a>
 <a href="#redes" onclick="closeMenu()">REDES <small>Sociales</small></a>
-<a href="acerca.html" onclick="closeMenu()">ACERCA DE NOSOTROS <small>Quiénes somos</small></a>
-<a href="contacto.html" onclick="closeMenu()">CONTACTO <small>Escríbenos</small></a>
+<a href="acerca.html">ACERCA DE NOSOTROS <small>Quiénes somos</small></a>
+<a href="contacto.html">CONTACTO <small>Goalzone.go@gmail.com</small></a>
 </div>
 <div class="search-wrap"><input id="buscador" type="text" placeholder="Buscar equipo, jugador, competición..." onkeyup="buscar()"></div>
 <div class="hero-wrap">
@@ -141,12 +141,18 @@ footer{background:#000;color:#666;text-align:center;padding:40px 20px;border-top
 </div>
 <footer><p>© 2026 GOALZONE</p><a class="tiktok-btn" href="https://www.tiktok.com/@goalzone_go" target="_blank">Ver en TikTok @goalzone_go</a></footer>
 <script>
+function openMenu(){document.getElementById('sideMenu').classList.add('show');document.getElementById('overlay').classList.add('show')}
+function closeMenu(){document.getElementById('sideMenu').classList.remove('show');document.getElementById('overlay').classList.remove('show')}
 function filtrar(cat){
+  closeMenu();
   document.querySelectorAll('.nav-content a').forEach(a=>a.classList.remove('active'));
   let b=document.getElementById('btn-'+cat); if(b) b.classList.add('active');
-  document.querySelectorAll('.card').forEach(c=>{
-    c.style.display = (cat=='todas' || c.dataset.cat==cat)? 'flex' : 'none';
+  let cards=document.querySelectorAll('.card');
+  cards.forEach(c=>{
+    if(cat=='todas' || c.dataset.cat==cat) c.style.display='flex'; else c.style.display='none';
   });
+  let grid=document.getElementById('grid');
+  if(grid) window.scrollTo({top:grid.offsetTop-100,behavior:'smooth'});
 }
 function buscar(){
   let t=document.getElementById('buscador').value.toLowerCase();
@@ -154,20 +160,24 @@ function buscar(){
     c.style.display = c.innerText.toLowerCase().includes(t)? 'flex' : 'none';
   });
 }
-function openMenu(){document.getElementById('sideMenu').classList.add('show');document.getElementById('overlay').classList.add('show')}
-function closeMenu(){document.getElementById('sideMenu').classList.remove('show');document.getElementById('overlay').classList.remove('show')}
 let idx=0;
-const imgs=document.querySelectorAll('#hero img');
-const dots=document.querySelectorAll('#dots span');
+let heroImgs=document.querySelectorAll('#hero img');
+let heroDots=document.querySelectorAll('#dots span');
 setInterval(()=>{
-  imgs[idx].classList.remove('active'); dots[idx].classList.remove('active');
-  idx=(idx+1)%imgs.length;
-  imgs[idx].classList.add('active'); dots[idx].classList.add('active');
+  if(heroImgs.length===0) return;
+  heroImgs[idx].classList.remove('active'); if(heroDots[idx]) heroDots[idx].classList.remove('active');
+  idx=(idx+1)%heroImgs.length;
+  heroImgs[idx].classList.add('active'); if(heroDots[idx]) heroDots[idx].classList.add('active');
 },3500);
 let idx2=0;
-const imgs2=document.querySelectorAll('#carouselAbout img');
-const dots2=document.querySelectorAll('#dotsAbout span');
+let aboutImgs=document.querySelectorAll('#carouselAbout img');
+let aboutDots=document.querySelectorAll('#dotsAbout span');
 setInterval(()=>{
-  imgs2[idx2].classList.remove('active'); dots2[idx2].classList.remove('active');
-  idx2=(idx2+1)%imgs2.length;
-  imgs2[idx2].classList.add('active'); dots2[idx2].classList.add('active');
+  if(aboutImgs.length===0) return;
+  aboutImgs[idx2].classList.remove('active'); if(aboutDots[idx2]) aboutDots[idx2].classList.remove('active');
+  idx2=(idx2+1)%aboutImgs.length;
+  aboutImgs[idx2].classList.add('active'); if(aboutDots[idx2]) aboutDots[idx2].classList.add('active');
+},3000);
+</script>
+</body>
+</html>
