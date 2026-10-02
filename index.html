@@ -7,25 +7,24 @@
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap');
 *{box-sizing:border-box;margin:0;padding:0}
-body{font-family:'Inter',Arial,sans-serif;background:#0a0a0a}
+body{font-family:'Inter',Arial,sans-serif;background:#0a0a0a;color:#fff}
 header{background:#000;padding:18px 24px;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid #1a1a1a}
 .logo img{height:38px}
 .tiktok-mini{color:#fff;text-decoration:none;font-size:13px;font-weight:600;border:1px solid #222;padding:8px 14px;border-radius:100px}
 nav{background:#fff;position:sticky;top:0;z-index:10;border-bottom:1px solid #eee;display:flex;align-items:center;justify-content:space-between}
-.nav-content{max-width:1100px;margin:0 auto;display:flex;gap:28px;padding:0 24px;overflow:auto;flex:1}
+.nav-content{display:flex;gap:28px;padding:0 24px;overflow:auto;flex:1}
 .nav-content a{cursor:pointer;font-weight:700;color:#888;font-size:12px;letter-spacing:.8px;text-transform:uppercase;padding:18px 0 16px;border-bottom:2px solid transparent;white-space:nowrap}
 .nav-content a.active{color:#000;border-bottom:2px solid #E10600}
-/* AQUÍ ESTÁ LA BARRA QUE QUERÍAS */
 .hamburger{padding:18px 24px;cursor:pointer;display:flex;flex-direction:column;gap:4px}
 .hamburger span{width:22px;height:2px;background:#000;border-radius:2px;display:block}
 .search-wrap{max-width:1100px;margin:28px auto;padding:0 24px}
 .search-wrap input{width:100%;padding:16px 20px;border-radius:12px;border:1px solid #1f1f1f;background:#141414;color:#fff;font-size:15px;outline:none}
 .hero-wrap{max-width:1100px;margin:0 auto 28px;padding:0 24px}
 .hero{position:relative;width:100%;height:380px;border-radius:18px;overflow:hidden;background:#111;border:1px solid #1a1a1a}
-.hero img{position:absolute;top:0;left:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity.8s ease}
+.hero img{position:absolute;top:0;left:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity.8s}
 .hero img.active{opacity:1}
-.hero-dots{position:absolute;bottom:14px;left:50%;transform:translateX(-50%);display:flex;gap:6px}
-.hero-dots span{width:6px;height:6px;border-radius:100px;background:rgba(255,255,255,.4)}
+.hero-dots{position:absolute;bottom:14px;left:50%;transform:translateX(-50%);display:flex;gap:6px;z-index:2}
+.hero-dots span{width:6px;height:6px;border-radius:100px;background:rgba(255,255,255,.5)}
 .hero-dots span.active{background:#fff;width:18px}
 main{max-width:1100px;margin:0 auto 40px;padding:0 24px;display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
 .card{background:#fff;border-radius:18px;border:1px solid #e9e9e9;padding:24px;display:flex;flex-direction:column;cursor:pointer}
@@ -36,7 +35,110 @@ main{max-width:1100px;margin:0 auto 40px;padding:0 24px;display:grid;grid-templa
 .league-logo{width:100%;height:110px;object-fit:contain;margin-bottom:18px;background:#f7f7f7;border-radius:14px;padding:12px}
 .card h3{font-size:17px;font-weight:800;margin-bottom:6px;color:#000}
 .card p{color:#777;font-size:13px;line-height:1.4}
-/* MENU LATERAL */
 #overlay{position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:20;opacity:0;pointer-events:none;transition:.3s}
 #overlay.show{opacity:1;pointer-events:auto}
-#sideMenu{position:fixed;top:0;right:
+#sideMenu{position:fixed;top:0;right:0;width:300px;height:100%;background:#fff;color:#000;z-index:30;transform:translateX(100%);transition:.3s;padding:24px}
+#sideMenu.show{transform:translateX(0)}
+#sideMenu h2{display:flex;justify-content:space-between;font-size:18px;font-weight:800;margin-bottom:20px}
+#sideMenu a{display:block;padding:14px 0;border-bottom:1px solid #eee;text-decoration:none;color:#000;font-weight:700;font-size:13px}
+#sideMenu a small{display:block;color:#888;font-weight:400;font-size:11px;margin-top:3px}
+.section{max-width:1100px;margin:0 auto 20px;padding:28px 24px;background:#111;border-radius:18px;border:1px solid #1a1a1a}
+.section h2{font-size:20px;font-weight:800;margin-bottom:10px;color:#fff}
+.section p{color:#aaa;font-size:14px;line-height:1.6}
+.redes{display:flex;gap:10px;margin-top:14px;flex-wrap:wrap}
+.redes a{background:#fff;color:#000;padding:10px 18px;border-radius:100px;text-decoration:none;font-weight:800;font-size:13px}
+footer{background:#000;color:#666;text-align:center;padding:40px 20px;border-top:1px solid #1a1a1a}
+.tiktok-btn{display:inline-block;background:#E10600;color:#fff;padding:12px 22px;border-radius:100px;text-decoration:none;font-weight:800;font-size:14px;margin-top:16px}
+@media(max-width:800px){main{grid-template-columns:1fr}.hero{height:220px}}
+</style>
+</head>
+<body>
+<header><div class="logo"><img src="IMG_3855.png" alt="GOALZONE"></div><a class="tiktok-mini" href="https://www.tiktok.com/@goalzone_go" target="_blank">TikTok →</a></header>
+
+<nav>
+<div class="nav-content">
+<a id="btn-todas" class="active" onclick="filtrar('todas')">ÚLTIMAS</a>
+<a id="btn-laliga" onclick="filtrar('laliga')">LALIGA</a>
+<a id="btn-champions" onclick="filtrar('champions')">CHAMPIONS</a>
+<a id="btn-premier" onclick="filtrar('premier')">PREMIER</a>
+</div>
+<div class="hamburger" onclick="openMenu()"><span></span><span></span><span></span></div>
+</nav>
+
+<div id="overlay" onclick="closeMenu()"></div>
+<div id="sideMenu">
+<h2>MENÚ <span onclick="closeMenu()" style="cursor:pointer">✕</span></h2>
+<a onclick="filtrar('todas');closeMenu()">ÚLTIMAS <small>Todo</small></a>
+<a onclick="filtrar('laliga');closeMenu()">LALIGA <small>EA Sports</small></a>
+<a onclick="filtrar('champions');closeMenu()">CHAMPIONS <small>Champions League</small></a>
+<a onclick="filtrar('premier');closeMenu()">PREMIER <small>Premier League</small></a>
+<a href="#redes" onclick="closeMenu()">REDES <small>Sociales</small></a>
+<a href="#nosotros" onclick="closeMenu()">ACERCA DE NOSOTROS <small>Quiénes somos</small></a>
+</div>
+
+<div class="search-wrap"><input id="buscador" type="text" placeholder="Buscar equipo, jugador, competición..." onkeyup="buscar()"></div>
+
+<div class="hero-wrap">
+  <div class="hero" id="hero">
+    <img class="active" src="https://images.unsplash.com/photo-1522778119026-d647f0596c20?w=1200">
+    <img src="https://images.unsplash.com/photo-1431324155629-1a6deb1dec8d?w=1200">
+    <img src="https://images.unsplash.com/photo-1579952363873-27f3bfad9c0d?w=1200">
+    <div class="hero-dots" id="dots"><span class="active"></span><span></span><span></span></div>
+  </div>
+</div>
+
+<main id="grid">
+<div class="card card-laliga" data-cat="laliga" onclick="location.href='laliga.html'">
+<span class="badge">LaLiga</span>
+<img class="league-logo" src="https://a3.espncdn.com/combiner/i?img=%2Fi%2Fleaguelogos%2Fsoccer%2F500%2F15.png">
+<h3>LaLiga EA Sports</h3>
+<p>Resultados, clasificación y última hora del fútbol español.</p>
+</div>
+<div class="card card-champions" data-cat="champions" onclick="location.href='champions.html'">
+<span class="badge">Champions</span>
+<img class="league-logo" src="https://a3.espncdn.com/combiner/i?img=%2Fi%2Fleaguelogos%2Fsoccer%2F500%2F2.png">
+<h3>Champions League</h3>
+<p>Sorteos, partidos y goles de la máxima competición.</p>
+</div>
+<div class="card card-premier" data-cat="premier" onclick="location.href='premier.html'">
+<span class="badge">Premier League</span>
+<img class="league-logo" src="https://a3.espncdn.com/combiner/i?img=%2Fi%2Fleaguelogos%2Fsoccer%2F500%2F23.png">
+<h3>Premier League</h3>
+<p>Toda la acción de Inglaterra con GOALZONE.</p>
+</div>
+</main>
+
+<div class="section" id="redes"><h2>Redes</h2><p>Síguenos en todas nuestras plataformas para no perderte nada.</p><div class="redes"><a href="https://www.tiktok.com/@goalzone_go" target="_blank">TikTok @goalzone_go</a><a href="#">Instagram</a></div></div>
+
+<div class="section" id="nosotros"><h2>Acerca de nosotros</h2><p>GOALZONE es un proyecto creado por fans del fútbol. Te traemos la última hora de LaLiga, Premier y Champions sin humo, directo y rápido.</p></div>
+
+<footer><p>© 2026 GOALZONE</p><a class="tiktok-btn" href="https://www.tiktok.com/@goalzone_go" target="_blank">Ver en TikTok @goalzone_go</a></footer>
+
+<script>
+function filtrar(cat){
+  document.querySelectorAll('.nav-content a').forEach(a=>a.classList.remove('active'));
+  let b=document.getElementById('btn-'+cat); if(b) b.classList.add('active');
+  document.querySelectorAll('.card').forEach(c=>{
+    c.style.display = (cat=='todas' || c.dataset.cat==cat)? 'flex' : 'none';
+  });
+}
+function buscar(){
+  let t=document.getElementById('buscador').value.toLowerCase();
+  document.querySelectorAll('.card').forEach(c=>{
+    c.style.display = c.innerText.toLowerCase().includes(t)? 'flex' : 'none';
+  });
+}
+function openMenu(){document.getElementById('sideMenu').classList.add('show');document.getElementById('overlay').classList.add('show')}
+function closeMenu(){document.getElementById('sideMenu').classList.remove('show');document.getElementById('overlay').classList.remove('show')}
+
+let idx=0;
+const imgs=document.querySelectorAll('#hero img');
+const dots=document.querySelectorAll('#dots span');
+setInterval(()=>{
+  imgs[idx].classList.remove('active'); dots[idx].classList.remove('active');
+  idx=(idx+1)%imgs.length;
+  imgs[idx].classList.add('active'); dots[idx].classList.add('active');
+},3500);
+</script>
+</body>
+</html>
