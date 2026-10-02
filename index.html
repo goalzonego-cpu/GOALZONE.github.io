@@ -50,6 +50,21 @@ main{max-width:1100px;margin:0 auto 40px;padding:0 24px;display:grid;grid-templa
 footer{background:#000;color:#666;text-align:center;padding:40px 20px;border-top:1px solid #1a1a1a}
 .tiktok-btn{display:inline-block;background:#E10600;color:#fff;padding:12px 22px;border-radius:100px;text-decoration:none;font-weight:800;font-size:14px;margin-top:16px}
 @media(max-width:800px){main{grid-template-columns:1fr}.hero{height:220px}}
+
+/* NUEVO ABOUT */
+.about-grid{display:grid;grid-template-columns:1.15fr.85fr;gap:20px}
+.about-text h2{font-size:26px;line-height:1.1;margin-bottom:16px}
+.about-text p{color:#a8a8a8;font-size:14.5px;line-height:1.8;margin-bottom:14px}
+.about-text b{color:#fff}
+.carousel-about{position:relative;background:#000;border:1px solid #1a1a1a;border-radius:18px;overflow:hidden;height:420px}
+.carousel-about img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity.7s}
+.carousel-about img.active{opacity:1}
+.tag-about{position:absolute;top:12px;left:12px;z-index:3;background:#fff;color:#000;padding:6px 12px;border-radius:100px;font-size:11px;font-weight:800}
+.dots-about{position:absolute;bottom:12px;left:50%;transform:translateX(-50%);display:flex;gap:6px;z-index:3}
+.dots-about span{width:6px;height:6px;background:rgba(255,255,255,.4);border-radius:10px}
+.dots-about span.active{background:#fff;width:18px}
+.btn-about{display:inline-block;margin-top:16px;background:#fff;color:#000;padding:12px 22px;border-radius:100px;font-weight:800;text-decoration:none;font-size:13px}
+@media(max-width:800px){.about-grid{grid-template-columns:1fr}.carousel-about{height:380px}}
 </style>
 </head>
 <body>
@@ -73,7 +88,7 @@ footer{background:#000;color:#666;text-align:center;padding:40px 20px;border-top
 <a onclick="filtrar('champions');closeMenu()">CHAMPIONS <small>Champions League</small></a>
 <a onclick="filtrar('premier');closeMenu()">PREMIER <small>Premier League</small></a>
 <a href="#redes" onclick="closeMenu()">REDES <small>Sociales</small></a>
-<a href="#nosotros" onclick="closeMenu()">ACERCA DE NOSOTROS <small>Quiénes somos</small></a>
+<a href="acerca.html" onclick="closeMenu()">ACERCA DE NOSOTROS <small>Quiénes somos</small></a>
 </div>
 
 <div class="search-wrap"><input id="buscador" type="text" placeholder="Buscar equipo, jugador, competición..." onkeyup="buscar()"></div>
@@ -110,7 +125,30 @@ footer{background:#000;color:#666;text-align:center;padding:40px 20px;border-top
 
 <div class="section" id="redes"><h2>Redes</h2><p>Síguenos en todas nuestras plataformas para no perderte nada.</p><div class="redes"><a href="https://www.tiktok.com/@goalzone_go" target="_blank">TikTok @goalzone_go</a><a href="#">Instagram</a></div></div>
 
-<div class="section" id="nosotros"><h2>Acerca de nosotros</h2><p>GOALZONE es un proyecto creado por fans del fútbol. Te traemos la última hora de LaLiga, Premier y Champions sin humo, directo y rápido.</p></div>
+<!-- NUEVO ACERCA DE NOSOTROS CON CARRUSEL -->
+<div class="section" id="nosotros" style="padding:0;background:transparent;border:none">
+  <div class="about-grid">
+    <div class="section" style="margin:0">
+      <div style="display:inline-block;background:#fff;color:#000;padding:5px 12px;border-radius:100px;font-size:10px;font-weight:800;margin-bottom:14px">NUESTRA HISTORIA</div>
+      <div class="about-text">
+        <h2>El fútbol no son solo 90 minutos.</h2>
+        <p><b>Queremos contar el fútbol de una forma diferente, combinando creatividad, objetividad y pasión para que cada aficionado pueda disfrutar, descubrir y opinar sobre este deporte.</b></p>
+        <p>Desde las grandes estrellas hasta las historias que muchas veces pasan desapercibidas, desde Goalzone_go buscamos ir más allá del resultado: analizar, informar y entretener con nuestro estilo único.</p>
+        <p>Porque el fútbol no son solo 90 minutos. Son historias, opiniones, emociones, polémicas, curiosidades y momentos que merecen ser contados.</p>
+      </div>
+      <a class="btn-about" href="acerca.html">Conoce nuestra historia completa →</a>
+    </div>
+
+    <div class="carousel-about" id="carouselAbout">
+      <div class="tag-about">TikTok @goalzone_go</div>
+      <img class="active" src="tk1.jpg">
+      <img src="tk2.jpg">
+      <img src="tk3.jpg">
+      <img src="tk4.jpg">
+      <div class="dots-about" id="dotsAbout"><span class="active"></span><span></span><span></span><span></span></div>
+    </div>
+  </div>
+</div>
 
 <footer><p>© 2026 GOALZONE</p><a class="tiktok-btn" href="https://www.tiktok.com/@goalzone_go" target="_blank">Ver en TikTok @goalzone_go</a></footer>
 
@@ -139,6 +177,16 @@ setInterval(()=>{
   idx=(idx+1)%imgs.length;
   imgs[idx].classList.add('active'); dots[idx].classList.add('active');
 },3500);
+
+// carrusel nosotros
+let idx2=0;
+const imgs2=document.querySelectorAll('#carouselAbout img');
+const dots2=document.querySelectorAll('#dotsAbout span');
+setInterval(()=>{
+  imgs2[idx2].classList.remove('active'); dots2[idx2].classList.remove('active');
+  idx2=(idx2+1)%imgs2.length;
+  imgs2[idx2].classList.add('active'); dots2[idx2].classList.add('active');
+},3000);
 </script>
 </body>
 </html>
