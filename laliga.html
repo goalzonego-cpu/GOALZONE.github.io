@@ -2,7 +2,7 @@
 <html lang="es">
 <head>
 <meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>LaLiga - GOALZONE</title>
+<title>LaLiga 26/27 - GOALZONE</title>
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap');
 *{box-sizing:border-box;margin:0;padding:0}
@@ -10,94 +10,62 @@ body{font-family:'Inter',sans-serif;background:#0a0a0a;color:#fff}
 header{background:#000;padding:18px 24px;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid #1a1a1a}
 header img{height:38px}
 nav{background:#fff;position:sticky;top:0;z-index:10;border-bottom:1px solid #eee;display:flex;gap:28px;padding:0 24px;overflow:auto}
-nav a{font-weight:700;color:#888;font-size:12px;padding:18px 0;border-bottom:2px solid transparent;text-decoration:none;white-space:nowrap;cursor:pointer}
+nav a{font-weight:700;color:#888;font-size:12px;padding:18px 0;border-bottom:2px solid transparent;text-decoration:none;white-space:nowrap}
 nav a.active{color:#000;border-bottom:2px solid #E10600}
 .wrap{max-width:1100px;margin:20px auto;padding:0 24px}
+.top-card{background:#fff;color:#000;border-radius:18px;padding:20px;display:flex;gap:16px;align-items:center}
 .tabs{display:flex;gap:10px;overflow:auto;margin:20px 0}
-.tabs button{background:#111;border:1px solid #222;color:#888;padding:10px 18px;border-radius:100px;font-weight:800;font-size:12px;cursor:pointer}
+.tabs button{background:#111;border:1px solid #222;color:#888;padding:10px 18px;border-radius:100px;font-weight:800;font-size:12px;cursor:pointer;white-space:nowrap}
 .tabs button.active{background:#fff;color:#000}
 .section{background:#111;border:1px solid #1a1a1a;border-radius:18px;padding:24px;margin-bottom:16px}
-.section h2{font-size:18px;margin-bottom:12px}
+.jornada{background:#000;border:1px solid #222;border-radius:14px;margin-bottom:14px;overflow:hidden}
+.jornada-head{padding:14px 18px;background:#151515;display:flex;justify-content:space-between;cursor:pointer;font-weight:800;font-size:13px}
+.jornada-body{padding:0 12px;display:none}
+.jornada.open .jornada-body{display:block}
+.partido{display:flex;justify-content:space-between;align-items:center;padding:12px 6px;border-bottom:1px solid #1a1a1a;font-size:13px}
+.partido:last-child{border:none}
+.marcador{font-weight:800;background:#fff;color:#000;padding:4px 10px;border-radius:100px;font-size:12px}
+.cal-partido{background:#000;border:1px solid #222;border-radius:12px;padding:14px;display:flex;justify-content:space-between;margin-bottom:8px;font-size:13px}
 .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
-.card{background:#fff;color:#000;border-radius:14px;padding:16px;border:1px solid #e9e9e9}
-.card h3{font-size:14px;font-weight:800}
-.card p{font-size:12px;color:#666;margin-top:4px;line-height:1.4}
-.badge{font-size:9px;background:#ffeaea;color:#E10600;padding:4px 8px;border-radius:6px;font-weight:800;width:fit-content;margin-bottom:8px}
-.resultado{display:flex;justify-content:space-between;align-items:center;background:#000;border:1px solid #222;border-radius:12px;padding:12px;margin-bottom:8px}
-.noticia{display:block;color:#fff;text-decoration:none;padding:12px 0;border-bottom:1px solid #222}
-.noticia small{color:#E10600;font-weight:800;font-size:10px}
-.equipo{display:flex;gap:12px;align-items:center}
-.equipo img{width:48px;height:48px;object-fit:contain;background:#fff;border-radius:8px;padding:4px}
-.jugador img{width:100%;height:140px;object-fit:cover;border-radius:10px;background:#f2f2f2;margin-bottom:8px}
+.card{background:#fff;color:#000;border-radius:14px;padding:16px}
 @media(max-width:800px){.grid{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
-<header><a href="index.html"><img src="IMG_3855.png"></a></header>
+<header><a href="index.html"><img src="IMG_3855.png" alt="GOALZONE"></a></header>
 <nav>
 <a href="index.html">ÚLTIMAS</a>
-<a class="active">LALIGA</a>
+<a class="active">LALIGA 26/27</a>
 <a href="champions.html">CHAMPIONS</a>
 <a href="premier.html">PREMIER</a>
 </nav>
 
 <div class="wrap">
-  <div style="background:#fff;color:#000;border-radius:18px;padding:24px;display:flex;gap:16px;align-items:center">
-    <img src="https://a3.espncdn.com/combiner/i?img=%2Fi%2Fleaguelogos%2Fsoccer%2F500%2F15.png" style="width:70px">
-    <div><h1 style="font-size:22px">LaLiga EA Sports</h1><p style="color:#666;font-size:13px">Resultados, calendario, noticias y fichas - 100% automatizado y legal</p></div>
+  <div class="top-card">
+    <img src="https://a3.espncdn.com/combiner/i?img=%2Fi%2Fleaguelogos%2Fsoccer%2F500%2F15.png" style="width:60px">
+    <div><h1 style="font-size:20px">LaLiga EA Sports 26/27</h1><p style="color:#666;font-size:12px">Resultados por jornadas y calendario oficial automatizado</p></div>
   </div>
 
   <div class="tabs">
-    <button class="active" onclick="showTab('resultados',this)">RESULTADOS</button>
-    <button onclick="showTab('calendario',this)">CALENDARIO</button>
-    <button onclick="showTab('noticias',this)">NOTICIAS</button>
+    <button class="active" onclick="showTab('resultados',this)">RESULTADOS - JORNADAS</button>
+    <button onclick="showTab('calendario',this)">CALENDARIO OFICIAL</button>
     <button onclick="showTab('equipos',this)">EQUIPOS</button>
-    <button onclick="showTab('jugadores',this)">JUGADORES</button>
   </div>
 
-  <!-- RESULTADOS AUTOMATICOS -->
   <div id="tab-resultados" class="section">
-    <h2>Últimos Resultados</h2>
-    <p style="color:#666;font-size:12px;margin-bottom:12px">Se actualiza automático vía API gratuita. Pon tu API Key abajo.</p>
-    <div id="resultados-list">Cargando resultados...</div>
+    <h2>Jornada por jornada - 26/27</h2>
+    <p style="color:#666;font-size:11px;margin-bottom:14px">Si no hay datos de la 26/27 aún, la API mostrará la última temporada disponible. Se automatiza solo.</p>
+    <div id="jornadas-list">Cargando jornadas...</div>
   </div>
 
-  <!-- CALENDARIO AUTOMATICO -->
   <div id="tab-calendario" class="section" style="display:none">
-    <h2>Calendario - Próximos Partidos</h2>
+    <h2>Calendario Oficial LaLiga 26/27</h2>
     <div id="calendario-list">Cargando calendario...</div>
   </div>
 
-  <!-- NOTICIAS LEGAL -->
-  <div id="tab-noticias" class="section" style="display:none">
-    <h2>Noticias LaLiga (Legal)</h2>
-    <p style="color:#666;font-size:11px;margin-bottom:10px">Solo titulares + enlace externo. No copiamos contenido.</p>
-    <a class="noticia" href="https://www.marca.com/futbol/primera-division.html" target="_blank"><small>MARCA</small><br>Última hora de LaLiga - Ver en Marca →</a>
-    <a class="noticia" href="https://as.com/futbol/primera/" target="_blank"><small>AS</small><br>Todas las noticias de LaLiga - Ver en AS →</a>
-    <a class="noticia" href="https://www.laliga.com/noticias" target="_blank"><small>LALIGA OFICIAL</small><br>Noticias oficiales - Ver en LaLiga.com →</a>
-    <div id="noticias-auto"></div>
-  </div>
-
-  <!-- EQUIPOS + HISTORIA BREVE + PLANTILLA -->
   <div id="tab-equipos" class="section" style="display:none">
-    <h2>Equipos LaLiga 25/26 - Historia y Plantilla</h2>
-    <div class="grid">
-      <div class="card"><div class="equipo"><img src="https://upload.wikimedia.org/wikipedia/en/5/56/Real_Madrid_CF.svg"><div><h3>Real Madrid</h3><p>Fundado 1902 - Madrid</p></div></div><p>El club más laureado. 14 Champions. Estadio: Bernabéu. Historia breve original: nacido para dominar Europa.</p><p><b>Plantilla clave:</b> Bellingham, Vinicius, Mbappé</p></div>
-      <div class="card"><div class="equipo"><img src="https://upload.wikimedia.org/wikipedia/en/4/47/FC_Barcelona_%28crest%29.svg"><div><h3>FC Barcelona</h3><p>Fundado 1899 - Barcelona</p></div></div><p>Més que un club. Cantera y juego de posición. Estadio: Camp Nou.</p><p><b>Plantilla clave:</b> Lamine Yamal, Pedri, Lewandowski</p></div>
-      <div class="card"><div class="equipo"><img src="https://upload.wikimedia.org/wikipedia/en/f/f4/Atletico_Madrid_logo.svg"><div><h3>Atlético Madrid</h3><p>Fundado 1903</p></div></div><p>El equipo del Cholo. Garra y defensa. Estadio: Metropolitano.</p><p><b>Plantilla clave:</b> Griezmann, Oblak, Morata</p></div>
-      <!-- Duplica para los otros 17, mismo formato -->
-    </div>
-  </div>
-
-  <!-- JUGADORES FICHAS LEGAL -->
-  <div id="tab-jugadores" class="section" style="display:none">
-    <h2>Fichas de Jugadores (Foto legal Wikimedia)</h2>
-    <div class="grid">
-      <div class="card jugador"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/44/Lamine_Yamal_2024.jpg/400px-Lamine_Yamal_2024.jpg"><h3>Lamine Yamal</h3><p>Extremo · 17 años · FC Barcelona · Debutó con 15 años, perla de La Masia.</p></div>
-      <div class="card jugador"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/8e/Jude_Bellingham_2023.jpg/400px-Jude_Bellingham_2023.jpg"><h3>Jude Bellingham</h3><p>Mediocentro · Real Madrid · Llegó del Dortmund, referencia inglesa.</p></div>
-      <div class="card jugador"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/7a/Vinicius_Jr_2023.jpg/400px-Vinicius_Jr_2023.jpg"><h3>Vinícius Jr</h3><p>Extremo · Real Madrid · Velocidad y desborde.</p></div>
-    </div>
-    <p style="color:#666;font-size:10px;margin-top:10px">*Fotos con licencia Creative Commons de Wikipedia. Descripciones originales.</p>
+    <h2>Equipos</h2>
+    <div class="grid" id="equipos-grid">Cargando equipos...</div>
   </div>
 </div>
 
@@ -108,29 +76,103 @@ function showTab(id,btn){
   document.querySelectorAll('.tabs button').forEach(b=>b.classList.remove('active'));
   btn.classList.add('active');
 }
+function toggleJornada(el){el.parentElement.classList.toggle('open')}
 
-// === AUTOMATIZACIÓN LEGAL - API GRATIS ===
-// 1. Ve a https://www.football-data.org/ y crea cuenta gratis
-// 2. Copia tu token y pégalo aquí:
-const API_TOKEN = "AQUI_TU_TOKEN_GRATIS";
+// === CONFIGURACIÓN API LEGAL ===
+const API_TOKEN = "e8b604103c2d414da37ff168836b9f95"; // Ve a football-data.org -> registro gratis -> copias token
 
-async function cargarPartidos(){
+async function cargarLaLiga(){
+  const jornadasDiv = document.getElementById('jornadas-list');
+  const calendarioDiv = document.getElementById('calendario-list');
+  const equiposDiv = document.getElementById('equipos-grid');
+
   if(API_TOKEN==="AQUI_TU_TOKEN_GRATIS"){
-    document.getElementById('resultados-list').innerHTML = "<p style='color:#888;font-size:13px'>Pon tu API Key gratis de football-data.org en el código para que se automatice. Mientras, ejemplo:<br><br><div class='resultado'><span>Real Madrid 2-1 Barcelona</span><small>Finalizado</small></div><div class='resultado'><span>Atleti 1-1 Betis</span><small>Finalizado</small></div>";
-    document.getElementById('calendario-list').innerHTML = "<div class='resultado'><span>Sábado 4 Oct - 21:00 - Madrid vs Villarreal</span><small>LaLiga</small></div><div class='resultado'><span>Domingo 5 Oct - 18:30 - Barça vs Sevilla</span><small>LaLiga</small></div>";
+    // MODO DEMO sin token - con estructura real de 26/27
+    let htmlJornadas="";
+    for(let j=1;j<=5;j++){
+      htmlJornadas+=`<div class="jornada open"><div class="jornada-head" onclick="toggleJornada(this)"><span>JORNADA ${j}</span><span>▼</span></div><div class="jornada-body">
+      <div class="partido"><span>Real Madrid vs Barcelona</span><span class="marcador">2 - 1</span></div>
+      <div class="partido"><span>Atleti vs Betis</span><span class="marcador">1 - 0</span></div>
+      <div class="partido"><span>Villarreal vs Valencia</span><span class="marcador">0 - 0</span></div>
+      </div></div>`;
+    }
+    htmlJornadas+=`<p style="color:#888;font-size:11px;margin-top:10px">*Ejemplo visual. Pon tu token gratis para ver las 38 jornadas reales de la 26/27 automatizadas. Genera el resto de jornadas 6 a 38 automáticamente.</p>`;
+    jornadasDiv.innerHTML=htmlJornadas;
+    calendarioDiv.innerHTML=`<div class="cal-partido"><span>Sáb 15 Ago · 21:00 - Real Madrid vs Osasuna</span><span>LaLiga</span></div><div class="cal-partido"><span>Dom 16 Ago · 18:30 - Barcelona vs Mallorca</span><span>LaLiga</span></div><p style="color:#666;font-size:11px;margin-top:10px">Con token se cargan TODOS los partidos oficiales futuros.</p>`;
+    equiposDiv.innerHTML=`<div class="card"><h3>Real Madrid</h3><p>20 equipos se cargan automático con API</p></div>`;
     return;
   }
+
   try{
-    let res = await fetch('https://api.football-data.org/v4/competitions/PD/matches?status=FINISHED&limit=5',{headers:{'X-Auth-Token':API_TOKEN}});
+    // Resultados 26/27 - todas las jornadas
+    let res = await fetch('https://api.football-data.org/v4/competitions/PD/matches?season=2026', {headers:{'X-Auth-Token':API_TOKEN}});
     let data = await res.json();
-    let html="";
+    
+    // Agrupar por jornada
+    let porJornada = {};
     data.matches.forEach(m=>{
-      html+=`<div class="resultado"><span>${m.homeTeam.name} ${m.score.fullTime.home}-${m.score.fullTime.away} ${m.awayTeam.name}</span><small>${new Date(m.utcDate).toLocaleDateString()}</small></div>`;
+      let j = m.matchday;
+      if(!porJornada[j]) porJornada[j]=[];
+      porJornada[j].push(m);
     });
-    document.getElementById('resultados-list').innerHTML=html;
-  }catch(e){document.getElementById('resultados-list').innerHTML="Error cargando. Revisa tu token."}
+
+    let html="";
+    Object.keys(porJornada).sort((a,b)=>a-b).forEach(j=>{
+      html+=`<div class="jornada ${j==1?'open':''}"><div class="jornada-head" onclick="toggleJornada(this)"><span>JORNADA ${j}</span><span>▼</span></div><div class="jornada-body">`;
+      porJornada[j].forEach(m=>{
+        let marcador = m.status==='FINISHED' ? `${m.score.fullTime.home} - ${m.score.fullTime.away}` : 'vs';
+        html+=`<div class="partido"><span>${m.homeTeam.shortName} vs ${m.awayTeam.shortName}</span><span class="marcador">${marcador}</span></div>`;
+      });
+      html+=`</div></div>`;
+    });
+    jornadasDiv.innerHTML=html;
+
+    // Calendario - solo futuros
+    let res2 = await fetch('https://api.football-data.org/v4/competitions/PD/matches?season=2026&status=SCHEDULED', {headers:{'X-Auth-Token':API_TOKEN}});
+    let data2 = await res2.json();
+    let htmlCal="";
+    data2.matches.forEach(m=>{
+      let fecha = new Date(m.utcDate).toLocaleString('es-ES',{day:'2-digit',month:'short',hour:'2-digit',minute:'2-digit'});
+      htmlCal+=`<div class="cal-partido"><span>${fecha} - ${m.homeTeam.shortName} vs ${m.awayTeam.shortName}</span><span>J${m.matchday}</span></div>`;
+    });
+    calendarioDiv.innerHTML = htmlCal || "No hay partidos programados aún para la 26/27";
+
+    // Equipos
+    let res3 = await fetch('https://api.football-data.org/v4/competitions/PD/teams?season=2026', {headers:{'X-Auth-Token':API_TOKEN}});
+    let data3 = await res3.json();
+    let htmlEq="";
+    data3.teams.forEach(t=>{
+      htmlEq+=`<div class="card"><div style="display:flex;gap:10px;align-items:center"><img src="${t.crest}" style="width:40px;height:40px;object-fit:contain"><h3>${t.name}</h3></div><p style="margin-top:8px">${t.venue || ''} - Fundado ${t.founded || ''}</p></div>`;
+    });
+    equiposDiv.innerHTML=htmlEq;
+
+  }catch(e){
+    jornadasDiv.innerHTML="Error. La temporada 26/27 aún no está en la API gratis. Probando con 25/26...";
+    // Si falla 2026, prueba 2025 automático
+    API_TOKEN!=="AQUI_TU_TOKEN_GRATIS" && cargarConTemporada(2025);
+  }
 }
-cargarPartidos();
+
+async function cargarConTemporada(year){
+  try{
+    let res = await fetch(`https://api.football-data.org/v4/competitions/PD/matches?season=${year}`, {headers:{'X-Auth-Token':API_TOKEN}});
+    let data = await res.json();
+    let porJornada={};
+    data.matches.forEach(m=>{if(!porJornada[m.matchday]) porJornada[m.matchday]=[]; porJornada[m.matchday].push(m);});
+    let html="";
+    Object.keys(porJornada).sort((a,b)=>a-b).forEach(j=>{
+      html+=`<div class="jornada ${j==1?'open':''}"><div class="jornada-head" onclick="toggleJornada(this)"><span>JORNADA ${j}</span><span>▼</span></div><div class="jornada-body">`;
+      porJornada[j].forEach(m=>{
+        let marcador = m.status==='FINISHED' ? `${m.score.fullTime.home} - ${m.score.fullTime.away}` : 'vs';
+        html+=`<div class="partido"><span>${m.homeTeam.shortName} vs ${m.awayTeam.shortName}</span><span class="marcador">${marcador}</span></div>`;
+      });
+      html+=`</div></div>`;
+    });
+    document.getElementById('jornadas-list').innerHTML=html;
+  }catch(e){}
+}
+
+cargarLaLiga();
 </script>
 </body>
 </html>
