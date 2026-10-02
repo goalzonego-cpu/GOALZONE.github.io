@@ -7,149 +7,72 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap');
 *{box-sizing:border-box;margin:0;padding:0}
 body{font-family:'Inter',sans-serif;background:#0a0a0a;color:#fff}
-header{background:#000;padding:18px 24px;border-bottom:1px solid #1a1a1a}
+header{background:#000;padding:18px 24px;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid #1a1a1a}
 header img{height:38px}
 nav{background:#fff;position:sticky;top:0;z-index:10;border-bottom:1px solid #eee;display:flex;gap:28px;padding:0 24px;overflow:auto}
 nav a{font-weight:700;color:#888;font-size:12px;padding:18px 0;border-bottom:2px solid transparent;text-decoration:none;white-space:nowrap}
 nav a.active{color:#000;border-bottom:2px solid #E10600}
-.wrap{max-width:1100px;margin:20px auto;padding:0 24px}
-.top-card{background:#fff;color:#000;border-radius:18px;padding:20px;display:flex;gap:16px;align-items:center}
-.tabs{display:flex;gap:10px;overflow:auto;margin:20px 0}
-.tabs button{background:#111;border:1px solid #222;color:#888;padding:12px 20px;border-radius:100px;font-weight:800;font-size:12px;cursor:pointer;white-space:nowrap}
-.tabs button.active{background:#fff;color:#000}
-.section{background:#111;border:1px solid #1a1a1a;border-radius:18px;padding:18px;margin-bottom:16px}
-/* RESULTADOS */
-.jornada{background:#000;border:1px solid #222;border-radius:14px;margin-bottom:10px;overflow:hidden}
-.jornada-head{padding:14px 18px;background:#151515;display:flex;justify-content:space-between;cursor:pointer;font-weight:800;font-size:13px}
-.jornada-body{display:none;padding:8px 12px}
-.jornada.open.jornada-body{display:block}
-.partido{display:flex;justify-content:space-between;padding:10px 6px;border-bottom:1px solid #151515;font-size:13px}
-.marcador{background:#fff;color:#000;padding:4px 10px;border-radius:100px;font-weight:800;font-size:12px}
-/* CALENDARIO REAL */
-.month{margin-bottom:18px}
-.month h3{font-size:16px;margin:10px 0;color:#fff}
-.cal-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:6px}
-.cal-day{background:#000;border:1px solid #222;border-radius:10px;min-height:68px;padding:6px;font-size:11px}
-.cal-day.has-match{border-color:#E10600;background:#1a0a0a}
-.cal-day span{font-weight:800}
+.wrap{max-width:900px;margin:24px auto;padding:0 20px}
+.hero{background:#fff;color:#000;border-radius:20px;padding:22px;display:flex;gap:16px;align-items:center;border:1px solid #e9e9e9}
+.hero img{width:64px;height:64px;object-fit:contain}
+.hero h1{font-size:20px;font-weight:800}.hero p{font-size:12px;color:#666;margin-top:4px}
+.feed{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:18px}
+@media(max-width:700px){.feed{grid-template-columns:1fr}}
+.tiktok-card{background:#fff;border-radius:18px;border:1px solid #e9e9e9;overflow:hidden;display:flex;flex-direction:column}
+.tiktok-card .top{padding:14px 16px}
+.badge{font-size:9px;font-weight:800;background:#ffeaea;color:#E10600;padding:5px 8px;border-radius:6px;width:fit-content;margin-bottom:8px;letter-spacing:.5px}
+.tiktok-card h3{color:#000;font-size:14px;font-weight:800;line-height:1.3}
+.tiktok-card p{color:#666;font-size:12px;margin-top:6px;line-height:1.4;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.tiktok-card .meta{font-size:10px;color:#999;margin-top:8px;font-weight:600}
+.tiktok-card .embed{ background:#000; min-height:400px; display:flex; align-items:center; justify-content:center }
+.tiktok-card .embed blockquote{margin:0}
 </style>
 </head>
 <body>
 <header><a href="index.html"><img src="IMG_3855.png"></a></header>
 <nav>
 <a href="index.html">ÚLTIMAS</a>
-<a class="active">LALIGA 25/26</a>
+<a class="active">LALIGA</a>
 <a href="champions.html">CHAMPIONS</a>
 <a href="premier.html">PREMIER</a>
 </nav>
 <div class="wrap">
-  <div class="top-card">
-    <img src="https://a3.espncdn.com/combiner/i?img=%2Fi%2Fleaguelogos%2Fsoccer%2F500%2F15.png" style="width:60px">
-    <div><h1 style="font-size:19px">LaLiga EA Sports</h1><p style="color:#666;font-size:12px">Resultados reales desde ESPN/Google · Calendario por meses · Auto hasta J38</p></div>
+  <div class="hero">
+    <img src="https://a3.espncdn.com/combiner/i?img=%2Fi%2Fleaguelogos%2Fsoccer%2F500%2F15.png">
+    <div><h1>LaLiga en GOALZONE</h1><p>Todos tus TikToks de @Goalzone_go sobre LaLiga ordenados profesionalmente</p></div>
   </div>
-  <div class="tabs">
-    <button class="active" onclick="showTab('resultados',this)">RESULTADOS REALES</button>
-    <button onclick="showTab('calendario',this)">CALENDARIO POR MESES</button>
-  </div>
-  <div id="tab-resultados" class="section"><div id="jornadas-list">Cargando resultados reales...</div></div>
-  <div id="tab-calendario" class="section" style="display:none"><div id="calendario-list">Cargando calendario real...</div></div>
+  <div id="feed" class="feed"></div>
 </div>
 
 <script>
-function showTab(id,btn){
-  document.querySelectorAll('[id^="tab-"]').forEach(d=>d.style.display='none');
-  document.getElementById('tab-'+id).style.display='block';
-  document.querySelectorAll('.tabs button').forEach(b=>b.classList.remove('active'));
-  btn.classList.add('active');
-}
-function toggleJornada(el){el.parentElement.classList.toggle('open')}
-
-// API PÚBLICA REAL SIN KEY - ESPN (es la que usa Google)
-async function cargarDatosReales(){
-  const jornadasDiv = document.getElementById('jornadas-list');
-  const calendarioDiv = document.getElementById('calendario-list');
-
+async function load(){
   try{
-    // Trae toda la temporada 25/26 (la 26/27 aún no existe, por eso te salía vacío)
-    const res = await fetch('https://site.api.espn.com/apis/site/v2/sports/soccer/esp.1/scoreboard?dates=20250801-20260531&limit=1000');
-    const data = await res.json();
-    let events = data.events || [];
-
-    if(events.length===0){
-      // Fallback: intenta mes actual
-      const res2 = await fetch('https://site.api.espn.com/apis/site/v2/sports/soccer/esp.1/scoreboard?limit=500');
-      const data2 = await res2.json();
-      events = data2.events || [];
-    }
-
-    // --- RESULTADOS: solo FINALIZADOS ---
-    let terminados = events.filter(e=>e.status.type.completed);
-    // Agrupar por jornada estimada (cada 10 partidos = 1 jornada)
-    let porJornada = {};
-    terminados.forEach((e,i)=>{
-      let j = Math.floor(i/10)+1;
-      if(!porJornada[j]) porJornada[j]=[];
-      porJornada[j].push(e);
+    let r = await fetch('videos.json?v='+Date.now());
+    let videos = await r.json();
+    // Orden profesional: más nuevo primero
+    videos.sort((a,b)=> (b.date||'').localeCompare(a.date||''));
+    let html="";
+    videos.forEach(v=>{
+      if(!v.desc.toLowerCase().includes('laliga')) return;
+      html+=`<div class="tiktok-card">
+        <div class="top">
+          <div class="badge">LALIGA · TIKTOK</div>
+          <h3>${v.title}</h3>
+          <p>${v.desc}</p>
+          <div class="meta">${v.date||'Reciente'} · @Goalzone_go</div>
+        </div>
+        <div class="embed">
+          <blockquote class="tiktok-embed" cite="${v.url}" data-video-id="${v.id}" style="max-width:100%;min-width:325px"><a href="${v.url}"></a></blockquote>
+        </div>
+      </div>`;
     });
-
-    let htmlJ = "";
-    Object.keys(porJornada).sort((a,b)=>b-a).forEach(j=>{ // más reciente primero
-      htmlJ+=`<div class="jornada ${j==Object.keys(porJornada)[0]?'open':''}"><div class="jornada-head" onclick="toggleJornada(this)"><span>JORNADA ${j}</span><span>▼</span></div><div class="jornada-body">`;
-      porJornada[j].forEach(ev=>{
-        const comp = ev.competitions[0];
-        const home = comp.competitors.find(c=>c.homeAway==='home');
-        const away = comp.competitors.find(c=>c.homeAway==='away');
-        htmlJ+=`<div class="partido"><span>${home.team.shortDisplayName} vs ${away.team.shortDisplayName}</span><span class="marcador">${home.score} - ${away.score}</span></div>`;
-      });
-      htmlJ+=`</div></div>`;
-    });
-    if(htmlJ==="") htmlJ="<p style='color:#888'>Aún no hay resultados de la 26/27. Mostrando 25/26 real.</p>";
-    jornadasDiv.innerHTML = htmlJ;
-
-    // --- CALENDARIO POR MESES REAL ---
-    let porMes = {};
-    events.forEach(e=>{
-      let d = new Date(e.date);
-      let key = d.toLocaleString('es-ES',{month:'long',year:'numeric'});
-      let monthNum = d.getMonth();
-      if(!porMes[key]) porMes[key]={monthNum, days:{}};
-      let day = d.getDate();
-      if(!porMes[key].days[day]) porMes[key].days[day]=[];
-      porMes[key].days[day].push(e);
-    });
-
-    let htmlCal = "";
-    Object.keys(porMes).forEach(mes=>{
-      htmlCal+=`<div class="month"><h3>${mes.toUpperCase()}</h3><div class="cal-grid">`;
-      // días 1-31 simplificado
-      for(let day=1; day<=31; day++){
-        let partidos = porMes[mes].days[day];
-        if(partidos){
-          htmlCal+=`<div class="cal-day has-match"><span>${day}</span><br>${partidos.map(p=>p.shortName).join('<br>')}</div>`;
-        }else{
-          // solo muestra días con partido para no llenar vacío
-        }
-      }
-      htmlCal+=`</div></div>`;
-    });
-
-    // Vista lista también
-    htmlCal+=`<div style="margin-top:20px"><h3 style="font-size:14px;margin-bottom:8px">LISTA COMPLETA</h3>`;
-    events.sort((a,b)=>new Date(a.date)-new Date(b.date)).forEach(e=>{
-      let d = new Date(e.date);
-      let fecha = d.toLocaleDateString('es-ES',{day:'2-digit',month:'short',hour:'2-digit',minute:'2-digit'});
-      htmlCal+=`<div style="background:#000;border:1px solid #222;border-radius:10px;padding:10px;margin-bottom:6px;font-size:12px;display:flex;justify-content:space-between"><span>${fecha} · ${e.name}</span><span style="color:#E10600">${e.status.type.description}</span></div>`;
-    });
-    htmlCal+=`</div>`;
-
-    calendarioDiv.innerHTML = htmlCal;
-
-  }catch(err){
-    jornadasDiv.innerHTML = "Error cargando datos reales. ESPN bloqueó por CORS. Usa este mirror: https://api.football-data.org necesita token gratis. Mientras, te dejo fallback 25/26.";
-    console.log(err);
+    document.getElementById('feed').innerHTML = html || "<p style='color:#666'>Aún no hay vídeos con #LaLiga</p>";
+    let s=document.createElement('script'); s.src='https://www.tiktok.com/embed.js'; document.body.appendChild(s);
+  }catch(e){
+    document.getElementById('feed').innerHTML="<div style='background:#fff;color:#000;padding:20px;border-radius:18px'>Crea el archivo videos.json al lado de este html con tus links</div>";
   }
 }
-cargarDatosReales();
+load();
 </script>
 </body>
 </html>
