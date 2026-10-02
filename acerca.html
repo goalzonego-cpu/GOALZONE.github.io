@@ -3,28 +3,41 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Acerca - GOAL ZONE</title>
+<title>Acerca - GOALZONE</title>
+<link rel="stylesheet" href="style.css">
 <style>
-body{margin:0;background:#0a0a0a;color:#fff;font-family:Arial;text-align:center}
-nav{background:#111;padding:15px;display:flex;gap:20px;justify-content:center}
-nav a{color:#fff;text-decoration:none;font-weight:bold}
-h1{color:#ff0033;margin:20px}
-.caja{max-width:600px;margin:20px auto;background:#111;padding:15px;border-radius:12px}
-.caja img{width:100%;border-radius:10px}
+.acerca-wrap{max-width:1100px;margin:40px auto;padding:20px;display:flex;gap:30px;align-items:center;flex-wrap:wrap}
+.acerca-text{flex:1;min-width:300px}
+.acerca-text h2{font-size:32px;line-height:1.1}
+.acerca-img{flex:1;min-width:300px;background:#111;border:1px solid #222;border-radius:16px;padding:12px;position:relative}
+.acerca-img img{width:100%;border-radius:12px;display:block}
+.badge{position:absolute;top:18px;left:18px;background:#fff;color:#000;padding:6px 12px;border-radius:20px;font-size:12px;font-weight:bold}
+footer{text-align:center;padding:30px;opacity:.6}
+.btn-tiktok{display:inline-block;margin-top:20px;background:#ff0033;color:#fff;padding:12px 20px;border-radius:20px;text-decoration:none;font-weight:bold}
 </style>
 </head>
 <body>
-<nav>
-<a href="index.html">Inicio</a>
-<a href="noticias.html">Noticias</a>
-<a href="premier.html">Premier</a>
-<a href="acerca.html">Acerca</a>
+<nav style="padding:15px;display:flex;gap:20px;justify-content:center;background:#111">
+<a href="index.html" style="color:#fff;text-decoration:none">CHAMPIONS</a>
+<a href="premier.html" style="color:#fff;text-decoration:none">PREMIER</a>
+<a href="acerca.html" style="color:#fff;text-decoration:none;font-weight:bold">GOALZONE</a>
 </nav>
-<h1>GOAL ZONE en TikTok</h1>
-<div class="caja">
-<img src="tk4.jpg">
-<p>Síguenos en TikTok para resultados diarios</p>
-<p><a href="https://www.tiktok.com/@goalzone" style="color:#ff0033">tiktok.com/@goalzone</a></p>
+
+<div class="acerca-wrap">
+  <div class="acerca-text">
+    <h2>Más que fútbol en solo 90 minutos.</h2>
+    <p>GOALZONE nace de una forma diferente, combinando creatividad, pasión y fútbol para que cada aficionado pueda disfrutar, descubrir y sentir.</p>
+    <p>Contamos las historias que muchas veces pasan desapercibidas. En GOALZONE buscamos ir más allá del resultado: analizar, explicar y contar el fútbol con un estilo único.</p>
+    <p>No son solo partidos. Son historias, opiniones, emociones, datos y curiosidades que merecen ser contados.</p>
+    <a class="btn-tiktok" href="https://www.tiktok.com/@goalzone_go" target="_blank">Ver en TikTok @goalzone_go</a>
+  </div>
+
+  <div class="acerca-img">
+    <div class="badge">TikTok @goalzone_go</div>
+    <img src="tk4.jpg" alt="GOALZONE TikTok">
+  </div>
 </div>
+
+<footer>© 2026 GOALZONE</footer>
 </body>
 </html>
