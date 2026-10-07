@@ -1,0 +1,35 @@
+name: Actualizar Premier 26/27
+on:
+  schedule:
+    - cron: '*/15 * * * *' # cada 15 min en días de partido
+  workflow_dispatch:
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Descargar tabla real ESPN
+        run: |
+          curl -s "https://site.api.espn.com/apis/site/v2/sports/soccer/eng.1/standings?season=2026" -o raw.json
+          curl -s "https://site.api.espn.com/apis/site/v2/sports/soccer/eng.1/scoreboard" -o score.json
+          # Crea premier-data.json con los datos limpios
+          python3 -c "
+          import json
+          with open('raw.json') as f:
+              data=json.load(f)
+              entries=data['children'][0]['standings']['entries']
+              tabla=[{'pos':e['stats'][0]['value'],'team':e['team']['abbreviation'],'pj':next(s['value'] for s in e['stats'] if s['name']=='gamesPlayed'),'pts':next(s['value'] for s in e['stats'] if s['name']=='points'),'dg':next(s['value'] for s in e['stats'] if s['name']=='pointDifferential')} for e in entries]
+          with open('score.json') as f:
+              s=json.load(f)
+              partidos=[{'h':ev['competitions'][0]['competitors'][1]['team']['abbreviation'],'a':ev['competitions'][0]['competitors'][0]['team']['abbreviation'],'r':f\"{ev['competitions'][0]['competitors'][1]['score']} - {ev['competitions'][0]['competitors'][0]['score']}\"} for ev in s.get('events',[])]
+          with open('premier-data.json','w') as out:
+              json.dump({'tabla':tabla,'partidos':partidos,'updated':True}, out)
+          "
+      - name: Commit
+        run: |
+          git config user.name "goalzone-bot"
+          git config user.email "bot@goalzone.com"
+          git add premier-data.json
+          git commit -m "auto: actualiza premier $(date)" || exit 0
+          git push
