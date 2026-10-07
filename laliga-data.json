@@ -1,1 +1,22 @@
-{"actualizado":"07/10 17:48 UTC","tabla":[{"pos":1,"team":"Real Madrid","pj":5,"pts":15,"dg":9},{"pos":2,"team":"Barcelona","pj":5,"pts":13,"dg":7},{"pos":3,"team":"Atletico","pj":5,"pts":11,"dg":4},{"pos":4,"team":"Villarreal","pj":5,"pts":10,"dg":2}]}
+{"actualizado":"07/10 REAL","tabla":[
+{"pos":1,"team":"Barcelona","pj":7,"pts":21,"dg":24},
+{"pos":2,"team":"Atletico Madrid","pj":7,"pts":16,"dg":9},
+{"pos":3,"team":"Real Betis","pj":7,"pts":16,"dg":2},
+{"pos":4,"team":"Real Madrid","pj":7,"pts":15,"dg":10},
+{"pos":5,"team":"Sevilla","pj":7,"pts":13,"dg":1},
+{"pos":6,"team":"Alaves","pj":7,"pts":11,"dg":5},
+{"pos":7,"team":"Dep. Coruna","pj":7,"pts":10,"dg":2},
+{"pos":8,"team":"Real Sociedad","pj":7,"pts":10,"dg":-4},
+{"pos":9,"team":"Villarreal","pj":7,"pts":8,"dg":1},
+{"pos":10,"team":"Athletic Club","pj":6,"pts":8,"dg":1},
+{"pos":11,"team":"Getafe","pj":7,"pts":8,"dg":-3},
+{"pos":12,"team":"Rayo Vallecano","pj":7,"pts":8,"dg":-5},
+{"pos":13,"team":"Osasuna","pj":7,"pts":8,"dg":-7},
+{"pos":14,"team":"Celta","pj":7,"pts":7,"dg":2},
+{"pos":15,"team":"Espanyol","pj":7,"pts":7,"dg":0},
+{"pos":16,"team":"Racing Santander","pj":7,"pts":7,"dg":-10},
+{"pos":17,"team":"Levante","pj":6,"pts":5,"dg":-4},
+{"pos":18,"team":"Elche","pj":7,"pts":5,"dg":-6},
+{"pos":19,"team":"Valencia","pj":7,"pts":4,"dg":-9},
+{"pos":20,"team":"Malaga","pj":7,"pts":3,"dg":-9}
+]}
