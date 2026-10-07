@@ -3,86 +3,57 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Premier League | GOALZONE</title>
+<title>Premier League Actual | GOALZONE</title>
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap');
 *{box-sizing:border-box;margin:0;padding:0}
 body{font-family:'Inter',Arial,sans-serif;background:#0a0a0a;color:#fff}
 header{background:#000;padding:18px 24px;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid #1a1a1a}
 .logo img{height:38px}
-.tiktok-mini{color:#fff;text-decoration:none;font-size:13px;font-weight:600;border:1px solid #222;padding:8px 14px;border-radius:100px}
-nav{background:#fff;position:sticky;top:0;z-index:10;border-bottom:1px solid #eee;display:flex;justify-content:space-between}
+nav{background:#fff;position:sticky;top:0;z-index:10;display:flex;border-bottom:1px solid #eee}
 .nav-content{display:flex;gap:28px;padding:0 24px;overflow:auto;flex:1}
-.nav-content a{font-weight:700;color:#888;font-size:12px;text-transform:uppercase;padding:18px 0 16px;border-bottom:2px solid transparent;text-decoration:none}
+.nav-content a{font-weight:700;color:#888;font-size:12px;text-transform:uppercase;padding:18px 0;border-bottom:2px solid transparent;text-decoration:none}
 .nav-content a.active{color:#37003c;border-bottom:2px solid #37003c}
-.controls{display:flex;gap:10px;margin:18px 0;flex-wrap:wrap}
-.jornada-btn{background:#141414;border:1px solid #222;color:#fff;padding:10px 16px;border-radius:100px;font-weight:700;cursor:pointer}
+.wrap{max-width:1100px;margin:0 auto;padding:24px}
+.badge{background:#f3e8ff;color:#37003c;padding:6px 12px;border-radius:100px;font-size:11px;font-weight:800}
+.jornadas{display:flex;gap:8px;overflow:auto;padding:12px 0}
+.jornada-btn{background:#141414;border:1px solid #222;color:#fff;padding:10px 16px;border-radius:100px;font-weight:700;cursor:pointer;white-space:nowrap;font-size:12px}
 .jornada-btn.active{background:#fff;color:#000}
-.card-dark{background:#111;border:1px solid #1a1a1a;border-radius:18px;padding:22px}
+.jornada-btn.proxima{background:#37003c;border-color:#37003c;color:#fff}
+.card{background:#111;border:1px solid #1a1a1a;border-radius:18px;padding:22px}
 .match{padding:14px 0;border-bottom:1px solid #1c1c1c;display:flex;justify-content:space-between;align-items:center}
-.score{background:#fff;color:#000;padding:6px 10px;border-radius:8px;font-weight:800;min-width:62px;text-align:center}
-.score.live{background:#37003c;color:#fff}
+.score{background:#fff;color:#000;padding:6px 12px;border-radius:8px;font-weight:800;min-width:70px;text-align:center}
+.score.live{background:#00ff88;color:#000}
 .table-row{display:grid;grid-template-columns:28px 1fr 36px 36px 36px;padding:10px 0;border-bottom:1px solid #1c1c1c;font-size:13px}
 </style>
 </head>
 <body>
-<header><div class="logo"><a href="index.html"><img src="IMG_3855.png" alt="GOALZONE"></a></div><a class="tiktok-mini" href="https://www.tiktok.com/@goalzone_go">TikTok →</a></header>
-<nav><div class="nav-content"><a href="index.html">ÚLTIMAS</a><a href="laliga.html">LALIGA</a><a href="champions.html">CHAMPIONS</a><a class="active" href="premier.html">PREMIER</a></div></nav>
-<div style="max-width:1100px;margin:0 auto;padding:24px">
-<div style="display:flex;gap:10px;align-items:center;margin:18px 0"><div style="background:#f3e8ff;color:#37003c;padding:6px 12px;border-radius:100px;font-size:11px;font-weight:800">PREMIER LIVE API</div><span style="color:#888;font-size:12px">Auto-actualizado</span></div>
-<h1 style="font-size:28px;font-weight:800">Premier League 25/26</h1>
-<div class="controls">
-<button class="jornada-btn active" id="btn26" onclick="loadJornada(26)">Jornada 26</button>
-<button class="jornada-btn" id="btn27" onclick="loadJornada(27)">Jornada 27</button>
-<button class="jornada-btn" id="btn28" onclick="loadJornada(28)">Jornada 28</button>
-<button class="jornada-btn" id="btnCurrent" onclick="loadCurrent()">Actual</button>
-</div>
-<div style="display:grid;grid-template-columns:1.2fr .8fr;gap:16px">
-<div class="card-dark"><h2 id="titleJornada">Cargando...</h2><div id="partidos">Conectando...</div></div>
-<div class="card-dark"><h2>Clasificación</h2><div class="table-row" style="color:#666;font-size:11px"><div>#</div><div>Equipo</div><div>PJ</div><div>PTS</div><div>DG</div></div><div id="clasificacion"></div></div>
+<header><div class="logo"><a href="index.html"><img src="IMG_3855.png"></a></div></header>
+<nav><div class="nav-content"><a href="index.html">ÚLTIMAS</a><a href="laliga.html">LALIGA</a><a href="champions.html">CHAMPIONS</a><a class="active">PREMIER</a></div></nav>
+<div class="wrap">
+<div style="display:flex;gap:10px;align-items:center;margin-bottom:10px"><div class="badge">PREMIER 26/27 EN VIVO</div><span id="estado" style="font-size:12px;color:#888">Cargando temporada actual...</span></div>
+<h1 style="font-size:26px;font-weight:800">Premier League 2026/27</h1>
+<p style="color:#888;font-size:13px;margin:6px 0">Jornada actual + clasificación real, se actualiza sola</p>
+<div class="jornadas" id="listaJornadas"></div>
+<div style="display:grid;grid-template-columns:1.3fr.7fr;gap:16px;margin-top:12px">
+<div class="card"><h2 id="titulo" style="font-size:16px;font-weight:800;margin-bottom:14px">Cargando...</h2><div id="partidos"></div></div>
+<div class="card"><h2 style="font-size:16px;font-weight:800;margin-bottom:14px">Clasificación Actual</h2><div class="table-row" style="color:#666;font-size:11px"><div>#</div><div>Equipo</div><div>PJ</div><div>PTS</div><div>DG</div></div><div id="tabla"></div></div>
 </div>
 </div>
 <script>
 const API_KEY = "202c8aca6a3349628ad2daf5c9fa57f5";
-async function fetchMatches(matchday=null){
-  let url=`https://api.football-data.org/v4/competitions/PL/matches?season=2025`;
-  if(matchday) url+=`&matchday=${matchday}`;
-  const res=await fetch(url,{headers:{'X-Auth-Token':API_KEY}});
-  const data=await res.json(); return data.matches;
+const SEASON = 2026; // TEMPORADA ACTUAL 26/27
+
+async function getData(url){
+  const proxy = `https://api.allorigins.win/raw?url=${encodeURIComponent(url)}`;
+  try{
+    let r = await fetch(url,{headers:{'X-Auth-Token':API_KEY}});
+    if(!r.ok) throw new Error();
+    return await r.json();
+  }catch{ let r2=await fetch(proxy); return await r2.json(); }
 }
-async function fetchStandings(){
-  const res=await fetch(`https://api.football-data.org/v4/competitions/PL/standings?season=2025`,{headers:{'X-Auth-Token':API_KEY}});
-  const data=await res.json(); return data.standings[0].table;
-}
-function renderMatches(matches,title){
-  document.getElementById('titleJornada').textContent=title;
-  document.getElementById('partidos').innerHTML=matches.map(m=>{
-    const home=m.homeTeam.shortName||m.homeTeam.name;
-    const away=m.awayTeam.shortName||m.awayTeam.name;
-    const hs=m.score.fullTime.home; const as=m.score.fullTime.away;
-    const score=(hs!==null)?`${hs} - ${as}`:'vs';
-    const isLive=m.status==='IN_PLAY';
-    return `<div class="match"><div><div style="font-weight:600">${home} vs ${away}</div><div style="font-size:11px;color:#777">J${m.matchday} - ${m.status}</div></div><div class="score ${isLive?'live':''}">${score}</div></div>`;
-  }).join('');
-}
-function renderTable(table){
-  document.getElementById('clasificacion').innerHTML=table.map(r=>`<div class="table-row"><div style="color:#666">${r.position}</div><div><b>${r.team.shortName}</b></div><div>${r.playedGames}</div><div><b>${r.points}</b></div><div>${r.goalDifference}</div></div>`).join('');
-}
-async function loadJornada(j){
-  document.querySelectorAll('.jornada-btn').forEach(b=>b.classList.remove('active'));
-  document.getElementById('btn'+j).classList.add('active');
-  const m=await fetchMatches(j); renderMatches(m,`Jornada ${j} - Resultados`);
-}
-async function loadCurrent(){
-  document.querySelectorAll('.jornada-btn').forEach(b=>b.classList.remove('active'));
-  document.getElementById('btnCurrent').classList.add('active');
-  const all=await fetchMatches(); const live=all.filter(x=>x.status!=='FINISHED').slice(0,10);
-  renderMatches(live.length?live:all.slice(-10),'Jornada Actual');
-}
+
+let allMatches=[];
 async function init(){
-  const table=await fetchStandings(); renderTable(table); loadJornada(27);
-}
-init();
-</script>
-</body>
-</html>
+  let matches = await getData(`https://api.football-data.org/v4/competitions/PL/matches?season=${SEASON}`);
+  let table = await getData(`https://api.football-data.org/v4/competitions
