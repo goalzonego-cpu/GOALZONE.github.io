@@ -1,0 +1,23 @@
+name: Futbol Auto GOALZONE
+on:
+  schedule:
+    - cron: '0 */3 * * *'
+  workflow_dispatch:
+concurrency:
+  group: goalzone
+  cancel-in-progress: true
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Crear datos Premier
+        run: |
+          echo "{\"actualizado\":\"$(date)\",\"tabla\":[{\"pos\":1,\"team\":\"Man City\",\"pj\":5,\"pts\":15},{\"pos\":2,\"team\":\"Arsenal\",\"pj\":5,\"pts\":12},{\"pos\":3,\"team\":\"Liverpool\",\"pj\":5,\"pts\":11},{\"pos\":4,\"team\":\"Chelsea\",\"pj\":5,\"pts\":10}]}" > premier-data.json
+      - name: Guardar
+        run: |
+          git config user.name "GOALZONE Bot"
+          git config user.email "bot@goalzone.com"
+          git add premier-data.json
+          git commit -m "auto update" || exit 0
+          git push
