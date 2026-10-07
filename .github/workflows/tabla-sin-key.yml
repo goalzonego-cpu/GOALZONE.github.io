@@ -1,0 +1,40 @@
+name: Tabla 26-27 SIN KEY
+on:
+  schedule:
+    - cron: '0 */2 * * *'
+  workflow_dispatch:
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Baja tablas reales 26/27
+        run: |
+          pip install requests -q
+          python3 -c "
+          import requests, json
+          from datetime import datetime
+          def get(liga, season, salida):
+              url=f'https://api-football-standings.azharimm.dev/leagues/{liga}/standings?season={season}&sort=asc'
+              r=requests.get(url, timeout=20).json()
+              datos=r['data']['standings']
+              out={'actualizado': datetime.utcnow().strftime('%d/%m %H:%M UTC'), 'tabla': []}
+              for i, t in enumerate(datos, 1):
+                  team=t['team']
+                  stats=t['stats']
+                  pj=next((x['value'] for x in stats if x['name']=='gamesPlayed'), 0)
+                  pts=next((x['value'] for x in stats if x['name']=='points'), 0)
+                  dg=next((x['value'] for x in stats if x['name']=='pointDifferential'), 0)
+                  out['tabla'].append({'pos': i, 'team': team['displayName'], 'pj': pj, 'pts': pts, 'dg': dg})
+              json.dump(out, open(salida,'w'), ensure_ascii=False)
+              print(salida, 'OK')
+          get('esp.1', '2026', 'laliga-data.json')
+          get('eng.1', '2026', 'premier-data.json')
+          "
+      - name: Guardar
+        run: |
+          git config user.name 'bot'
+          git config user.email 'bot@bot.com'
+          git add laliga-data.json premier-data.json
+          git commit -m 'tablas 26/27 reales' || exit 0
+          git push
