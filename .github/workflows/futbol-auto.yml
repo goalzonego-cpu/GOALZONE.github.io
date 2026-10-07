@@ -11,13 +11,14 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Crear datos Premier
+      - name: Actualizar Premier y LaLiga
         run: |
-          echo "{\"actualizado\":\"$(date)\",\"tabla\":[{\"pos\":1,\"team\":\"Man City\",\"pj\":5,\"pts\":15},{\"pos\":2,\"team\":\"Arsenal\",\"pj\":5,\"pts\":12},{\"pos\":3,\"team\":\"Liverpool\",\"pj\":5,\"pts\":11},{\"pos\":4,\"team\":\"Chelsea\",\"pj\":5,\"pts\":10}]}" > premier-data.json
+          echo "{\"actualizado\":\"$(date -u +'%d/%m %H:%M UTC')\",\"tabla\":[{\"pos\":1,\"team\":\"Man City\",\"pj\":5,\"pts\":15,\"dg\":8},{\"pos\":2,\"team\":\"Arsenal\",\"pj\":5,\"pts\":12,\"dg\":5},{\"pos\":3,\"team\":\"Liverpool\",\"pj\":5,\"pts\":11,\"dg\":4},{\"pos\":4,\"team\":\"Chelsea\",\"pj\":5,\"pts\":10,\"dg\":3}]}" > premier-data.json
+          echo "{\"actualizado\":\"$(date -u +'%d/%m %H:%M UTC')\",\"tabla\":[{\"pos\":1,\"team\":\"Real Madrid\",\"pj\":5,\"pts\":15,\"dg\":9},{\"pos\":2,\"team\":\"Barcelona\",\"pj\":5,\"pts\":13,\"dg\":7},{\"pos\":3,\"team\":\"Atletico\",\"pj\":5,\"pts\":11,\"dg\":4},{\"pos\":4,\"team\":\"Villarreal\",\"pj\":5,\"pts\":10,\"dg\":2}]}" > laliga-data.json
       - name: Guardar
         run: |
           git config user.name "GOALZONE Bot"
           git config user.email "bot@goalzone.com"
-          git add premier-data.json
-          git commit -m "auto update" || exit 0
+          git add premier-data.json laliga-data.json
+          git commit -m "auto premier + laliga" || exit 0
           git push
