@@ -13,46 +13,69 @@ jobs:
     steps:
       - uses: actions/checkout@v5
 
-      - name: Actualiza tablas reales 26/27
+      - name: Actualiza tablas reales 26/27 - DEBUG
         run: |
+          echo "=== Probando ESPN ==="
+          curl -L -A "Mozilla/5.0" -s https://site.api.espn.com/apis/v2/sports/soccer/esp.1/standings | head -c 500
+          echo ""
+          echo "=== Python ==="
           python3 - << 'PY'
-          import urllib.request, json
+          import urllib.request, json, sys
           from datetime import datetime
 
           def fetch(league, out):
-              # Sin?season= para que coja la actual 26/27 automaticamente
               url = f"https://site.api.espn.com/apis/v2/sports/soccer/{league}/standings"
-              print(f"Bajando {url}")
-              req = urllib.request.Request(url, headers={'User-Agent': 'Mozilla/5.0'})
-              with urllib.request.urlopen(req, timeout=20) as r:
-                  data = json.loads(r.read().decode())
+              print(f"\n--- Bajando {league} desde {url} ---")
+              try:
+                  req = urllib.request.Request(url, headers={'User-Agent': 'Mozilla/5.0', 'Accept': 'application/json'})
+                  with urllib.request.urlopen(req, timeout=30) as r:
+                      raw = r.read().decode()
+                      print(f"OK status, {len(raw)} bytes")
+                      data = json.loads(raw)
+                  # DEBUG estructura
+                  print(f"Keys root: {list(data.keys())}")
+                  if 'children' not in data or not data['children']:
+                      print(f"ERROR: No children en {league}. Data: {str(data)[:1000]}")
+                      return False
+                  entries = data['children'][0]['standings']['entries']
+                  print(f"Equipos encontrados: {len(entries)}")
+                  result = {'actualizado': datetime.utcnow().strftime('%d/%m %H:%M UTC'), 'tabla': []}
+                  for e in entries:
+                      team = e['team']['displayName']
+                      stats = {s['name']: s['value'] for s in e['stats']}
+                      result['tabla'].append({
+                          'pos': int(stats.get('rank', 0)),
+                          'team': team,
+                          'pj': int(stats.get('gamesPlayed', 0)),
+                          'pts': int(stats.get('points', 0)),
+                          'dg': int(stats.get('pointDifferential', 0))
+                      })
+                  result['tabla'] = sorted(result['tabla'], key=lambda x: x['pos'])
+                  with open(out, 'w', encoding='utf-8') as f:
+                      json.dump(result, f, ensure_ascii=False)
+                  print(f"{out} GUARDADO -> 1º {result['tabla'][0]['team']}")
+                  return True
+              except Exception as ex:
+                  import traceback
+                  print(f"FALLO en {league}: {ex}")
+                  traceback.print_exc()
+                  return False
 
-              # ESPN mete la tabla en children[0]
-              entries = data['children'][0]['standings']['entries']
-              result = {'actualizado': datetime.utcnow().strftime('%d/%m %H:%M UTC'), 'tabla': []}
-              for e in entries:
-                  team = e['team']['displayName']
-                  stats = {s['name']: s['value'] for s in e['stats']}
-                  result['tabla'].append({
-                      'pos': int(stats.get('rank', 0)),
-                      'team': team,
-                      'pj': int(stats.get('gamesPlayed', 0)),
-                      'pts': int(stats.get('points', 0)),
-                      'dg': int(stats.get('pointDifferential', 0))
-                  })
-              result['tabla'] = sorted(result['tabla'], key=lambda x: x['pos'])
-              with open(out, 'w', encoding='utf-8') as f:
-                  json.dump(result, f, ensure_ascii=False)
-              print(f"{out} OK -> {result['tabla'][0]['team']} primero")
+          ok1 = fetch('esp.1', 'laliga-data.json')
+          ok2 = fetch('eng.1', 'premier-data.json')
 
-          fetch('esp.1', 'laliga-data.json')
-          fetch('eng.1', 'premier-data.json')
+          if not ok1 or not ok2:
+              print("Uno fallo, pero no rompo el job para que veas el log")
           PY
 
-      - name: Guardar
+      - name: Guardar aunque falle
+        if: always()
         run: |
+          ls -lh *.json || echo "no hay json"
+          cat laliga-data.json 2>/dev/null | head -c 500 || echo "no laliga"
+          cat premier-data.json 2>/dev/null | head -c 500 || echo "no premier"
           git config user.name "bot"
           git config user.email "bot@bot.com"
-          git add laliga-data.json premier-data.json
-          git diff --staged --quiet || git commit -m "tablas 26/27 reales"
-          git push
+          git add laliga-data.json premier-data.json || true
+          git diff --staged --quiet || git commit -m "tablas 26/27" || true
+          git push || echo "push fallo - mira permisos Settings > Actions > Read and write"
