@@ -3,6 +3,10 @@ on:
   schedule:
     - cron: '0 */2 * * *'
   workflow_dispatch:
+
+permissions:
+  contents: write
+
 jobs:
   update:
     runs-on: ubuntu-latest
@@ -16,6 +20,7 @@ jobs:
           from datetime import datetime
           def get(liga, season, salida):
               url=f'https://api-football-standings.azharimm.dev/leagues/{liga}/standings?season={season}&sort=asc'
+              print('Bajando', url)
               r=requests.get(url, timeout=20).json()
               datos=r['data']['standings']
               out={'actualizado': datetime.utcnow().strftime('%d/%m %H:%M UTC'), 'tabla': []}
@@ -27,7 +32,7 @@ jobs:
                   dg=next((x['value'] for x in stats if x['name']=='pointDifferential'), 0)
                   out['tabla'].append({'pos': i, 'team': team['displayName'], 'pj': pj, 'pts': pts, 'dg': dg})
               json.dump(out, open(salida,'w'), ensure_ascii=False)
-              print(salida, 'OK')
+              print(salida, 'OK', len(out['tabla']))
           get('esp.1', '2026', 'laliga-data.json')
           get('eng.1', '2026', 'premier-data.json')
           "
@@ -36,5 +41,5 @@ jobs:
           git config user.name 'bot'
           git config user.email 'bot@bot.com'
           git add laliga-data.json premier-data.json
-          git commit -m 'tablas 26/27 reales' || exit 0
+          git commit -m 'tablas 26/27 reales' || echo 'nada que commitear'
           git push
