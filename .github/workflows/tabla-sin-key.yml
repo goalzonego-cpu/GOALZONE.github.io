@@ -12,34 +12,32 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Baja tablas reales 26/27
+      - name: Baja tablas 26/27 ESPN real
         run: |
           pip install requests -q
           python3 -c "
           import requests, json
           from datetime import datetime
-          def get(liga, season, salida):
-              url=f'https://api-football-standings.azharimm.dev/leagues/{liga}/standings?season={season}&sort=asc'
+          def get(espn_code, salida):
+              url=f'https://site.api.espn.com/apis/v2/sports/soccer/{espn_code}/standings?season=2026'
               print('Bajando', url)
               r=requests.get(url, timeout=20).json()
-              datos=r['data']['standings']
+              tabla=r['children'][0]['standings']['entries']
               out={'actualizado': datetime.utcnow().strftime('%d/%m %H:%M UTC'), 'tabla': []}
-              for i, t in enumerate(datos, 1):
-                  team=t['team']
-                  stats=t['stats']
-                  pj=next((x['value'] for x in stats if x['name']=='gamesPlayed'), 0)
-                  pts=next((x['value'] for x in stats if x['name']=='points'), 0)
-                  dg=next((x['value'] for x in stats if x['name']=='pointDifferential'), 0)
-                  out['tabla'].append({'pos': i, 'team': team['displayName'], 'pj': pj, 'pts': pts, 'dg': dg})
+              for e in tabla:
+                  team=e['team']['displayName']
+                  stats={s['name']: s['value'] for s in e['stats']}
+                  out['tabla'].append({'pos': int(stats.get('rank',0)), 'team': team, 'pj': int(stats.get('gamesPlayed',0)), 'pts': int(stats.get('points',0)), 'dg': int(stats.get('pointDifferential',0))})
+              out['tabla']=sorted(out['tabla'], key=lambda x: x['pos'])
               json.dump(out, open(salida,'w'), ensure_ascii=False)
               print(salida, 'OK', len(out['tabla']))
-          get('esp.1', '2026', 'laliga-data.json')
-          get('eng.1', '2026', 'premier-data.json')
+          get('esp.1', 'laliga-data.json')
+          get('eng.1', 'premier-data.json')
           "
       - name: Guardar
         run: |
           git config user.name 'bot'
           git config user.email 'bot@bot.com'
           git add laliga-data.json premier-data.json
-          git commit -m 'tablas 26/27 reales' || echo 'nada que commitear'
+          git commit -m 'tablas 26/27 ESPN reales' || echo 'sin cambios'
           git push
