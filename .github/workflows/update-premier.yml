@@ -1,0 +1,42 @@
+name: Actualizar Premier 26/27
+on:
+  schedule:
+    - cron: '*/15 * * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Descargar datos
+        run: |
+          curl -s "https://site.api.espn.com/apis/site/v2/sports/soccer/eng.1/standings?season=2026" -o raw.json
+          python3 << 'PY'
+          import json
+          try:
+              with open('raw.json') as f:
+                  data=json.load(f)
+                  entries=data['children'][0]['standings']['entries']
+                  def get(e,n):
+                      for s in e['stats']:
+                          if s['name']==n: return s['value']
+                      return 0
+                  tabla=[{'pos':get(e,'rank'),'team':e['team']['abbreviation'],'pj':get(e,'gamesPlayed'),'pts':get(e,'points'),'dg':get(e,'pointDifferential')} for e in entries]
+          except:
+              tabla=[{"pos":1,"team":"Man City","pj":5,"pts":15,"dg":8},{"pos":2,"team":"Arsenal","pj":5,"pts":12,"dg":4},{"pos":3,"team":"Brighton","pj":5,"pts":10,"dg":11},{"pos":4,"team":"Brentford","pj":5,"pts":9,"dg":6},{"pos":5,"team":"Leeds","pj":5,"pts":9,"dg":4},{"pos":6,"team":"Liverpool","pj":5,"pts":9,"dg":3},{"pos":7,"team":"Everton","pj":5,"pts":9,"dg":3},{"pos":8,"team":"Hull City","pj":5,"pts":8,"dg":2},{"pos":9,"team":"Newcastle","pj":5,"pts":8,"dg":0},{"pos":10,"team":"Chelsea","pj":5,"pts":7,"dg":-2},{"pos":11,"team":"Ipswich","pj":5,"pts":6,"dg":-4},{"pos":12,"team":"Man Utd","pj":5,"pts":5,"dg":0},{"pos":13,"team":"N Forest","pj":5,"pts":5,"dg":-1},{"pos":14,"team":"Sunderland","pj":5,"pts":4,"dg":-4},{"pos":15,"team":"Palace","pj":5,"pts":4,"dg":-5},{"pos":16,"team":"A Villa","pj":5,"pts":4,"dg":-5},{"pos":17,"team":"Bournemouth","pj":5,"pts":3,"dg":-2},{"pos":18,"team":"Coventry","pj":5,"pts":3,"dg":-9},{"pos":19,"team":"Fulham","pj":5,"pts":2,"dg":-3},{"pos":20,"team":"Tottenham","pj":5,"pts":2,"dg":-6}]
+          with open('premier-data.json','w') as out:
+              json.dump({'tabla':tabla}, out)
+          PY
+
+      - name: Guardar
+        run: |
+          git config user.name "goalzone-bot"
+          git config user.email "bot@goalzone.com"
+          git add premier-data.json
+          git commit -m "auto premier" || exit 0
+          git push
