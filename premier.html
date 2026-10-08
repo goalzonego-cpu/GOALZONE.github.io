@@ -2,7 +2,7 @@
 <html lang="es">
 <head>
 <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>LaLiga 26/27 - GOALZONE</title>
+<title>Premier 26/27 - GOALZONE</title>
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap');
 *{box-sizing:border-box;margin:0;padding:0}
@@ -31,17 +31,17 @@ a.back{color:#fff;text-decoration:none;font-size:12px;font-weight:700;border:1px
 <header><div class="logo"><img src="IMG_3855.png"></div><a class="back" href="index.html">← Volver</a></header>
 <div class="wrap">
   <div class="box">
-    <h2>LaLiga EA Sports 26/27 <span class="upd" id="upd"></span></h2>
-    <table class="tbl"><thead><tr><th>#</th><th>Equipo</th><th>PJ</th><th>G</th><th>DIF</th><th>PTS</th></tr></thead><tbody id="tabla"></tbody></table>
+    <h2>Premier League 26/27 <span class="upd" id="upd"></span></h2>
+    <table class="tbl"><thead><tr><th>#</th><th>Equipo</th><th>PJ</th><th>PTS</th><th>DIF</th><th>PTS</th></tr></thead><tbody id="tabla"></tbody></table>
   </div>
   <div class="side">
-    <div class="box"><h2>Pichichi</h2><div id="goles">cargando...</div></div>
+    <div class="box"><h2>Goleadores</h2><div id="goles">cargando...</div></div>
     <div class="box"><h2>Próximos partidos</h2><div id="partidos">cargando...</div></div>
   </div>
 </div>
 <script>
 async function load(){
-  let r = await fetch('laliga-data.json?t='+Date.now()); let j = await r.json();
+  let r = await fetch('premier-data.json?t='+Date.now()); let j = await r.json();
   document.getElementById('upd').textContent=j.actualizado;
   let h='';
   j.tabla.forEach(x=>{
@@ -50,11 +50,11 @@ async function load(){
   });
   document.getElementById('tabla').innerHTML=h;
   try{
-    let rg=await fetch('laliga-goleadores.json?t='+Date.now()); let jg=await rg.json();
+    let rg=await fetch('premier-goleadores.json?t='+Date.now()); let jg=await rg.json();
     document.getElementById('goles').innerHTML=jg.goleadores.slice(0,5).map(g=>`<div class="item"><span>${g.jugador}</span><b>${g.goles}</b></div>`).join('')||'sin datos';
   }catch{}
   try{
-    let rp=await fetch('laliga-partidos.json?t='+Date.now()); let jp=await rp.json();
+    let rp=await fetch('premier-partidos.json?t='+Date.now()); let jp=await rp.json();
     document.getElementById('partidos').innerHTML=jp.partidos.slice(0,5).map(p=>`<div class="item"><span>${p.local} - ${p.visitante}</span><small>${p.fecha}</small></div>`).join('');
   }catch{}
 }
