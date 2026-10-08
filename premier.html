@@ -1,20 +1,64 @@
 <!DOCTYPE html>
-<html lang="es"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Premier 26/27 - GOALZONE</title>
-<style>body{background:#0a0a0a;color:#fff;font-family:Arial;margin:0}header{background:#000;padding:14px 20px}.card{background:#111;padding:20px;border-radius:16px;margin:16px}.row{display:grid;grid-template-columns:30px 1fr 50px 50px;padding:10px 0;border-bottom:1px solid #222}</style></head>
+<html lang="es">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LaLiga 26/27 - GOALZONE</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap');
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Inter',sans-serif;background:#0a0a0a;color:#fff}
+header{background:#000;padding:18px 24px;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid #1a1a1a}
+.logo img{height:38px}
+.wrap{max-width:1100px;margin:20px auto;padding:0 24px;display:grid;grid-template-columns:1.6fr .8fr;gap:16px}
+.box{background:#111;border:1px solid #1a1a1a;border-radius:18px;padding:18px}
+.box h2{font-size:15px;font-weight:800;margin-bottom:12px;display:flex;justify-content:space-between}
+.upd{font-size:10px;color:#666}
+.tbl{width:100%;border-collapse:collapse}
+.tbl th{font-size:10px;color:#666;padding:8px 4px;border-bottom:1px solid #222;text-align:left;text-transform:uppercase}
+.tbl td{font-size:13px;padding:9px 4px;border-bottom:1px solid #1a1a1a}
+.tbl tr.champions{border-left:3px solid #1020ff}
+.tbl tr.europa{border-left:3px solid #ff8a00}
+.tbl tr.descenso{border-left:3px solid #E10600}
+.team{display:flex;align-items:center;gap:8px;font-weight:600}
+.team img{width:20px;height:20px;object-fit:contain}
+.side{display:flex;flex-direction:column;gap:16px}
+.item{display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid #1a1a1a;font-size:13px}
+@media(max-width:800px){.wrap{grid-template-columns:1fr}}
+a.back{color:#fff;text-decoration:none;font-size:12px;font-weight:700;border:1px solid #222;padding:8px 14px;border-radius:100px}
+</style>
+</head>
 <body>
-<header><a href="index.html" style="color:#fff;text-decoration:none;font-weight:800">GOALZONE</a> - Premier</header>
-<div id="tabla" class="card">Cargando tabla oficial...</div>
+<header><div class="logo"><img src="IMG_3855.png"></div><a class="back" href="index.html">← Volver</a></header>
+<div class="wrap">
+  <div class="box">
+    <h2>LaLiga EA Sports 26/27 <span class="upd" id="upd"></span></h2>
+    <table class="tbl"><thead><tr><th>#</th><th>Equipo</th><th>PJ</th><th>G</th><th>DIF</th><th>PTS</th></tr></thead><tbody id="tabla"></tbody></table>
+  </div>
+  <div class="side">
+    <div class="box"><h2>Pichichi</h2><div id="goles">cargando...</div></div>
+    <div class="box"><h2>Próximos partidos</h2><div id="partidos">cargando...</div></div>
+  </div>
+</div>
 <script>
 async function load(){
- let r = await fetch('./premier-data.json?t='+Date.now());
- let d = await r.json();
- let html = '<div class="row" style="color:#666"><div>#</div><div>Equipo</div><div>PJ</div><div>PTS</div></div>';
- d.tabla.forEach(e=>{
-  html+=`<div class="row"><div>${e.pos}</div><div><b>${e.team}</b></div><div>${e.pj}</div><div><b>${e.pts}</b></div></div>`;
- });
- document.getElementById('tabla').innerHTML = html + `<p style="color:#666;font-size:11px;margin-top:15px">Actualizado: ${d.actualizado}</p>`;
+  let r = await fetch('laliga-data.json?t='+Date.now()); let j = await r.json();
+  document.getElementById('upd').textContent=j.actualizado;
+  let h='';
+  j.tabla.forEach(x=>{
+    let c=x.pos<=4?'champions':x.pos>=18?'descenso':x.pos<=6?'europa':'';
+    h+=`<tr class="${c}"><td>${x.pos}</td><td><div class="team"><img src="${x.logo}">${x.team}</div></td><td>${x.pj}</td><td>${x.pts}</td><td>${x.dif}</td><td><b>${x.pts}</b></td></tr>`;
+  });
+  document.getElementById('tabla').innerHTML=h;
+  try{
+    let rg=await fetch('laliga-goleadores.json?t='+Date.now()); let jg=await rg.json();
+    document.getElementById('goles').innerHTML=jg.goleadores.slice(0,5).map(g=>`<div class="item"><span>${g.jugador}</span><b>${g.goles}</b></div>`).join('')||'sin datos';
+  }catch{}
+  try{
+    let rp=await fetch('laliga-partidos.json?t='+Date.now()); let jp=await rp.json();
+    document.getElementById('partidos').innerHTML=jp.partidos.slice(0,5).map(p=>`<div class="item"><span>${p.local} - ${p.visitante}</span><small>${p.fecha}</small></div>`).join('');
+  }catch{}
 }
-load(); setInterval(load, 60000);
+load();
 </script>
-</body></html>
+</body>
+</html>
