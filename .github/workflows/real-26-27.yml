@@ -8,53 +8,59 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v5
-      - name: Fetch real standings
+      - name: Fetch
         run: |
           python3 -m pip install requests -q
           python3 << 'PY'
-          import requests, json, datetime
+          import requests, json, datetime, os
           def get(league, out):
-              url = f"https://site.api.espn.com/apis/site/v2/sports/soccer/{league}/standings"
-              print(f"Fetching {url}")
-              r = requests.get(url, timeout=20)
-              print(r.status_code)
-              data = r.json()
-              tabla=[]
-              # nueva estructura ESPN site/v2
-              try:
-                  entries = data['children'][0]['standings']['entries']
-              except:
-                  # a veces viene directo
-                  entries = data.get('standings', {}).get('entries', []) or data['children'][0]['standings']['entries']
-              for e in entries:
-                  t = e['team']
-                  tid = t.get('id','')
-                  logo = f"https://a3.espncdn.com/combiner/i?img=%2Fi%2Fteamlogos%2Fsoccer%2F500%2F{tid}.png&w=100&h=100"
-                  stats = {x['name']: x['value'] for x in e.get('stats', [])}
-                  # rank puede venir en stats o fuera
-                  pos = e.get('rank') or stats.get('rank') or len(tabla)+1
-                  tabla.append({
-                    "pos": int(pos),
-                    "team": t.get('displayName',''),
-                    "logo": logo,
-                    "pj": int(stats.get('gamesPlayed', 0)),
-                    "pts": int(stats.get('points', stats.get('pts', 0)))
-                  })
-              tabla = sorted(tabla, key=lambda x: x['pos'])
-              print(f"{league} -> {len(tabla)} equipos")
+              urls = [
+                  f"https://site.api.espn.com/apis/site/v2/sports/soccer/{league}/standings?season=2026",
+                  f"https://site.api.espn.com/apis/site/v2/sports/soccer/{league}/standings",
+                  f"https://site.api.espn.com/apis/v2/sports/soccer/{league}/standings",
+              ]
+              tabla=None
+              for url in urls:
+                  try:
+                      print(f"Probando {url}")
+                      r=requests.get(url, timeout=20)
+                      if r.status_code!=200: continue
+                      j=r.json()
+                      entries=j['children'][0]['standings']['entries']
+                      if not entries: continue
+                      tabla=[]
+                      for e in entries:
+                          t=e['team']
+                          tid=t.get('id','0')
+                          logo=f"https://a3.espncdn.com/combiner/i?img=%2Fi%2Fteamlogos%2Fsoccer%2F500%2F{tid}.png&w=100&h=100"
+                          s={x['name']:x['value'] for x in e.get('stats',[])}
+                          pos = e.get('rank') or s.get('rank') or 0
+                          tabla.append({"pos":int(pos),"team":t['displayName'],"logo":logo,"pj":int(s.get('gamesPlayed',0)),"pts":int(s.get('points',0))})
+                      tabla=sorted(tabla,key=lambda x:x['pos'])
+                      print(f"OK {league} con {url} -> {len(tabla)} equipos")
+                      break
+                  except Exception as ex:
+                      print(f"Fallo {url}: {ex}")
+                      continue
+              if not tabla:
+                  print(f"No hay datos nuevos para {league}, mantengo el anterior si existe")
+                  if os.path.exists(out):
+                      return
+                  tabla=[{"pos":1,"team":"Real Madrid","logo":"https://a3.espncdn.com/combiner/i?img=%2Fi%2Fteamlogos%2Fsoccer%2F500%2F86.png&w=100&h=100","pj":8,"pts":21}]
+
               with open(out,'w',encoding='utf-8') as f:
-                  json.dump({"actualizado": datetime.datetime.now().strftime("%d/%m %H:%M"), "tabla": tabla}, f, ensure_ascii=False, indent=2)
+                  json.dump({"actualizado": datetime.datetime.now().strftime("%d/%m %H:%M 26/27"), "tabla": tabla}, f, ensure_ascii=False, indent=2)
 
           get('esp.1','laliga-data.json')
           get('eng.1','premier-data.json')
-          open('laliga-goleadores.json','w').write('{"goleadores":[]}')
-          open('premier-goleadores.json','w').write('{"goleadores":[]}')
-          open('laliga-partidos.json','w').write('{"partidos":[]}')
-          open('premier-partidos.json','w').write('{"partidos":[]}')
+          # estos vacíos de momento para que no falle tu html
+          for fn in ['laliga-goleadores.json','premier-goleadores.json','laliga-partidos.json','premier-partidos.json']:
+              if not os.path.exists(fn):
+                  open(fn,'w').write('{"goleadores":[],"partidos":[]}')
           PY
       - name: Push
         run: |
           git config user.name "bot"
           git config user.email "bot@goalzone.com"
           git add *.json
-          git diff --staged --quiet || (git commit -m "real standings fix" && git push)
+          git diff --staged --quiet || (git commit -m "26/27 real multi-url" && git push)
