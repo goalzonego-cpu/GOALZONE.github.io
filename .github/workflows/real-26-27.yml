@@ -1,63 +1,43 @@
 name: GoalZone Real 26-27 FULL
 on:
+  workflow_dispatch:
   schedule:
     - cron: '0 */2 * * *'
-  workflow_dispatch:
 permissions:
   contents: write
 jobs:
   update:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-python@v4
-        with:
-          python-version: '3.11'
-      - run: pip install requests --quiet
-      - name: Fetch all 26/27 data
+      - uses: actions/checkout@v5
+      - name: Fetch 26/27
         run: |
-          import requests, json, datetime, sys
-          def fetch_standings(code, out):
-            try:
-              url = f"https://site.api.espn.com/apis/v2/sports/soccer/{code}/standings?season=2026"
-              r = requests.get(url, timeout=20).json()
-              tabla = []
-              for entry in r['children'][0]['standings']['entries']:
-                t = entry['team']
-                team_id = t.get('id','')
-                s = {st['name']: st['value'] for st in entry['stats']}
-                logo = f"https://a3.espncdn.com/combiner/i?img=%2Fi%2Fteamlogos%2Fsoccer%2F500%2F{team_id}.png&w=100&h=100"
-                tabla.append({
-                  "pos": int(s.get('rank', 0)),
-                  "team": t['displayName'],
-                  "logo": logo,
-                  "pj": int(s.get('gamesPlayed',0)),
-                  "pts": int(s.get('points',0))
-                })
-              tabla = sorted(tabla, key=lambda x: x['pos'])
-              with open(out,'w',encoding='utf-8') as f:
-                json.dump({"actualizado": datetime.datetime.utcnow().strftime("%d/%m %H:%M"), "tabla": tabla}, f, ensure_ascii=False, indent=2)
-              print(f"{code} ok {len(tabla)} equipos")
-            except Exception as e:
-              print(f"Error {code}: {e}")
-              with open(out,'w',encoding='utf-8') as f:
-                json.dump({"actualizado": "error", "tabla": []}, f)
-
-          def empty_json(out, key):
-            with open(out,'w',encoding='utf-8') as f:
-              json.dump({key: []}, f)
-
-          fetch_standings('esp.1','laliga-data.json')
-          fetch_standings('eng.1','premier-data.json')
-          empty_json('laliga-goleadores.json','goleadores')
-          empty_json('premier-goleadores.json','goleadores')
-          empty_json('laliga-partidos.json','partidos')
-          empty_json('premier-partidos.json','partidos')
-
-      - name: Commit
+          python3 -m pip install requests -q
+          python3 << 'PY'
+          import requests, json, datetime
+          def get(code, out):
+            url=f"https://site.api.espn.com/apis/v2/sports/soccer/{code}/standings?season=2026"
+            r=requests.get(url, timeout=20).json()
+            tabla=[]
+            for e in r['children'][0]['standings']['entries']:
+              t=e['team']
+              tid=t.get('id','')
+              s={x['name']:x['value'] for x in e['stats']}
+              logo=f"https://a3.espncdn.com/combiner/i?img=%2Fi%2Fteamlogos%2Fsoccer%2F500%2F{tid}.png&w=100&h=100"
+              tabla.append({"pos":s.get('rank',0),"team":t['displayName'],"logo":logo,"pj":s.get('gamesPlayed',0),"pts":s.get('points',0)})
+            tabla=sorted(tabla,key=lambda x:x['pos'])
+            open(out,'w',encoding='utf-8').write(json.dumps({"actualizado":datetime.datetime.utcnow().strftime("%d/%m %H:%M"),"tabla":tabla},ensure_ascii=False,indent=2))
+            print(f"{code} OK")
+          get('esp.1','laliga-data.json')
+          get('eng.1','premier-data.json')
+          open('laliga-goleadores.json','w').write('{"goleadores":[]}')
+          open('premier-goleadores.json','w').write('{"goleadores":[]}')
+          open('laliga-partidos.json','w').write('{"partidos":[]}')
+          open('premier-partidos.json','w').write('{"partidos":[]}')
+          PY
+      - name: Push
         run: |
-          git config user.name "goalzone-bot"
+          git config user.name "bot"
           git config user.email "bot@goalzone.com"
-          git add *.json || true
-          git diff --staged --quiet || git commit -m "fix escudos 26/27"
-          git push || echo "nada que pushear"
+          git add *.json
+          git diff --staged --quiet || (git commit -m "fix escudos" && git push)
