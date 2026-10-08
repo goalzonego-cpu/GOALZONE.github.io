@@ -1,183 +1,87 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>GOALZONE</title>
-<style>
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap');
-*{box-sizing:border-box;margin:0;padding:0}
-body{font-family:'Inter',Arial,sans-serif;background:#0a0a0a;color:#fff}
-header{background:#000;padding:18px 24px;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid #1a1a1a}
-.logo img{height:38px}
-.tiktok-mini{color:#fff;text-decoration:none;font-size:13px;font-weight:600;border:1px solid #222;padding:8px 14px;border-radius:100px}
-nav{background:#fff;position:sticky;top:0;z-index:10;border-bottom:1px solid #eee;display:flex;align-items:center;justify-content:space-between}
-.nav-content{display:flex;gap:28px;padding:0 24px;overflow:auto;flex:1}
-.nav-content a{cursor:pointer;font-weight:700;color:#888;font-size:12px;letter-spacing:.8px;text-transform:uppercase;padding:18px 0 16px;border-bottom:2px solid transparent;white-space:nowrap}
-.nav-content a.active{color:#000;border-bottom:2px solid #E10600}
-.hamburger{padding:18px 24px;cursor:pointer;display:flex;flex-direction:column;gap:4px}
-.hamburger span{width:22px;height:2px;background:#000;border-radius:2px;display:block}
-.search-wrap{max-width:1100px;margin:28px auto;padding:0 24px}
-.search-wrap input{width:100%;padding:16px 20px;border-radius:12px;border:1px solid #1f1f1f;background:#141414;color:#fff;font-size:15px;outline:none}
-.hero-wrap{max-width:1100px;margin:0 auto 28px;padding:0 24px}
-.hero{position:relative;width:100%;height:380px;border-radius:18px;overflow:hidden;background:#111;border:1px solid #1a1a1a}
-.hero img{position:absolute;top:0;left:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity.8s}
-.hero img.active{opacity:1}
-.hero-dots{position:absolute;bottom:14px;left:50%;transform:translateX(-50%);display:flex;gap:6px;z-index:2}
-.hero-dots span{width:6px;height:6px;border-radius:100px;background:rgba(255,255,255,.5)}
-.hero-dots span.active{background:#fff;width:18px}
-main{max-width:1100px;margin:0 auto 40px;padding:0 24px;display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
-.card{background:#fff;border-radius:18px;border:1px solid #e9e9e9;padding:24px;display:flex;flex-direction:column;cursor:pointer}
-.badge{font-size:10px;font-weight:800;letter-spacing:.8px;text-transform:uppercase;padding:5px 8px;border-radius:6px;margin-bottom:14px;width:fit-content}
-.card-laliga.badge{background:#ffeaea;color:#E10600}
-.card-champions.badge{background:#eef2ff;color:#1020ff}
-.card-premier.badge{background:#f3e8ff;color:#37003c}
-.league-logo{width:100%;height:110px;object-fit:contain;margin-bottom:18px;background:#f7f7f7;border-radius:14px;padding:12px}
-.card h3{font-size:17px;font-weight:800;margin-bottom:6px;color:#000}
-.card p{color:#777;font-size:13px;line-height:1.4}
-#overlay{position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:20;opacity:0;pointer-events:none;transition:.3s}
-#overlay.show{opacity:1;pointer-events:auto}
-#sideMenu{position:fixed;top:0;right:0;width:300px;height:100%;background:#fff;color:#000;z-index:30;transform:translateX(100%);transition:.3s;padding:24px}
-#sideMenu.show{transform:translateX(0)}
-#sideMenu h2{display:flex;justify-content:space-between;font-size:18px;font-weight:800;margin-bottom:20px}
-#sideMenu a{display:block;padding:14px 0;border-bottom:1px solid #eee;text-decoration:none;color:#000;font-weight:700;font-size:13px;cursor:pointer}
-#sideMenu a small{display:block;color:#888;font-weight:400;font-size:11px;margin-top:3px}
-.section{max-width:1100px;margin:0 auto 20px;padding:28px 24px;background:#111;border-radius:18px;border:1px solid #1a1a1a}
-.section h2{font-size:20px;font-weight:800;margin-bottom:10px;color:#fff}
-.section p{color:#aaa;font-size:14px;line-height:1.6}
-.redes{display:flex;gap:10px;margin-top:14px;flex-wrap:wrap}
-.redes a{background:#fff;color:#000;padding:10px 18px;border-radius:100px;text-decoration:none;font-weight:800;font-size:13px}
-footer{background:#000;color:#666;text-align:center;padding:40px 20px;border-top:1px solid #1a1a1a}
-.tiktok-btn{display:inline-block;background:#E10600;color:#fff;padding:12px 22px;border-radius:100px;text-decoration:none;font-weight:800;font-size:14px;margin-top:16px}
-@media(max-width:800px){main{grid-template-columns:1fr}.hero{height:220px}}
-.about-grid{display:grid;grid-template-columns:1.15fr.85fr;gap:20px}
-.about-text h2{font-size:26px;line-height:1.1;margin-bottom:16px}
-.about-text p{color:#a8a8a8;font-size:14.5px;line-height:1.8;margin-bottom:14px}
-.about-text b{color:#fff}
-.carousel-about{position:relative;background:#000;border:1px solid #1a1a1a;border-radius:18px;overflow:hidden;height:420px}
-.carousel-about img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity.7s}
-.carousel-about img.active{opacity:1}
-.tag-about{position:absolute;top:12px;left:12px;z-index:3;background:#fff;color:#000;padding:6px 12px;border-radius:100px;font-size:11px;font-weight:800}
-.dots-about{position:absolute;bottom:12px;left:50%;transform:translateX(-50%);display:flex;gap:6px;z-index:3}
-.dots-about span{width:6px;height:6px;background:rgba(255,255,255,.4);border-radius:10px}
-.dots-about span.active{background:#fff;width:18px}
-.btn-about{display:inline-block;margin-top:16px;background:#fff;color:#000;padding:12px 22px;border-radius:100px;font-weight:800;text-decoration:none;font-size:13px}
-@media(max-width:800px){.about-grid{grid-template-columns:1fr}.carousel-about{height:380px}}
-</style>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GOALZONE_GO - Fútbol en estado puro</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
+<style>body{font-family:Inter}.bebas{font-family:Bebas Neue}</style>
 </head>
-<body>
-<header><div class="logo"><img src="IMG_3855.png" alt="GOALZONE"></div><a class="tiktok-mini" href="https://www.tiktok.com/@goalzone_go" target="_blank">TikTok →</a></header>
-<nav>
-<div class="nav-content">
-<a id="btn-todas" class="active" onclick="filtrar('todas')">ÚLTIMAS</a>
-<a id="btn-laliga" onclick="filtrar('laliga')">LALIGA</a>
-<a id="btn-champions" onclick="filtrar('champions')">CHAMPIONS</a>
-<a id="btn-premier" onclick="filtrar('premier')">PREMIER</a>
-</div>
-<div class="hamburger" onclick="openMenu()"><span></span><span></span><span></span></div>
-</nav>
-<div id="overlay" onclick="closeMenu()"></div>
-<div id="sideMenu">
-<h2>MENÚ <span onclick="closeMenu()" style="cursor:pointer">✕</span></h2>
-<a onclick="filtrar('todas')">ÚLTIMAS <small>Todo</small></a>
-<a onclick="filtrar('laliga')">LALIGA <small>EA Sports</small></a>
-<a onclick="filtrar('champions')">CHAMPIONS <small>Champions League</small></a>
-<a onclick="filtrar('premier')">PREMIER <small>Premier League</small></a>
-<a href="#redes" onclick="closeMenu()">REDES <small>Sociales</small></a>
-<a href="acerca.html">ACERCA DE NOSOTROS <small>Quiénes somos</small></a>
-<a href="contacto.html">CONTACTO <small>Goalzone.go@gmail.com</small></a>
-</div>
-<div class="search-wrap"><input id="buscador" type="text" placeholder="Buscar equipo, jugador, competición..." onkeyup="buscar()"></div>
-<div class="hero-wrap">
-  <div class="hero" id="hero">
-    <img class="active" src="https://images.unsplash.com/photo-1522778119026-d647f0596c20?w=1200">
-    <img src="https://images.unsplash.com/photo-1431324155629-1a6deb1dec8d?w=1200">
-    <img src="https://images.unsplash.com/photo-1579952363873-27f3bfad9c0d?w=1200">
-    <div class="hero-dots" id="dots"><span class="active"></span><span></span><span></span></div>
+<body class="bg-[#0A0A0A] text-white">
+<!-- HEADER -->
+<header class="sticky top-0 z-50 bg-black/90 backdrop-blur border-b border-zinc-800">
+  <div class="max-w-[1200px] mx-auto flex justify-between items-center p-4">
+    <h1 class="bebas text-3xl tracking-widest">GOALZONE<span class="text-[#FF4D00]">_GO</span></h1>
+    <div class="flex gap-2">
+      <a href="https://www.tiktok.com/@goalzone_go" class="bg-white text-black px-4 py-2 rounded-full font-black text-sm">TIKTOK</a>
+      <button onclick="setLang()" class="border border-zinc-700 px-3 py-2 rounded-full text-xs">ES / EN</button>
+    </div>
   </div>
-</div>
-<main id="grid">
-<div class="card card-laliga" data-cat="laliga" onclick="location.href='laliga.html'">
-<span class="badge">LaLiga</span>
-<img class="league-logo" src="https://a3.espncdn.com/combiner/i?img=%2Fi%2Fleaguelogos%2Fsoccer%2F500%2F15.png">
-<h3>LaLiga EA Sports</h3>
-<p>Resultados, clasificación y última hora del fútbol español.</p>
-</div>
-<div class="card card-champions" data-cat="champions" onclick="location.href='champions.html'">
-<span class="badge">Champions</span>
-<img class="league-logo" src="https://a3.espncdn.com/combiner/i?img=%2Fi%2Fleaguelogos%2Fsoccer%2F500%2F2.png">
-<h3>Champions League</h3>
-<p>Sorteos, partidos y goles de la máxima competición.</p>
-</div>
-<div class="card card-premier" data-cat="premier" onclick="location.href='premier.html'">
-<span class="badge">Premier League</span>
-<img class="league-logo" src="https://a3.espncdn.com/combiner/i?img=%2Fi%2Fleaguelogos%2Fsoccer%2F500%2F23.png">
-<h3>Premier League</h3>
-<p>Toda la acción de Inglaterra con GOALZONE.</p>
-</div>
+  <!-- LIGAS SCROLL -->
+  <div class="flex gap-2 overflow-x-auto px-4 pb-3 max-w-[1200px] mx-auto no-scrollbar">
+    <button onclick="load('esp.1','LaLiga')" class="liga-btn bg-[#FF4D00] px-5 py-2 rounded-full font-bold whitespace-nowrap">LaLiga</button>
+    <button onclick="load('eng.1','Premier')" class="liga-btn bg-zinc-800 px-5 py-2 rounded-full font-bold whitespace-nowrap">Premier</button>
+    <button onclick="load('ita.1','Serie A')" class="liga-btn bg-zinc-800 px-5 py-2 rounded-full font-bold whitespace-nowrap">Serie A</button>
+    <button onclick="load('ger.1','Bundesliga')" class="liga-btn bg-zinc-800 px-5 py-2 rounded-full font-bold whitespace-nowrap">Bundesliga</button>
+    <button onclick="load('fra.1','Ligue 1')" class="liga-btn bg-zinc-800 px-5 py-2 rounded-full font-bold whitespace-nowrap">Ligue 1</button>
+    <button onclick="load('usa.1','MLS')" class="liga-btn bg-zinc-800 px-5 py-2 rounded-full font-bold whitespace-nowrap">MLS</button>
+    <button onclick="load('uefa.champions','Champions')" class="liga-btn bg-zinc-800 px-5 py-2 rounded-full font-bold whitespace-nowrap">UCL</button>
+  </div>
+</header>
+
+<main class="max-w-[1200px] mx-auto p-4 grid lg:grid-cols-[1.2fr_0.8fr] gap-6">
+  <!-- TABLA -->
+  <div class="bg-[#141414] rounded-[24px] p-5 border border-zinc-800">
+    <div class="flex justify-between items-center mb-4"><h2 id="liga-title" class="bebas text-4xl">LaLiga 26/27</h2><span id="upd" class="text-xs text-zinc-500"></span></div>
+    <div id="tabla" class="space-y-2">Cargando clasificación real...</div>
+  </div>
+  <!-- PARTIDOS -->
+  <div class="space-y-6">
+    <div class="bg-[#141414] rounded-[24px] p-5 border border-zinc-800">
+      <h3 class="bebas text-2xl mb-4">PRÓXIMOS PARTIDOS</h3>
+      <div id="partidos" class="space-y-3"></div>
+    </div>
+    <div class="bg-[#FF4D00] rounded-[24px] p-6 text-black">
+      <h3 class="bebas text-3xl leading-none">¿VIENES DE TIKTOK?</h3><p class="font-bold mt-2">Aquí tienes el resumen extendido del vídeo + datos en vivo.</p>
+      <a href="https://www.tiktok.com/@goalzone_go" class="inline-block mt-4 bg-black text-white px-6 py-3 rounded-full font-black">SEGUIR EN TIKTOK →</a>
+    </div>
+  </div>
 </main>
-<div class="section" id="redes"><h2>Redes</h2><p>Síguenos en todas nuestras plataformas para no perderte nada.</p><div class="redes"><a href="https://www.tiktok.com/@goalzone_go" target="_blank">TikTok @goalzone_go</a><a href="#">Instagram</a></div></div>
-<div class="section" id="nosotros" style="padding:0;background:transparent;border:none">
-  <div class="about-grid">
-    <div class="section" style="margin:0">
-      <div style="display:inline-block;background:#fff;color:#000;padding:5px 12px;border-radius:100px;font-size:10px;font-weight:800;margin-bottom:14px">NUESTRA HISTORIA</div>
-      <div class="about-text">
-        <h2>El fútbol no son solo 90 minutos.</h2>
-        <p><b>Queremos contar el fútbol de una forma diferente, combinando creatividad, objetividad y pasión para que cada aficionado pueda disfrutar, descubrir y opinar sobre este deporte.</b></p>
-        <p>Desde las grandes estrellas hasta las historias que muchas veces pasan desapercibidas, desde Goalzone_go buscamos ir más allá del resultado: analizar, informar y entretener con nuestro estilo único.</p>
-        <p>Porque el fútbol no son solo 90 minutos. Son historias, opiniones, emociones, polémicas, curiosidades y momentos que merecen ser contados.</p>
-      </div>
-      <a class="btn-about" href="acerca.html">Conoce nuestra historia completa →</a>
-    </div>
-    <div class="carousel-about" id="carouselAbout">
-      <div class="tag-about">TikTok @goalzone_go</div>
-      <img class="active" src="tk1.jpg">
-      <img src="tk2.jpg">
-      <img src="tk3.jpg">
-      <img src="tk4.jpg">
-      <div class="dots-about" id="dotsAbout"><span class="active"></span><span></span><span></span><span></span></div>
-    </div>
-  </div>
-</div>
-<footer><p>© 2026 GOALZONE</p><a class="tiktok-btn" href="https://www.tiktok.com/@goalzone_go" target="_blank">Ver en TikTok @goalzone_go</a></footer>
+
 <script>
-function openMenu(){document.getElementById('sideMenu').classList.add('show');document.getElementById('overlay').classList.add('show')}
-function closeMenu(){document.getElementById('sideMenu').classList.remove('show');document.getElementById('overlay').classList.remove('show')}
-function filtrar(cat){
-  closeMenu();
-  document.querySelectorAll('.nav-content a').forEach(a=>a.classList.remove('active'));
-  let b=document.getElementById('btn-'+cat); if(b) b.classList.add('active');
-  let cards=document.querySelectorAll('.card');
-  cards.forEach(c=>{
-    if(cat=='todas' || c.dataset.cat==cat) c.style.display='flex'; else c.style.display='none';
-  });
-  let grid=document.getElementById('grid');
-  if(grid) window.scrollTo({top:grid.offsetTop-100,behavior:'smooth'});
+let currentLiga='esp.1';
+const mapFiles={'esp.1':'laliga','eng.1':'premier','ita.1':'seriea','ger.1':'bundesliga','fra.1':'ligue1','usa.1':'mls','uefa.champions':'champions'};
+
+async function load(liga, nombre){
+  currentLiga=liga;
+  document.getElementById('liga-title').innerText=nombre+' 26/27';
+  document.querySelectorAll('.liga-btn').forEach(b=>b.className='liga-btn bg-zinc-800 px-5 py-2 rounded-full font-bold whitespace-nowrap');
+  event.target.className='liga-btn bg-[#FF4D00] px-5 py-2 rounded-full font-bold whitespace-nowrap';
+
+  // INTENTO CARGAR JSON LOCAL (TU AUTOMATIZACION)
+  let file = mapFiles[liga]||'laliga';
+  try{
+    let r = await fetch(`./${file}-data.json?t=${Date.now()}`); let j=await r.json();
+    document.getElementById('upd').innerText='Act: '+j.actualizado;
+    document.getElementById('tabla').innerHTML=j.tabla.map(t=>`
+      <div class="flex items-center justify-between bg-[#1E1E1E] p-3 rounded-xl">
+        <div class="flex items-center gap-3"><span class="w-6 font-black text-zinc-500">${t.pos}</span><img src="${t.logo}" class="w-7 h-7"><span class="font-bold">${t.team}</span></div>
+        <div class="flex gap-4 text-sm"><span class="text-zinc-400">${t.pj} PJ</span><span class="font-black text-[#FF4D00]">${t.pts} PTS</span></div>
+      </div>`).join('');
+  }catch(e){ document.getElementById('tabla').innerHTML='Aún no hay datos, el bot está actualizando...'; }
+
+  try{
+    let r2=await fetch(`./${file}-partidos.json?t=${Date.now()}`); let j2=await r2.json();
+    document.getElementById('partidos').innerHTML=j2.partidos.map(p=>`
+      <div class="flex justify-between items-center bg-[#1E1E1E] p-3 rounded-xl text-sm">
+        <div class="flex items-center gap-2"><img src="${p.logoLocal}" class="w-5 h-5">${p.local}</div>
+        <span class="bg-black px-2 py-1 rounded text-xs">${p.resultado}</span>
+        <div class="flex items-center gap-2">${p.visitante}<img src="${p.logoVisitante}" class="w-5 h-5"></div>
+      </div>`).join('') || 'Aún no hay partidos';
+  }catch(e){}
 }
-function buscar(){
-  let t=document.getElementById('buscador').value.toLowerCase();
-  document.querySelectorAll('.card').forEach(c=>{
-    c.style.display = c.innerText.toLowerCase().includes(t)? 'flex' : 'none';
-  });
-}
-let idx=0;
-let heroImgs=document.querySelectorAll('#hero img');
-let heroDots=document.querySelectorAll('#dots span');
-setInterval(()=>{
-  if(heroImgs.length===0) return;
-  heroImgs[idx].classList.remove('active'); if(heroDots[idx]) heroDots[idx].classList.remove('active');
-  idx=(idx+1)%heroImgs.length;
-  heroImgs[idx].classList.add('active'); if(heroDots[idx]) heroDots[idx].classList.add('active');
-},3500);
-let idx2=0;
-let aboutImgs=document.querySelectorAll('#carouselAbout img');
-let aboutDots=document.querySelectorAll('#dotsAbout span');
-setInterval(()=>{
-  if(aboutImgs.length===0) return;
-  aboutImgs[idx2].classList.remove('active'); if(aboutDots[idx2]) aboutDots[idx2].classList.remove('active');
-  idx2=(idx2+1)%aboutImgs.length;
-  aboutImgs[idx2].classList.add('active'); if(aboutDots[idx2]) aboutDots[idx2].classList.add('active');
-},3000);
+load('esp.1','LaLiga');
+function setLang(){ alert('Siguiente paso: activamos EN. De momento ES.'); }
 </script>
 </body>
 </html>
