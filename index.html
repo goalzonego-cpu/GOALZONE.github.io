@@ -42,22 +42,6 @@ main{max-width:1100px;margin:0 auto 40px;padding:0 24px;display:grid;grid-templa
 #sideMenu h2{display:flex;justify-content:space-between;font-size:18px;font-weight:800;margin-bottom:20px}
 #sideMenu a{display:block;padding:14px 0;border-bottom:1px solid #eee;text-decoration:none;color:#000;font-weight:700;font-size:13px;cursor:pointer}
 #sideMenu a small{display:block;color:#888;font-weight:400;font-size:11px;margin-top:3px}
-
-/* NUEVO - TABLAS LIVE */
-.live-grid{max-width:1100px;margin:0 auto 20px;padding:0 24px;display:grid;grid-template-columns:1fr 1fr;gap:16px}
-.live-table{background:#111;border:1px solid #1a1a1a;border-radius:18px;padding:20px}
-.live-table h3{font-size:16px;font-weight:800;margin-bottom:4px;display:flex;justify-content:space-between;align-items:center}
-.live-table.upd{font-size:10px;color:#666;font-weight:600}
-.tbl{width:100%;border-collapse:collapse;margin-top:12px}
-.tbl th{font-size:10px;color:#666;text-align:left;padding:8px 4px;border-bottom:1px solid #222;text-transform:uppercase}
-.tbl td{font-size:13px;padding:10px 4px;border-bottom:1px solid #1a1a1a}
-.tbl tr.champions{border-left:3px solid #1020ff}
-.tbl tr.europa{border-left:3px solid #ff8a00}
-.tbl tr.descenso{border-left:3px solid #E10600}
-.team-cell{display:flex;align-items:center;gap:8px;font-weight:600}
-.team-cell img{width:22px;height:22px;object-fit:contain}
-@media(max-width:800px){.live-grid{grid-template-columns:1fr}}
-
 .section{max-width:1100px;margin:0 auto 20px;padding:28px 24px;background:#111;border-radius:18px;border:1px solid #1a1a1a}
 .section h2{font-size:20px;font-weight:800;margin-bottom:10px;color:#fff}
 .section p{color:#aaa;font-size:14px;line-height:1.6}
@@ -114,37 +98,24 @@ footer{background:#000;color:#666;text-align:center;padding:40px 20px;border-top
 </div>
 <main id="grid">
 <div class="card card-laliga" data-cat="laliga" onclick="location.href='laliga.html'">
-<span class="badge card-laliga">LaLiga</span>
+<span class="badge">LaLiga</span>
 <img class="league-logo" src="https://a3.espncdn.com/combiner/i?img=%2Fi%2Fleaguelogos%2Fsoccer%2F500%2F15.png">
 <h3>LaLiga EA Sports</h3>
 <p>Resultados, clasificación y última hora del fútbol español.</p>
 </div>
 <div class="card card-champions" data-cat="champions" onclick="location.href='champions.html'">
-<span class="badge card-champions">Champions</span>
+<span class="badge">Champions</span>
 <img class="league-logo" src="https://a3.espncdn.com/combiner/i?img=%2Fi%2Fleaguelogos%2Fsoccer%2F500%2F2.png">
 <h3>Champions League</h3>
 <p>Sorteos, partidos y goles de la máxima competición.</p>
 </div>
 <div class="card card-premier" data-cat="premier" onclick="location.href='premier.html'">
-<span class="badge card-premier">Premier League</span>
+<span class="badge">Premier League</span>
 <img class="league-logo" src="https://a3.espncdn.com/combiner/i?img=%2Fi%2Fleaguelogos%2Fsoccer%2F500%2F23.png">
 <h3>Premier League</h3>
 <p>Toda la acción de Inglaterra con GOALZONE.</p>
 </div>
 </main>
-
-<!-- NUEVO BLOQUE LIVE 26/27 -->
-<div class="live-grid">
-  <div class="live-table" id="box-laliga">
-    <h3>LaLiga 26/27 <span class="upd" id="upd-laliga">cargando...</span></h3>
-    <table class="tbl"><thead><tr><th>#</th><th>Equipo</th><th>PJ</th><th>PTS</th></tr></thead><tbody id="tbl-laliga"></tbody></table>
-  </div>
-  <div class="live-table" id="box-premier">
-    <h3>Premier 26/27 <span class="upd" id="upd-premier">cargando...</span></h3>
-    <table class="tbl"><thead><tr><th>#</th><th>Equipo</th><th>PJ</th><th>PTS</th></tr></thead><tbody id="tbl-premier"></tbody></table>
-  </div>
-</div>
-
 <div class="section" id="redes"><h2>Redes</h2><p>Síguenos en todas nuestras plataformas para no perderte nada.</p><div class="redes"><a href="https://www.tiktok.com/@goalzone_go" target="_blank">TikTok @goalzone_go</a><a href="#">Instagram</a></div></div>
 <div class="section" id="nosotros" style="padding:0;background:transparent;border:none">
   <div class="about-grid">
@@ -160,13 +131,15 @@ footer{background:#000;color:#666;text-align:center;padding:40px 20px;border-top
     </div>
     <div class="carousel-about" id="carouselAbout">
       <div class="tag-about">TikTok @goalzone_go</div>
-      <img class="active" src="tk1.jpg"><img src="tk2.jpg"><img src="tk3.jpg"><img src="tk4.jpg">
+      <img class="active" src="tk1.jpg">
+      <img src="tk2.jpg">
+      <img src="tk3.jpg">
+      <img src="tk4.jpg">
       <div class="dots-about" id="dotsAbout"><span class="active"></span><span></span><span></span><span></span></div>
     </div>
   </div>
 </div>
 <footer><p>© 2026 GOALZONE</p><a class="tiktok-btn" href="https://www.tiktok.com/@goalzone_go" target="_blank">Ver en TikTok @goalzone_go</a></footer>
-
 <script>
 function openMenu(){document.getElementById('sideMenu').classList.add('show');document.getElementById('overlay').classList.add('show')}
 function closeMenu(){document.getElementById('sideMenu').classList.remove('show');document.getElementById('overlay').classList.remove('show')}
@@ -174,46 +147,37 @@ function filtrar(cat){
   closeMenu();
   document.querySelectorAll('.nav-content a').forEach(a=>a.classList.remove('active'));
   let b=document.getElementById('btn-'+cat); if(b) b.classList.add('active');
-  document.querySelectorAll('.card').forEach(c=>{
+  let cards=document.querySelectorAll('.card');
+  cards.forEach(c=>{
     if(cat=='todas' || c.dataset.cat==cat) c.style.display='flex'; else c.style.display='none';
   });
-  document.querySelectorAll('.live-table').forEach(el=>{
-    if(cat=='todas') el.style.display='block';
-    else if(cat=='laliga' && el.id.includes('laliga')) el.style.display='block';
-    else if(cat=='premier' && el.id.includes('premier')) el.style.display='block';
-    else if(cat=='champions') el.style.display='none';
-    else el.style.display= cat=='todas'? 'block' : 'none';
-  });
+  let grid=document.getElementById('grid');
+  if(grid) window.scrollTo({top:grid.offsetTop-100,behavior:'smooth'});
 }
 function buscar(){
   let t=document.getElementById('buscador').value.toLowerCase();
-  document.querySelectorAll('.card,.tbl tr').forEach(c=>{
-    c.style.display = c.innerText.toLowerCase().includes(t)? '' : 'none';
+  document.querySelectorAll('.card').forEach(c=>{
+    c.style.display = c.innerText.toLowerCase().includes(t)? 'flex' : 'none';
   });
 }
-// CARGAR TABLAS REALES 26/27
-async function loadTabla(file, tbodyId, updId){
-  try{
-    let res = await fetch(file+'?t='+Date.now());
-    let data = await res.json();
-    document.getElementById(updId).textContent = data.actualizado || '';
-    let html='';
-    data.tabla.slice(0,10).forEach(row=>{
-      let cls = row.pos<=4? 'champions' : row.pos>=18? 'descenso' : row.pos<=6? 'europa' : '';
-      html+=`<tr class="${cls}"><td>${row.pos}</td><td><div class="team-cell"><img src="${row.logo}">${row.team}</div></td><td>${row.pj}</td><td><b>${row.pts}</b></td></tr>`;
-    });
-    document.getElementById(tbodyId).innerHTML=html;
-  }catch(e){
-    document.getElementById(updId).textContent='sin datos aún';
-  }
-}
-loadTabla('laliga-data.json','tbl-laliga','upd-laliga');
-loadTabla('premier-data.json','tbl-premier','upd-premier');
-
-let idx=0;let heroImgs=document.querySelectorAll('#hero img');let heroDots=document.querySelectorAll('#dots span');
-setInterval(()=>{if(!heroImgs.length) return;heroImgs[idx].classList.remove('active');heroDots[idx].classList.remove('active');idx=(idx+1)%heroImgs.length;heroImgs[idx].classList.add('active');heroDots[idx].classList.add('active');},3500);
-let idx2=0;let aboutImgs=document.querySelectorAll('#carouselAbout img');let aboutDots=document.querySelectorAll('#dotsAbout span');
-setInterval(()=>{if(!aboutImgs.length) return;aboutImgs[idx2].classList.remove('active');aboutDots[idx2].classList.remove('active');idx2=(idx2+1)%aboutImgs.length;aboutImgs[idx2].classList.add('active');aboutDots[idx2].classList.add('active');},3000);
+let idx=0;
+let heroImgs=document.querySelectorAll('#hero img');
+let heroDots=document.querySelectorAll('#dots span');
+setInterval(()=>{
+  if(heroImgs.length===0) return;
+  heroImgs[idx].classList.remove('active'); if(heroDots[idx]) heroDots[idx].classList.remove('active');
+  idx=(idx+1)%heroImgs.length;
+  heroImgs[idx].classList.add('active'); if(heroDots[idx]) heroDots[idx].classList.add('active');
+},3500);
+let idx2=0;
+let aboutImgs=document.querySelectorAll('#carouselAbout img');
+let aboutDots=document.querySelectorAll('#dotsAbout span');
+setInterval(()=>{
+  if(aboutImgs.length===0) return;
+  aboutImgs[idx2].classList.remove('active'); if(aboutDots[idx2]) aboutDots[idx2].classList.remove('active');
+  idx2=(idx2+1)%aboutImgs.length;
+  aboutImgs[idx2].classList.add('active'); if(aboutDots[idx2]) aboutDots[idx2].classList.add('active');
+},3000);
 </script>
 </body>
 </html>
