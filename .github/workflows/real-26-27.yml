@@ -1,4 +1,4 @@
-name: GoalZone 26/27 Clasif + Partidos
+name: real-26-27
 on:
   workflow_dispatch:
   schedule:
@@ -10,57 +10,60 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v5
-      - name: Actualizar datos 26/27
+      - name: update
         run: |
           python3 -m pip install requests -q
-          python3 << 'PY'
-          import requests, json, datetime
-
+          python3 << 'PY' || true
+          import requests, json, datetime, os, traceback
           def get_tabla(liga, archivo):
-              url = f"https://site.api.espn.com/apis/site/v2/sports/soccer/{liga}/standings"
-              print(f"Tabla {liga}: {url}")
-              r = requests.get(url, timeout=20).json()
-              entries = r['children'][0]['standings']['entries']
-              tabla=[]
-              for e in entries:
-                  t=e['team']
-                  tid=t['id']
-                  logo=f"https://a3.espncdn.com/combiner/i?img=%2Fi%2Fteamlogos%2Fsoccer%2F500%2F{tid}.png&w=100&h=100"
-                  s={x['name']:x['value'] for x in e['stats']}
-                  tabla.append({
-                    "pos": int(s.get('rank',0)),
-                    "team": t['displayName'],
-                    "logo": logo,
-                    "pj": int(s.get('gamesPlayed',0)),
-                    "pts": int(s.get('points',0))
-                  })
-              tabla=sorted(tabla,key=lambda x:x['pos'])
-              json.dump({"actualizado": datetime.datetime.now().strftime("%d/%m %H:%M"), "tabla": tabla}, open(archivo,'w',encoding='utf-8'), ensure_ascii=False, indent=2)
-              print(f" -> {len(tabla)} equipos")
+              try:
+                  url = f"https://site.api.espn.com/apis/site/v2/sports/soccer/{liga}/standings"
+                  print(f"Pidiendo tabla {liga}")
+                  r = requests.get(url, timeout=30).json()
+                  entries = r['children'][0]['standings']['entries']
+                  tabla=[]
+                  for e in entries:
+                      t=e['team']; tid=t.get('id','0')
+                      logo=f"https://a3.espncdn.com/combiner/i?img=%2Fi%2Fteamlogos%2Fsoccer%2F500%2F{tid}.png&w=100&h=100"
+                      s={x['name']:x['value'] for x in e.get('stats',[])}
+                      tabla.append({"pos":int(s.get('rank',e.get('rank',0))), "team":t['displayName'], "logo":logo, "pj":int(s.get('gamesPlayed',0)), "pts":int(s.get('points',0))})
+                  tabla=sorted(tabla,key=lambda x:x['pos'])
+                  json.dump({"actualizado": datetime.datetime.now().strftime("%d/%m %H:%M"), "tabla": tabla}, open(archivo,'w',encoding='utf-8'), ensure_ascii=False, indent=2)
+                  print(f"OK {liga} {len(tabla)} equipos")
+              except Exception as ex:
+                  print(f"ERROR tabla {liga}: {ex}")
+                  traceback.print_exc()
+                  if not os.path.exists(archivo):
+                      json.dump({"actualizado":"error","tabla":[]}, open(archivo,'w'), ensure_ascii=False)
 
           def get_partidos(liga, archivo):
-              url = f"https://site.api.espn.com/apis/site/v2/sports/soccer/{liga}/scoreboard"
-              print(f"Partidos {liga}: {url}")
-              r = requests.get(url, timeout=20).json()
-              partidos=[]
-              for ev in r.get('events',[])[:15]: # proximos 15
-                  comp = ev['competitions'][0]
-                  home = comp['competitors'][0] if comp['competitors'][0]['homeAway']=='home' else comp['competitors'][1]
-                  away = comp['competitors'][1] if comp['competitors'][0]['homeAway']=='home' else comp['competitors'][0]
-                  # fecha
-                  fecha = ev.get('date','')[:10]
-                  partidos.append({
-                    "local": home['team']['displayName'],
-                    "logoLocal": f"https://a3.espncdn.com/combiner/i?img=%2Fi%2Fteamlogos%2Fsoccer%2F500%2F{home['team']['id']}.png&w=100&h=100",
-                    "visitante": away['team']['displayName'],
-                    "logoVisitante": f"https://a3.espncdn.com/combiner/i?img=%2Fi%2Fteamlogos%2Fsoccer%2F500%2F{away['team']['id']}.png&w=100&h=100",
-                    "fecha": fecha,
-                    "hora": ev.get('date','')[11:16],
-                    "resultado": f"{home.get('score','-')}-{away.get('score','-')}" if comp['status']['type']['completed'] else "vs",
-                    "estado": comp['status']['type']['description']
-                  })
-              json.dump({"actualizado": datetime.datetime.now().strftime("%d/%m %H:%M"), "partidos": partidos}, open(archivo,'w',encoding='utf-8'), ensure_ascii=False, indent=2)
-              print(f" -> {len(partidos)} partidos")
+              try:
+                  url = f"https://site.api.espn.com/apis/site/v2/sports/soccer/{liga}/scoreboard"
+                  print(f"Pidiendo partidos {liga}")
+                  r = requests.get(url, timeout=30).json()
+                  partidos=[]
+                  for ev in r.get('events',[])[:10]:
+                      comp=ev['competitions'][0]
+                      # local / visitante
+                      c0=comp['competitors'][0]
+                      c1=comp['competitors'][1]
+                      home=c0 if c0['homeAway']=='home' else c1
+                      away=c1 if c0['homeAway']=='home' else c0
+                      partidos.append({
+                        "local": home['team']['displayName'],
+                        "logoLocal": f"https://a3.espncdn.com/combiner/i?img=%2Fi%2Fteamlogos%2Fsoccer%2F500%2F{home['team']['id']}.png&w=100&h=100",
+                        "visitante": away['team']['displayName'],
+                        "logoVisitante": f"https://a3.espncdn.com/combiner/i?img=%2Fi%2Fteamlogos%2Fsoccer%2F500%2F{away['team']['id']}.png&w=100&h=100",
+                        "fecha": ev.get('date','')[:10],
+                        "resultado": f"{home.get('score','')}-{away.get('score','')}" if comp['status']['type']['completed'] else "vs",
+                        "estado": comp['status']['type']['description']
+                      })
+                  json.dump({"partidos":partidos}, open(archivo,'w',encoding='utf-8'), ensure_ascii=False, indent=2)
+                  print(f"OK partidos {liga} {len(partidos)}")
+              except Exception as ex:
+                  print(f"ERROR partidos {liga}: {ex}")
+                  if not os.path.exists(archivo):
+                      json.dump({"partidos":[]}, open(archivo,'w'))
 
           get_tabla('esp.1','laliga-data.json')
           get_tabla('eng.1','premier-data.json')
@@ -71,5 +74,5 @@ jobs:
         run: |
           git config user.name "bot"
           git config user.email "bot@goalzone.com"
-          git add laliga-data.json premier-data.json laliga-partidos.json premier-partidos.json
-          git diff --staged --quiet || (git commit -m "26/27 tabla+partidos" && git push)
+          git add *.json || true
+          git diff --staged --quiet || (git commit -m "auto 26/27" && git push || true)
