@@ -1,81 +1,96 @@
-name: Real 26-27 LaLiga y Premier
+name: GoalZone Real 26-27 FULL
 on:
-  workflow_dispatch:
   schedule:
     - cron: '0 */2 * * *'
-
+  workflow_dispatch:
 permissions:
   contents: write
-
 jobs:
   update:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v5
-
-      - name: Actualiza tablas reales 26/27 - DEBUG
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - run: pip install requests
+      - name: Fetch all 26/27 data
         run: |
-          echo "=== Probando ESPN ==="
-          curl -L -A "Mozilla/5.0" -s https://site.api.espn.com/apis/v2/sports/soccer/esp.1/standings | head -c 500
-          echo ""
-          echo "=== Python ==="
-          python3 - << 'PY'
-          import urllib.request, json, sys
-          from datetime import datetime
+          import requests, json, datetime
 
-          def fetch(league, out):
-              url = f"https://site.api.espn.com/apis/v2/sports/soccer/{league}/standings"
-              print(f"\n--- Bajando {league} desde {url} ---")
-              try:
-                  req = urllib.request.Request(url, headers={'User-Agent': 'Mozilla/5.0', 'Accept': 'application/json'})
-                  with urllib.request.urlopen(req, timeout=30) as r:
-                      raw = r.read().decode()
-                      print(f"OK status, {len(raw)} bytes")
-                      data = json.loads(raw)
-                  # DEBUG estructura
-                  print(f"Keys root: {list(data.keys())}")
-                  if 'children' not in data or not data['children']:
-                      print(f"ERROR: No children en {league}. Data: {str(data)[:1000]}")
-                      return False
-                  entries = data['children'][0]['standings']['entries']
-                  print(f"Equipos encontrados: {len(entries)}")
-                  result = {'actualizado': datetime.utcnow().strftime('%d/%m %H:%M UTC'), 'tabla': []}
-                  for e in entries:
-                      team = e['team']['displayName']
-                      stats = {s['name']: s['value'] for s in e['stats']}
-                      result['tabla'].append({
-                          'pos': int(stats.get('rank', 0)),
-                          'team': team,
-                          'pj': int(stats.get('gamesPlayed', 0)),
-                          'pts': int(stats.get('points', 0)),
-                          'dg': int(stats.get('pointDifferential', 0))
-                      })
-                  result['tabla'] = sorted(result['tabla'], key=lambda x: x['pos'])
-                  with open(out, 'w', encoding='utf-8') as f:
-                      json.dump(result, f, ensure_ascii=False)
-                  print(f"{out} GUARDADO -> 1º {result['tabla'][0]['team']}")
-                  return True
-              except Exception as ex:
-                  import traceback
-                  print(f"FALLO en {league}: {ex}")
-                  traceback.print_exc()
-                  return False
+          def fetch_standings(code, out):
+            url = f"https://site.api.espn.com/apis/v2/sports/soccer/{code}/standings?season=2026"
+            r = requests.get(url, timeout=20).json()
+            tabla = []
+            for entry in r['children'][0]['standings']['entries']:
+              t = entry['team']
+              s = {st['name']: st['value'] for st in entry['stats']}
+              tabla.append({
+                "pos": s.get('rank', 0),
+                "team": t['displayName'],
+                "logo": t.get('logos',[{}])[0].get('href',''),
+                "pj": s.get('gamesPlayed',0),
+                "pts": s.get('points',0),
+                "gf": s.get('pointsFor',0),
+                "gc": s.get('pointsAgainst',0),
+                "dif": s.get('pointDifferential',0)
+              })
+            tabla = sorted(tabla, key=lambda x: x['pos'])
+            with open(out,'w',encoding='utf-8') as f:
+              json.dump({"actualizado": datetime.datetime.utcnow().strftime("%d/%m %H:%M UTC"), "tabla": tabla}, f, ensure_ascii=False, indent=2)
 
-          ok1 = fetch('esp.1', 'laliga-data.json')
-          ok2 = fetch('eng.1', 'premier-data.json')
+          def fetch_scorers(code, out):
+            # Endpoint que SI da goleadores - el v4 statistics
+            try:
+              url = f"https://site.api.espn.com/apis/v4/sports/soccer/{code}/statistics?season=2026"
+              r = requests.get(url, timeout=20).json()
+              leaders = r.get('leaders',{}).get('goals',[]) or r.get('stats',{}).get('goalsLeaders',[])
+              # fallback parsing
+              goleadores=[]
+              for l in leaders[:20]:
+                ath = l.get('athlete', l)
+                goleadores.append({
+                  "jugador": ath.get('displayName',''),
+                  "equipo": l.get('team',{}).get('displayName','') if isinstance(l.get('team'),dict) else '',
+                  "goles": l.get('value', l.get('goals',0)),
+                  "foto": ath.get('headshot',{}).get('href','') if isinstance(ath.get('headshot'),dict) else ''
+                })
+              if goleadores:
+                with open(out,'w',encoding='utf-8') as f:
+                  json.dump({"actualizado": datetime.datetime.utcnow().strftime("%d/%m %H:%M UTC"), "goleadores": goleadores}, f, ensure_ascii=False, indent=2)
+                return
+            except Exception as e:
+              print(f"scorers {code} error {e}")
+            # si falla, crea vacio para no romper web
+            with open(out,'w',encoding='utf-8') as f:
+              json.dump({"actualizado": "no disponible", "goleadores": []}, f)
 
-          if not ok1 or not ok2:
-              print("Uno fallo, pero no rompo el job para que veas el log")
-          PY
+          def fetch_matches(code, out):
+            url = f"https://site.api.espn.com/apis/site/v2/sports/soccer/{code}/scoreboard?dates=20260501-20270531"
+            r = requests.get(url, timeout=20).json()
+            partidos=[]
+            for ev in r.get('events',[])[:15]:
+              comp = ev['competitions'][0]
+              partidos.append({
+                "fecha": ev['date'][:10],
+                "local": comp['competitors'][0]['team']['displayName'],
+                "visitante": comp['competitors'][1]['team']['displayName'],
+                "estado": comp['status']['type']['shortDetail']
+              })
+            with open(out,'w',encoding='utf-8') as f:
+              json.dump({"partidos": partidos}, f, ensure_ascii=False, indent=2)
 
-      - name: Guardar aunque falle
-        if: always()
+          fetch_standings('esp.1','laliga-data.json')
+          fetch_standings('eng.1','premier-data.json')
+          fetch_scorers('esp.1','laliga-goleadores.json')
+          fetch_scorers('eng.1','premier-goleadores.json')
+          fetch_matches('esp.1','laliga-partidos.json')
+          fetch_matches('eng.1','premier-partidos.json')
+
+      - name: Commit
         run: |
-          ls -lh *.json || echo "no hay json"
-          cat laliga-data.json 2>/dev/null | head -c 500 || echo "no laliga"
-          cat premier-data.json 2>/dev/null | head -c 500 || echo "no premier"
-          git config user.name "bot"
-          git config user.email "bot@bot.com"
-          git add laliga-data.json premier-data.json || true
-          git diff --staged --quiet || git commit -m "tablas 26/27" || true
-          git push || echo "push fallo - mira permisos Settings > Actions > Read and write"
+          git config user.name "goalzone-bot"
+          git config user.email "bot@goalzone.com"
+          git add *.json
+          git diff --staged --quiet || git commit -m "update 26/27 full"
+          git push
