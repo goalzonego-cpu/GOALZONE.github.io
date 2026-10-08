@@ -1,1 +1,13 @@
-{"partidos":[]}
+{
+  "partidos": [
+    {
+      "local": "Málaga",
+      "logoLocal": "https://a3.espncdn.com/combiner/i?img=%2Fi%2Fteamlogos%2Fsoccer%2F500%2F99.png&w=100&h=100",
+      "visitante": "Espanyol",
+      "logoVisitante": "https://a3.espncdn.com/combiner/i?img=%2Fi%2Fteamlogos%2Fsoccer%2F500%2F88.png&w=100&h=100",
+      "fecha": "2026-10-09",
+      "resultado": "vs",
+      "estado": "Scheduled"
+    }
+  ]
+}
