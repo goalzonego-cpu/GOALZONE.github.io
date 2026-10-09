@@ -1,0 +1,59 @@
+name: goalzone-5-ligas-26-27
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '0 */3 * * *'
+permissions:
+  contents: write
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+      - run: |
+          pip install requests -q
+          python3 << 'PY'
+          import requests, json, datetime
+          ligas = {
+            'esp.1': 'laliga',
+            'eng.1': 'premier',
+            'fra.1': 'ligue1',
+            'ita.1': 'seriea',
+            'ger.1': 'bundesliga',
+          }
+          for code, name in ligas.items():
+            try:
+              # TABLA ACTUAL - ESPN tiene la misma que Google
+              r = requests.get(f"https://site.api.espn.com/apis/v2/sports/soccer/{code}/standings", timeout=30).json()
+              entries = r['children'][0]['standings']['entries']
+              tabla=[]
+              for e in entries:
+                s={x['name']:x['value'] for x in e['stats']}
+                logo=e['team'].get('logos',[{}])[0].get('href','')
+                tabla.append({"pos":int(s['rank']),"team":e['team']['displayName'],"logo":logo,"pj":int(s['gamesPlayed']),"pts":int(s['points'])})
+              tabla=sorted(tabla,key=lambda x:x['pos'])
+              open(f"{name}-data.json","w",encoding="utf-8").write(json.dumps({"actualizado":datetime.datetime.now().strftime("%d/%m %H:%M"),"tabla":tabla},ensure_ascii=False,indent=2))
+              print(f"OK {name} tabla")
+
+              # PARTIDOS
+              r2 = requests.get(f"https://site.api.espn.com/apis/v2/sports/soccer/{code}/scoreboard", timeout=30).json()
+              partidos=[]
+              for ev in r2.get('events',[])[:12]:
+                comp=ev['competitions'][0]
+                c=comp['competitors']
+                local=next((x['team']['displayName'] for x in c if x['homeAway']=='home'),'?')
+                vis=next((x['team']['displayName'] for x in c if x['homeAway']=='away'),'?')
+                res=f"{c[0].get('score','0')} - {c[1].get('score','0')}" if comp['status']['type']['state']!='pre' else ""
+                hora=ev.get('date','')[11:16]
+                partidos.append({"local":local,"visitante":vis,"hora":hora,"resultado":res})
+              open(f"{name}-partidos.json","w",encoding="utf-8").write(json.dumps({"partidos":partidos},ensure_ascii=False,indent=2))
+              print(f"OK {name} partidos")
+            except Exception as ex:
+              print(f"FAIL {name} {ex}")
+          PY
+      - run: |
+          git config user.name "goalzone-bot"
+          git config user.email "bot@goalzone.com"
+          git add *.json
+          git commit -m "update 26/27 real - clasificaciones Google" || echo "no changes"
+          git push
