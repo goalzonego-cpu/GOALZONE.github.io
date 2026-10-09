@@ -16,13 +16,12 @@ nav{background:#fff;position:sticky;top:0;z-index:10;border-bottom:1px solid #ee
 .nav-content a{cursor:pointer;font-weight:700;color:#888;font-size:12px;letter-spacing:.8px;text-transform:uppercase;padding:18px 0 16px;border-bottom:2px solid transparent;white-space:nowrap;text-decoration:none}
 .nav-content a.active{color:#000;border-bottom:2px solid #E10600}
 
-/* NUEVO - COMPETICIONES */
-.nav-item-wrap{position:relative}
-#btn-comp{color:#000;display:flex;align-items:center;gap:6px}
-#btn-comp.open{color:#000;border-bottom:2px solid #E10600}
-.comp-dropdown{position:absolute;top:48px;left:50%;transform:translateX(-50%);background:#111;border:1px solid #222;border-radius:16px;padding:8px;min-width:210px;display:none;flex-direction:column;box-shadow:0 20px 50px rgba(0,0,0,0.7);z-index:20}
-.comp-dropdown.show{display:flex}
-.comp-dropdown a{color:#fff!important;font-size:12.5px!important;font-weight:700!important;padding:12px 12px!important;border-bottom:none!important;border-radius:10px;display:flex;justify-content:space-between;align-items:center;margin:0}
+/* COMPETICIONES FIX */
+.nav-item-wrap{position:relative;display:flex;align-items:center}
+#btn-comp{color:#000;display:flex;align-items:center;gap:6px;user-select:none}
+.comp-dropdown{position:absolute;top:100%;left:-10px;margin-top:10px;background:#111;border:1px solid #222;border-radius:16px;padding:8px;min-width:220px;display:none;flex-direction:column;box-shadow:0 20px 50px rgba(0,0,0,0.8);z-index:100}
+.comp-dropdown.show{display:flex!important}
+.comp-dropdown a{color:#fff!important;font-size:12.5px!important;font-weight:700!important;padding:12px 12px!important;border-bottom:none!important;border-radius:10px;display:flex;justify-content:space-between;align-items:center;margin:0;text-transform:none;letter-spacing:0}
 .comp-dropdown a:hover{background:#1e1e1e}
 .comp-dropdown a small{background:#222;color:#888;padding:3px 7px;border-radius:100px;font-size:10px}
 
@@ -82,7 +81,7 @@ footer{background:#000;color:#666;text-align:center;padding:40px 20px;border-top
 <div class="nav-content">
 <a id="btn-todas" class="active" onclick="filtrar('todas')">ÚLTIMAS</a>
 <div class="nav-item-wrap" id="compWrap">
-  <a id="btn-comp" onclick="toggleComp()">COMPETICIONES ▼</a>
+  <a id="btn-comp" onclick="toggleComp(event)">COMPETICIONES ▼</a>
   <div class="comp-dropdown" id="compDropdown">
     <a href="laliga.html">LaLiga <small>ESP</small></a>
     <a href="premier.html">Premier League <small>ENG</small></a>
@@ -94,7 +93,7 @@ footer{background:#000;color:#666;text-align:center;padding:40px 20px;border-top
 </div>
 <div class="hamburger" onclick="openMenu()"><span></span><span></span><span></span></div>
 </nav>
-<div id="overlay" onclick="closeMenu();closeComp()"></div>
+<div id="overlay" onclick="closeMenu()"></div>
 <div id="sideMenu">
 <h2>MENÚ <span onclick="closeMenu()" style="cursor:pointer">✕</span></h2>
 <a onclick="filtrar('todas')">ÚLTIMAS <small>Todo</small></a>
@@ -162,17 +161,55 @@ footer{background:#000;color:#666;text-align:center;padding:40px 20px;border-top
 <footer><p>© 2026 GOALZONE</p><a class="tiktok-btn" href="https://www.tiktok.com/@goalzone_go" target="_blank">Ver en TikTok @goalzone_go</a></footer>
 <script>
 function openMenu(){document.getElementById('sideMenu').classList.add('show');document.getElementById('overlay').classList.add('show')}
-function closeMenu(){document.getElementById('sideMenu').classList.remove('show');document.getElementById('overlay').classList.remove('show')}
-function closeComp(){document.getElementById('compDropdown').classList.remove('show');document.getElementById('btn-comp').classList.remove('open')}
-function toggleComp(){
+function closeMenu(){document.getElementById('sideMenu').classList.remove('show');document.getElementById('overlay').classList.remove('show');closeComp()}
+function closeComp(){let d=document.getElementById('compDropdown'); if(d) d.classList.remove('show')}
+function toggleComp(e){
+  if(e) e.stopPropagation();
   let d=document.getElementById('compDropdown');
-  let b=document.getElementById('btn-comp');
   let isOpen=d.classList.contains('show');
-  if(isOpen){closeComp()} else {d.classList.add('show');b.classList.add('open');document.getElementById('overlay').classList.add('show')}
+  closeMenu();
+  if(!isOpen){d.classList.add('show');document.getElementById('overlay').classList.add('show')}
+  else{closeComp();document.getElementById('overlay').classList.remove('show')}
 }
 function filtrar(cat){
   closeMenu();closeComp();
-  document.querySelectorAll('.nav-content > a, #btn-comp').forEach(a=>a.classList.remove('active'));
+  document.querySelectorAll('.nav-content a').forEach(a=>a.classList.remove('active'));
   let b=document.getElementById('btn-'+cat); if(b) b.classList.add('active');
   let cards=document.querySelectorAll('.card');
- 
+  cards.forEach(c=>{
+    if(cat=='todas' || c.dataset.cat==cat) c.style.display='flex'; else c.style.display='none';
+  });
+  let grid=document.getElementById('grid');
+  if(grid) window.scrollTo({top:grid.offsetTop-100,behavior:'smooth'});
+}
+function buscar(){
+  let t=document.getElementById('buscador').value.toLowerCase();
+  document.querySelectorAll('.card').forEach(c=>{
+    c.style.display = c.innerText.toLowerCase().includes(t)? 'flex' : 'none';
+  });
+}
+document.addEventListener('click', (ev)=>{
+  let wrap=document.getElementById('compWrap');
+  if(wrap &&!wrap.contains(ev.target)){closeComp()}
+});
+let idx=0;
+let heroImgs=document.querySelectorAll('#hero img');
+let heroDots=document.querySelectorAll('#dots span');
+setInterval(()=>{
+  if(heroImgs.length===0) return;
+  heroImgs[idx].classList.remove('active'); if(heroDots[idx]) heroDots[idx].classList.remove('active');
+  idx=(idx+1)%heroImgs.length;
+  heroImgs[idx].classList.add('active'); if(heroDots[idx]) heroDots[idx].classList.add('active');
+},3500);
+let idx2=0;
+let aboutImgs=document.querySelectorAll('#carouselAbout img');
+let aboutDots=document.querySelectorAll('#dotsAbout span');
+setInterval(()=>{
+  if(aboutImgs.length===0) return;
+  aboutImgs[idx2].classList.remove('active'); if(aboutDots[idx2]) aboutDots[idx2].classList.remove('active');
+  idx2=(idx2+1)%aboutImgs.length;
+  aboutImgs[idx2].classList.add('active'); if(aboutDots[idx2]) aboutDots[idx2].classList.add('active');
+},3000);
+</script>
+</body>
+</html>
