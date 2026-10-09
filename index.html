@@ -15,16 +15,8 @@ nav{background:#fff;position:sticky;top:0;z-index:10;border-bottom:1px solid #ee
 .nav-content{display:flex;gap:28px;padding:0 24px;overflow:visible;flex:1;align-items:center}
 .nav-content a{cursor:pointer;font-weight:700;color:#888;font-size:12px;letter-spacing:.8px;text-transform:uppercase;padding:18px 0 16px;border-bottom:2px solid transparent;white-space:nowrap;text-decoration:none}
 .nav-content a.active{color:#000;border-bottom:2px solid #E10600}
-
-/* COMPETICIONES FIX IPAD */
-.nav-item-wrap{position:relative;display:flex;align-items:center}
-#btn-comp{color:#000;display:flex;align-items:center;gap:6px;user-select:none;-webkit-tap-highlight-color:transparent}
-.comp-dropdown{position:absolute;top:100%;left:-10px;margin-top:10px;background:#111;border:1px solid #222;border-radius:16px;padding:8px;min-width:230px;display:none;flex-direction:column;box-shadow:0 20px 50px rgba(0,0,0,0.8);z-index:200}
-.comp-dropdown.show{display:flex!important}
-.comp-dropdown a{color:#fff!important;font-size:12.5px!important;font-weight:700!important;padding:12px 12px!important;border-bottom:none!important;border-radius:10px;display:flex;justify-content:space-between;align-items:center;margin:0;text-transform:none;letter-spacing:0}
-.comp-dropdown a:hover{background:#1e1e1e}
-.comp-dropdown a small{background:#222;color:#888;padding:3px 7px;border-radius:100px;font-size:10px}
-
+.nav-item-wrap{display:flex;align-items:center}
+#compSelect{background:#fff;color:#000;font-weight:800;font-size:12px;letter-spacing:.8px;padding:18px 10px;border:none;border-bottom:2px solid transparent;outline:none;cursor:pointer}
 .hamburger{padding:18px 24px;cursor:pointer;display:flex;flex-direction:column;gap:4px}
 .hamburger span{width:22px;height:2px;background:#000;border-radius:2px;display:block}
 .search-wrap{max-width:1100px;margin:28px auto;padding:0 24px}
@@ -45,7 +37,7 @@ main{max-width:1100px;margin:0 auto 40px;padding:0 24px;display:grid;grid-templa
 .league-logo{width:100%;height:110px;object-fit:contain;margin-bottom:18px;background:#f7f7f7;border-radius:14px;padding:12px}
 .card h3{font-size:17px;font-weight:800;margin-bottom:6px;color:#000}
 .card p{color:#777;font-size:13px;line-height:1.4}
-#overlay{position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:15;opacity:0;pointer-events:none;transition:.3s}
+#overlay{position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:20;opacity:0;pointer-events:none;transition:.3s}
 #overlay.show{opacity:1;pointer-events:auto}
 #sideMenu{position:fixed;top:0;right:0;width:300px;height:100%;background:#fff;color:#000;z-index:30;transform:translateX(100%);transition:.3s;padding:24px}
 #sideMenu.show{transform:translateX(0)}
@@ -80,20 +72,20 @@ footer{background:#000;color:#666;text-align:center;padding:40px 20px;border-top
 <nav>
 <div class="nav-content">
 <a id="btn-todas" class="active" onclick="filtrar('todas')">ÚLTIMAS</a>
-<div class="nav-item-wrap" id="compWrap">
-  <a id="btn-comp">COMPETICIONES ▼</a>
-  <div class="comp-dropdown" id="compDropdown">
-    <a href="laliga.html">LaLiga <small>ESP</small></a>
-    <a href="premier.html">Premier League <small>ENG</small></a>
-    <a href="ligue1.html">Ligue 1 <small>FRA</small></a>
-    <a href="seriea.html">Serie A <small>ITA</small></a>
-    <a href="bundesliga.html">Bundesliga <small>GER</small></a>
-  </div>
+<div class="nav-item-wrap">
+  <select id="compSelect" onchange="if(this.value){location.href=this.value}">
+    <option value="">COMPETICIONES ▼</option>
+    <option value="laliga.html">LaLiga</option>
+    <option value="premier.html">Premier League</option>
+    <option value="ligue1.html">Ligue 1</option>
+    <option value="seriea.html">Serie A</option>
+    <option value="bundesliga.html">Bundesliga</option>
+  </select>
 </div>
 </div>
 <div class="hamburger" onclick="openMenu()"><span></span><span></span><span></span></div>
 </nav>
-<div id="overlay"></div>
+<div id="overlay" onclick="closeMenu()"></div>
 <div id="sideMenu">
 <h2>MENÚ <span onclick="closeMenu()" style="cursor:pointer">✕</span></h2>
 <a onclick="filtrar('todas')">ÚLTIMAS <small>Todo</small></a>
@@ -160,71 +152,15 @@ footer{background:#000;color:#666;text-align:center;padding:40px 20px;border-top
 </div>
 <footer><p>© 2026 GOALZONE</p><a class="tiktok-btn" href="https://www.tiktok.com/@goalzone_go" target="_blank">Ver en TikTok @goalzone_go</a></footer>
 <script>
-// --- MENU LATERAL ---
-const sideMenu = document.getElementById('sideMenu');
-const overlay = document.getElementById('overlay');
-const compDropdown = document.getElementById('compDropdown');
-const compWrap = document.getElementById('compWrap');
-const btnComp = document.getElementById('btn-comp');
-
-function openMenu(){
-  closeComp();
-  sideMenu.classList.add('show');
-  overlay.classList.add('show');
-  overlay.onclick = closeMenu;
-}
-function closeMenu(){
-  sideMenu.classList.remove('show');
-  if(!compDropdown.classList.contains('show')){
-    overlay.classList.remove('show');
-    overlay.onclick = null;
-  }
-  closeComp();
-}
-function closeComp(){
-  if(compDropdown) compDropdown.classList.remove('show');
-  if(!sideMenu.classList.contains('show')){
-    overlay.classList.remove('show');
-    overlay.onclick = null;
-  }
-}
-function toggleComp(e){
-  if(e){ e.preventDefault(); e.stopPropagation(); }
-  let isOpen = compDropdown.classList.contains('show');
-  if(isOpen){
-    closeComp();
-  } else {
-    compDropdown.classList.add('show');
-    overlay.classList.add('show');
-    overlay.onclick = closeComp;
-  }
-}
-// Click y Touch para iPad
-btnComp.addEventListener('click', toggleComp);
-btnComp.addEventListener('touchstart', toggleComp, {passive:false});
-
-overlay.addEventListener('click', function(){
-  closeMenu();
-  closeComp();
-});
-
-document.addEventListener('click', function(ev){
-  if(compWrap &&!compWrap.contains(ev.target)){
-    if(compDropdown.classList.contains('show') &&!sideMenu.classList.contains('show')){
-      closeComp();
-    }
-  }
-});
-
+function openMenu(){document.getElementById('sideMenu').classList.add('show');document.getElementById('overlay').classList.add('show')}
+function closeMenu(){document.getElementById('sideMenu').classList.remove('show');document.getElementById('overlay').classList.remove('show')}
 function filtrar(cat){
-  closeMenu(); closeComp();
+  closeMenu();
   document.querySelectorAll('.nav-content a').forEach(a=>a.classList.remove('active'));
   let b=document.getElementById('btn-'+cat); if(b) b.classList.add('active');
   document.querySelectorAll('.card').forEach(c=>{
     c.style.display = (cat=='todas' || c.dataset.cat==cat)? 'flex' : 'none';
   });
-  let grid=document.getElementById('grid');
-  if(grid) window.scrollTo({top:grid.offsetTop-100,behavior:'smooth'});
 }
 function buscar(){
   let t=document.getElementById('buscador').value.toLowerCase();
@@ -232,24 +168,10 @@ function buscar(){
     c.style.display = c.innerText.toLowerCase().includes(t)? 'flex' : 'none';
   });
 }
-let idx=0;
-let heroImgs=document.querySelectorAll('#hero img');
-let heroDots=document.querySelectorAll('#dots span');
-setInterval(()=>{
-  if(!heroImgs.length) return;
-  heroImgs[idx].classList.remove('active'); if(heroDots[idx]) heroDots[idx].classList.remove('active');
-  idx=(idx+1)%heroImgs.length;
-  heroImgs[idx].classList.add('active'); if(heroDots[idx]) heroDots[idx].classList.add('active');
-},3500);
-let idx2=0;
-let aboutImgs=document.querySelectorAll('#carouselAbout img');
-let aboutDots=document.querySelectorAll('#dotsAbout span');
-setInterval(()=>{
-  if(!aboutImgs.length) return;
-  aboutImgs[idx2].classList.remove('active'); if(aboutDots[idx2]) aboutDots[idx2].classList.remove('active');
-  idx2=(idx2+1)%aboutImgs.length;
-  aboutImgs[idx2].classList.add('active'); if(aboutDots[idx2]) aboutDots[idx2].classList.add('active');
-},3000);
+let idx=0;let heroImgs=document.querySelectorAll('#hero img');let heroDots=document.querySelectorAll('#dots span');
+setInterval(()=>{heroImgs[idx].classList.remove('active');heroDots[idx].classList.remove('active');idx=(idx+1)%heroImgs.length;heroImgs[idx].classList.add('active');heroDots[idx].classList.add('active')},3500);
+let idx2=0;let aboutImgs=document.querySelectorAll('#carouselAbout img');let aboutDots=document.querySelectorAll('#dotsAbout span');
+setInterval(()=>{aboutImgs[idx2].classList.remove('active');aboutDots[idx2].classList.remove('active');idx2=(idx2+1)%aboutImgs.length;aboutImgs[idx2].classList.add('active');aboutDots[idx2].classList.add('active')},3000);
 </script>
 </body>
 </html>
