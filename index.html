@@ -9,7 +9,16 @@
 *{box-sizing:border-box;margin:0;padding:0}
 body{font-family:'Inter',Arial,sans-serif;background:#0a0a0a;color:#fff}
 header{background:#000;padding:18px 24px;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid #1a1a1a}
-.logo img{height:38px}
+.logo img{
+  height:72px; /* lo hice 2x más grande */
+  width:auto;
+  transform: scale(1.15);
+  image-rendering: -webkit-optimize-contrast;
+}
+header{
+  padding: 10px 24px !important; /* menos padding arriba para que no se haga gigante el header */
+  height: 78px;
+}
 .tiktok-mini{color:#fff;text-decoration:none;font-size:13px;font-weight:600;border:1px solid #222;padding:8px 14px;border-radius:100px}
 nav{background:#fff;position:sticky;top:0;z-index:10;border-bottom:1px solid #eee;display:flex;align-items:center;justify-content:space-between}
 .nav-content{display:flex;gap:28px;padding:0 24px;overflow:visible;flex:1;align-items:center}
