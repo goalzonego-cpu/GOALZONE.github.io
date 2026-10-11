@@ -17,13 +17,17 @@ nav{background:#fff;position:sticky;top:0;z-index:10;border-bottom:1px solid #ee
 .nav-content a.active{color:#000;border-bottom:2px solid #E10600}
 .nav-item-wrap{display:flex;align-items:center}
 #compSelect{background:#fff;color:#000;font-weight:800;font-size:12px;letter-spacing:.8px;padding:18px 10px;border:none;outline:none;cursor:pointer}
+
+/* BUSCADOR IPAD/DESKTOP - CORREGIDO CON ESPACIO */
 .nav-search{position:relative;display:flex;align-items:center;flex:0 0 420px;max-width:420px;margin-left:auto;margin-right:8px}
 .nav-search input{width:100%;height:40px;padding:0 42px 0 42px;border-radius:100px;border:1.5px solid #E9E9E9;background:#F6F6F7;color:#000;font-size:13.5px;font-weight:500;outline:none;font-family:'Inter',sans-serif}
-.nav-search.icon-search{position:absolute;left:14px;width:17px;height:17px;color:#9A9A9A;pointer-events:none}
-.nav-search.kbd{position:absolute;right:8px;background:#fff;border:1px solid #EDEDED;padding:3px 7px;border-radius:7px;font-size:10px;font-weight:800;color:#9A9A9A}
+.nav-search.icon-search{position:absolute;left:14px;width:17px;height:17px;color:#9A9A9A;pointer-events:none;display:block}
+.nav-search.kbd{position:absolute;right:8px;background:#fff;border:1px solid #EDEDED;padding:3px 7px;border-radius:7px;font-size:10px;font-weight:800;color:#9A9A9A;display:block}
 .nav-search.icon-close{position:absolute;right:12px;width:16px;height:16px;color:#000;cursor:pointer;display:none}
+
 .mobile-lupa-btn{display:none}
-.apple-search{display:none}
+.search-modal{display:none}
+
 .hamburger{padding:18px 12px 18px 8px;cursor:pointer;display:flex;flex-direction:column;gap:4px;flex-shrink:0}
 .hamburger span{width:22px;height:2px;background:#000;border-radius:2px;display:block}
 .hero-wrap{max-width:1100px;margin:0 auto 28px;padding:0 24px}
@@ -72,16 +76,19 @@ footer{background:#000;color:#666;text-align:center;padding:40px 20px;border-top
 .dots-about span{width:6px;height:6px;background:rgba(255,255,255,.4);border-radius:10px}
 .dots-about span.active{background:#fff;width:18px}
 .btn-about{display:inline-block;margin-top:16px;background:#fff;color:#000;padding:12px 22px;border-radius:100px;font-weight:800;text-decoration:none;font-size:13px}
+
 @media(max-width:700px){
 .nav-search{display:none!important}
-.mobile-lupa-btn{display:flex;align-items:center;justify-content:center;width:36px;height:36px;border:none;background:transparent;cursor:pointer;margin-left:auto}
+.mobile-lupa-btn{display:flex;align-items:center;justify-content:center;width:38px;height:38px;border:none;background:transparent;cursor:pointer;margin-left:auto}
 .mobile-lupa-btn svg{width:20px;height:20px;color:#000}
-.apple-search{position:fixed;top:0;left:0;right:0;height:56px;background:#fff;z-index:100;display:flex;align-items:center;padding:0 12px;transform:translateY(-100%);transition:transform.3s ease;box-shadow:0 4px 20px rgba(0,0,0,.08)}
-.apple-search.open{transform:translateY(0)}
-.apple-search.search-inner{flex:1;display:flex;align-items:center;background:#F5F5F7;border-radius:10px;height:36px;padding:0 10px}
-.apple-search.search-inner svg{width:16px;height:16px;color:#8E8E93;margin-right:8px;flex-shrink:0}
-.apple-search.search-inner input{flex:1;border:none;outline:none;background:transparent;font-size:15px;font-family:'Inter',sans-serif;color:#000}
-.apple-search.cancel{margin-left:12px;background:none;border:none;color:#007AFF;font-size:15px;font-weight:400;cursor:pointer}
+ /* MODAL BUSCADOR OSCURO TRANSPARENTE */
+.search-modal{position:fixed;inset:0;background:rgba(0,0,0,.75);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);z-index:100;display:flex;align-items:flex-start;justify-content:center;padding-top:90px;opacity:0;pointer-events:none;transition:.25s}
+.search-modal.open{opacity:1;pointer-events:auto}
+.search-modal.box{background:#111;border:1px solid #222;border-radius:16px;width:92%;max-width:480px;display:flex;align-items:center;padding:14px 16px;box-shadow:0 20px 60px rgba(0,0,0,.6)}
+.search-modal.box svg{width:18px;height:18px;color:#777;flex-shrink:0;margin-right:10px}
+.search-modal.box input{flex:1;background:transparent;border:none;outline:none;color:#fff;font-size:16px;font-weight:500;font-family:'Inter',sans-serif}
+.search-modal.box input::placeholder{color:#666}
+.search-modal.close{margin-left:12px;background:#222;color:#fff;border:none;width:28px;height:28px;border-radius:100px;font-size:14px;cursor:pointer;display:flex;align-items:center;justify-content:center}
 .hero-wrap,.live-ticker-wrap{padding:0 14px}
 .hero{height:190px}
 .about-grid{grid-template-columns:1fr}
@@ -111,18 +118,16 @@ footer{background:#000;color:#666;text-align:center;padding:40px 20px;border-top
   <span class="kbd">⌘K</span>
   <svg class="icon-close" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6 6 18M6 6l12 12"/></svg>
 </div>
-<button class="mobile-lupa-btn" id="mobileLupaBtn" aria-label="Buscar">
-  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="6"/><path d="m21 21-4.3-4.3"/></svg>
-</button>
+<button class="mobile-lupa-btn" id="mobileLupaBtn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="6"/><path d="m21 21-4.3-4.3"/></svg></button>
 <div class="hamburger" onclick="openMenu()"><span></span><span></span><span></span></div>
 </nav>
 
-<div class="apple-search" id="appleSearch">
-  <div class="search-inner">
+<div class="search-modal" id="searchModal">
+  <div class="box">
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="6"/><path d="m21 21-4.3-4.3"/></svg>
     <input id="buscadorMobile" type="text" placeholder="Buscar equipo, liga, jugador..." onkeyup="document.getElementById('buscador').value=this.value;buscar()">
+    <button class="close" id="closeSearch">✕</button>
   </div>
-  <button class="cancel" id="appleClose">Cancelar</button>
 </div>
 
 <div id="overlay" onclick="closeMenu()"></div>
@@ -182,11 +187,12 @@ function closeMenu(){document.getElementById('sideMenu').classList.remove('show'
 function filtrar(cat){closeMenu();document.querySelectorAll('.nav-content a').forEach(a=>a.classList.remove('active'));let b=document.getElementById('btn-'+cat); if(b) b.classList.add('active');}
 function buscar(){}
 const mobileLupaBtn=document.getElementById('mobileLupaBtn');
-const appleSearch=document.getElementById('appleSearch');
-const appleClose=document.getElementById('appleClose');
+const searchModal=document.getElementById('searchModal');
+const closeSearch=document.getElementById('closeSearch');
 const buscadorMobile=document.getElementById('buscadorMobile');
-mobileLupaBtn.addEventListener('click',()=>{appleSearch.classList.add('open');setTimeout(()=>buscadorMobile.focus(),100)});
-appleClose.addEventListener('click',()=>{appleSearch.classList.remove('open');buscadorMobile.value='';document.getElementById('buscador').value='';});
+mobileLupaBtn.addEventListener('click',()=>{searchModal.classList.add('open');setTimeout(()=>buscadorMobile.focus(),100)});
+closeSearch.addEventListener('click',()=>{searchModal.classList.remove('open');buscadorMobile.value='';document.getElementById('buscador').value=''});
+searchModal.addEventListener('click',(e)=>{if(e.target===searchModal){searchModal.classList.remove('open')}});
 let idx=0;let heroImgs=document.querySelectorAll('#hero img');let heroDots=document.querySelectorAll('#dots span');
 setInterval(()=>{heroImgs[idx].classList.remove('active');heroDots[idx].classList.remove('active');idx=(idx+1)%heroImgs.length;heroImgs[idx].classList.add('active');heroDots[idx].classList.add('active')},3500);
 let idx2=0;let aboutImgs=document.querySelectorAll('#carouselAbout img');let aboutDots=document.querySelectorAll('#dotsAbout span');
