@@ -17,17 +17,13 @@ nav{background:#fff;position:sticky;top:0;z-index:10;border-bottom:1px solid #ee
 .nav-content a.active{color:#000;border-bottom:2px solid #E10600}
 .nav-item-wrap{display:flex;align-items:center}
 #compSelect{background:#fff;color:#000;font-weight:800;font-size:12px;letter-spacing:.8px;padding:18px 10px;border:none;outline:none;cursor:pointer}
-
-/* BUSCADOR IPAD/DESKTOP - CORREGIDO CON ESPACIO */
 .nav-search{position:relative;display:flex;align-items:center;flex:0 0 420px;max-width:420px;margin-left:auto;margin-right:8px}
 .nav-search input{width:100%;height:40px;padding:0 42px 0 42px;border-radius:100px;border:1.5px solid #E9E9E9;background:#F6F6F7;color:#000;font-size:13.5px;font-weight:500;outline:none;font-family:'Inter',sans-serif}
-.nav-search.icon-search{position:absolute;left:14px;width:17px;height:17px;color:#9A9A9A;pointer-events:none;display:block}
-.nav-search.kbd{position:absolute;right:8px;background:#fff;border:1px solid #EDEDED;padding:3px 7px;border-radius:7px;font-size:10px;font-weight:800;color:#9A9A9A;display:block}
+.nav-search.icon-search{position:absolute;left:14px;width:17px;height:17px;color:#9A9A9A;pointer-events:none}
+.nav-search.kbd{position:absolute;right:8px;background:#fff;border:1px solid #EDEDED;padding:3px 7px;border-radius:7px;font-size:10px;font-weight:800;color:#9A9A9A}
 .nav-search.icon-close{position:absolute;right:12px;width:16px;height:16px;color:#000;cursor:pointer;display:none}
-
 .mobile-lupa-btn{display:none}
 .search-modal{display:none}
-
 .hamburger{padding:18px 12px 18px 8px;cursor:pointer;display:flex;flex-direction:column;gap:4px;flex-shrink:0}
 .hamburger span{width:22px;height:2px;background:#000;border-radius:2px;display:block}
 .hero-wrap{max-width:1100px;margin:0 auto 28px;padding:0 24px}
@@ -81,14 +77,20 @@ footer{background:#000;color:#666;text-align:center;padding:40px 20px;border-top
 .nav-search{display:none!important}
 .mobile-lupa-btn{display:flex;align-items:center;justify-content:center;width:38px;height:38px;border:none;background:transparent;cursor:pointer;margin-left:auto}
 .mobile-lupa-btn svg{width:20px;height:20px;color:#000}
- /* MODAL BUSCADOR OSCURO TRANSPARENTE */
-.search-modal{position:fixed;inset:0;background:rgba(0,0,0,.75);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);z-index:100;display:flex;align-items:flex-start;justify-content:center;padding-top:90px;opacity:0;pointer-events:none;transition:.25s}
+.search-modal{position:fixed;inset:0;background:rgba(0,0,0,.92);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);z-index:200;display:flex;flex-direction:column;opacity:0;pointer-events:none;transition:.3s}
 .search-modal.open{opacity:1;pointer-events:auto}
-.search-modal.box{background:#111;border:1px solid #222;border-radius:16px;width:92%;max-width:480px;display:flex;align-items:center;padding:14px 16px;box-shadow:0 20px 60px rgba(0,0,0,.6)}
-.search-modal.box svg{width:18px;height:18px;color:#777;flex-shrink:0;margin-right:10px}
-.search-modal.box input{flex:1;background:transparent;border:none;outline:none;color:#fff;font-size:16px;font-weight:500;font-family:'Inter',sans-serif}
-.search-modal.box input::placeholder{color:#666}
-.search-modal.close{margin-left:12px;background:#222;color:#fff;border:none;width:28px;height:28px;border-radius:100px;font-size:14px;cursor:pointer;display:flex;align-items:center;justify-content:center}
+.search-modal.top{height:56px;display:flex;align-items:center;justify-content:flex-end;padding:0 20px}
+.search-modal.top button{background:none;border:none;color:#fff;font-size:22px;cursor:pointer;width:36px;height:36px;display:flex;align-items:center;justify-content:center}
+.search-modal.main{flex:1;padding:10px 24px 0;overflow-y:auto}
+.search-modal.field{display:flex;align-items:center;gap:12px;padding:8px 0 18px;border-bottom:1px solid #222}
+.search-modal.field svg{width:22px;height:22px;color:#666;flex-shrink:0}
+.search-modal.field input{flex:1;background:transparent;border:none;outline:none;color:#fff;font-size:28px;font-weight:700;letter-spacing:-.5px;font-family:'Inter',sans-serif}
+.search-modal.field input::placeholder{color:#555;font-weight:700}
+.search-modal.links{margin-top:28px}
+.search-modal.links h4{color:#6E6E73;font-size:14px;font-weight:400;margin-bottom:16px}
+.search-modal.links a{display:flex;align-items:center;gap:12px;padding:14px 0;color:#fff;text-decoration:none;font-size:16px;font-weight:600;border-bottom:1px solid #111}
+.search-modal.links a span.arrow{color:#555;font-weight:400;font-size:18px}
+.search-modal.links a b{font-weight:600}
 .hero-wrap,.live-ticker-wrap{padding:0 14px}
 .hero{height:190px}
 .about-grid{grid-template-columns:1fr}
@@ -123,10 +125,21 @@ footer{background:#000;color:#666;text-align:center;padding:40px 20px;border-top
 </nav>
 
 <div class="search-modal" id="searchModal">
-  <div class="box">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="6"/><path d="m21 21-4.3-4.3"/></svg>
-    <input id="buscadorMobile" type="text" placeholder="Buscar equipo, liga, jugador..." onkeyup="document.getElementById('buscador').value=this.value;buscar()">
-    <button class="close" id="closeSearch">✕</button>
+  <div class="top"><button id="closeSearch">✕</button></div>
+  <div class="main">
+    <div class="field">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="6"/><path d="m21 21-4.3-4.3"/></svg>
+      <input id="buscadorMobile" type="text" placeholder="Buscar" onkeyup="document.getElementById('buscador').value=this.value;buscar()" autofocus>
+    </div>
+    <div class="links">
+      <h4>Enlaces rápidos</h4>
+      <a href="laliga.html"><span class="arrow">→</span> <b>LaLiga</b></a>
+      <a href="premier.html"><span class="arrow">→</span> <b>Premier League</b></a>
+      <a href="ligue1.html"><span class="arrow">→</span> <b>Ligue 1</b></a>
+      <a href="seriea.html"><span class="arrow">→</span> <b>Serie A</b></a>
+      <a href="bundesliga.html"><span class="arrow">→</span> <b>Bundesliga</b></a>
+      <a href="acerca.html"><span class="arrow">→</span> <b>Acerca de GOALZONE</b></a>
+    </div>
   </div>
 </div>
 
@@ -190,9 +203,8 @@ const mobileLupaBtn=document.getElementById('mobileLupaBtn');
 const searchModal=document.getElementById('searchModal');
 const closeSearch=document.getElementById('closeSearch');
 const buscadorMobile=document.getElementById('buscadorMobile');
-mobileLupaBtn.addEventListener('click',()=>{searchModal.classList.add('open');setTimeout(()=>buscadorMobile.focus(),100)});
+mobileLupaBtn.addEventListener('click',()=>{searchModal.classList.add('open');setTimeout(()=>buscadorMobile.focus(),150)});
 closeSearch.addEventListener('click',()=>{searchModal.classList.remove('open');buscadorMobile.value='';document.getElementById('buscador').value=''});
-searchModal.addEventListener('click',(e)=>{if(e.target===searchModal){searchModal.classList.remove('open')}});
 let idx=0;let heroImgs=document.querySelectorAll('#hero img');let heroDots=document.querySelectorAll('#dots span');
 setInterval(()=>{heroImgs[idx].classList.remove('active');heroDots[idx].classList.remove('active');idx=(idx+1)%heroImgs.length;heroImgs[idx].classList.add('active');heroDots[idx].classList.add('active')},3500);
 let idx2=0;let aboutImgs=document.querySelectorAll('#carouselAbout img');let aboutDots=document.querySelectorAll('#dotsAbout span');
