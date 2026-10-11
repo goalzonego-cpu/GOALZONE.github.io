@@ -73,23 +73,23 @@ footer{background:#000;color:#666;text-align:center;padding:40px 20px;border-top
 .dots-about span.active{background:#fff;width:18px}
 .btn-about{display:inline-block;margin-top:16px;background:#fff;color:#000;padding:12px 22px;border-radius:100px;font-weight:800;text-decoration:none;font-size:13px}
 
-/* SOLO MOVIL - BUSCADOR APPLE PROFESIONAL */
+/* SOLO MOVIL - APPLE SEARCH ARREGLADO */
 @media(max-width:700px){
 .nav-search{display:none!important}
 .mobile-lupa-btn{display:flex;align-items:center;justify-content:center;width:40px;height:40px;border:none;background:transparent;cursor:pointer;margin-left:auto}
-.mobile-lupa-btn svg{width:21px;height:21px;color:#000}
-.search-modal{position:fixed;inset:0;z-index:200;background:rgba(10,10,10,.88);backdrop-filter:blur(24px) saturate(180%);-webkit-backdrop-filter:blur(24px) saturate(180%);display:flex;flex-direction:column;opacity:0;pointer-events:none;transform:translateY(10px);transition:all.35s cubic-bezier(.32,.72,0,1)}
+.mobile-lupa-btn svg{width:20px;height:20px;color:#000}
+.search-modal{position:fixed;inset:0;z-index:200;background:rgba(0,0,0,.92);backdrop-filter:blur(24px) saturate(180%);-webkit-backdrop-filter:blur(24px) saturate(180%);display:flex;flex-direction:column;opacity:0;pointer-events:none;transform:translateY(12px);transition:all.35s cubic-bezier(.32,.72,0,1)}
 .search-modal.open{opacity:1;pointer-events:auto;transform:translateY(0)}
-.search-modal.top{height:56px;display:flex;align-items:center;justify-content:flex-end;padding:0 22px}
-.search-modal.top button{background:rgba(255,255,255,.14);border:none;width:32px;height:32px;border-radius:100px;color:#fff;font-size:16px;cursor:pointer;display:flex;align-items:center;justify-content:center}
-.search-modal.main{flex:1;padding:10px 24px 0;max-width:700px;margin:0 auto;width:100%}
-.search-modal.field{display:flex;align-items:center;gap:14px;padding:0 0 20px;border-bottom:1px solid rgba(255,255,255,.12)}
+.search-modal.top{height:56px;display:flex;align-items:center;justify-content:flex-end;padding:0 20px}
+.search-modal.top button{background:rgba(255,255,255,.12);border:none;width:30px;height:30px;border-radius:100px;color:#fff;font-size:16px;cursor:pointer;display:flex;align-items:center;justify-content:center}
+.search-modal.main{flex:1;padding:10px 24px 0;overflow-y:auto}
+.search-modal.field{display:flex;align-items:center;gap:14px;padding:0 0 20px;border-bottom:1px solid rgba(255,255,255,.1)}
 .search-modal.field svg{width:22px;height:22px;color:#6e6e73;flex-shrink:0}
-.search-modal.field input{flex:1;background:transparent;border:none;outline:none;color:#fff;font-size:28px;font-weight:700;letter-spacing:-.6px;font-family:'Inter',sans-serif}
+.search-modal.field input{flex:1;background:transparent;border:none;outline:none;color:#fff;font-size:26px;font-weight:700;letter-spacing:-.5px}
 .search-modal.field input::placeholder{color:#6e6e73;font-weight:700}
-.search-modal.links{margin-top:32px}
-.search-modal.links h4{color:#6e6e73;font-size:13px;font-weight:400;margin-bottom:10px}
-.search-modal.links a{display:flex;align-items:center;gap:12px;padding:14px 0;text-decoration:none;color:#f5f5f7;font-size:16px;font-weight:500;border-bottom:1px solid rgba(255,255,255,.06)}
+.search-modal.links{margin-top:30px}
+.search-modal.links h4{color:#6e6e73;font-size:14px;font-weight:400;margin-bottom:12px}
+.search-modal.links a{display:flex;align-items:center;gap:12px;padding:14px 0;text-decoration:none;color:#f5f5f7;font-size:17px;font-weight:500;border-bottom:1px solid rgba(255,255,255,.06)}
 .search-modal.links a.arrow{color:#6e6e73;font-size:16px}
 .hero-wrap,.live-ticker-wrap{padding:0 14px}
 .hero{height:190px}
