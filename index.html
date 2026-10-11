@@ -18,13 +18,13 @@ nav{background:#fff;position:sticky;top:0;z-index:10;border-bottom:1px solid #ee
 .nav-item-wrap{display:flex;align-items:center}
 #compSelect{background:#fff;color:#000;font-weight:800;font-size:12px;letter-spacing:.8px;padding:18px 10px;border:none;border-bottom:2px solid transparent;outline:none;cursor:pointer}
 
-/* BUSCADOR DESKTOP + IPAD - LARGO Y PRO */
+/* BUSCADOR PRO - FIX CON ESPACIO */
 .nav-search{position:relative;display:flex;align-items:center;flex:0 0 440px;max-width:440px;margin-left:auto;margin-right:8px}
 .nav-search input{width:100%;height:40px;padding:0 44px 0 42px;border-radius:100px;border:1.5px solid #E9E9E9;background:#F6F6F7;color:#000;font-size:13.5px;font-weight:500;outline:none;transition:all.2s;font-family:'Inter',sans-serif}
 .nav-search input::placeholder{color:#9A9A9A}
 .nav-search input:focus{background:#fff;border-color:#000;box-shadow:0 0 0 4px rgba(0,0,0,.06)}
-.nav-search.icon-search{position:absolute;left:14px;width:17px;height:17px;color:#9A9A9A;pointer-events:none}
-.nav-search.kbd{position:absolute;right:8px;background:#fff;border:1px solid #EDEDED;border-bottom-width:2px;padding:3px 7px;border-radius:7px;font-size:10px;font-weight:800;color:#9A9A9A}
+.nav-search.icon-search{position:absolute;left:14px;width:17px;height:17px;color:#9A9A9A;pointer-events:none;display:block}
+.nav-search.kbd{position:absolute;right:8px;background:#fff;border:1px solid #EDEDED;border-bottom-width:2px;padding:3px 7px;border-radius:7px;font-size:10px;font-weight:800;color:#9A9A9A;display:block}
 .nav-search.icon-close{position:absolute;right:12px;width:16px;height:16px;color:#000;cursor:pointer;display:none}
 
 .hamburger{padding:18px 12px 18px 8px;cursor:pointer;display:flex;flex-direction:column;gap:4px;flex-shrink:0}
@@ -76,7 +76,7 @@ footer{background:#000;color:#666;text-align:center;padding:40px 20px;border-top
 .dots-about span.active{background:#fff;width:18px}
 .btn-about{display:inline-block;margin-top:16px;background:#fff;color:#000;padding:12px 22px;border-radius:100px;font-weight:800;text-decoration:none;font-size:13px}
 
-/* === MOVIL: SOLO LUPA === */
+/* MOVIL: SOLO LUPA NEGRA */
 @media(max-width:700px){
  nav{height:56px;padding-right:8px}
 .nav-search{flex:0 0 40px;max-width:40px;min-width:40px;height:40px;margin-left:auto;margin-right:6px;background:#F2F2F3;border:1.5px solid #E9E9E9;border-radius:100px;justify-content:center;cursor:pointer}
@@ -84,8 +84,6 @@ footer{background:#000;color:#666;text-align:center;padding:40px 20px;border-top
 .nav-search.kbd{display:none!important}
 .nav-search.icon-search{position:relative;left:auto;color:#000;width:19px;height:19px;display:block}
 .nav-search.icon-close{display:none}
-
- /* CUANDO SE ABRE */
  nav.search-open.nav-content{opacity:0;width:0;flex:0;overflow:hidden;padding:0;pointer-events:none}
  nav.search-open.nav-search{flex:1;max-width:100%;min-width:0;background:transparent;border:none;margin-left:12px}
  nav.search-open.nav-search input{width:100%;opacity:1;pointer-events:auto;position:relative;background:#fff;border:1.5px solid #000;box-shadow:0 0 0 4px rgba(0,0,0,.06);padding-left:42px;padding-right:36px;height:40px}
@@ -117,7 +115,7 @@ footer{background:#000;color:#666;text-align:center;padding:40px 20px;border-top
 </div>
 
 <div class="nav-search" id="navSearch">
-  <svg class="icon-search" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="6"/><path d="m21 21-4.3-4.3"/></svg>
+  <svg class="icon-search" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="11" cy="11" r="6"/><path d="m21 21-4.3-4.3"/></svg>
   <input id="buscador" type="text" placeholder="Buscar equipo, liga, jugador..." onkeyup="buscar()">
   <span class="kbd">⌘K</span>
   <svg class="icon-close" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6 6 18M6 6l12 12"/></svg>
@@ -185,12 +183,10 @@ function openMenu(){document.getElementById('sideMenu').classList.add('show');do
 function closeMenu(){document.getElementById('sideMenu').classList.remove('show');document.getElementById('overlay').classList.remove('show')}
 function filtrar(cat){closeMenu();document.querySelectorAll('.nav-content a').forEach(a=>a.classList.remove('active'));let b=document.getElementById('btn-'+cat); if(b) b.classList.add('active');}
 function buscar(){}
-
 const mainNav=document.getElementById('mainNav');
 const navSearch=document.getElementById('navSearch');
 const buscador=document.getElementById('buscador');
 const iconClose=navSearch.querySelector('.icon-close');
-
 navSearch.addEventListener('click', (e)=>{
   if(window.innerWidth>700) return;
   if(mainNav.classList.contains('search-open')) return;
@@ -198,24 +194,15 @@ navSearch.addEventListener('click', (e)=>{
   mainNav.classList.add('search-open');
   setTimeout(()=>buscador.focus(),50);
 });
-
 iconClose.addEventListener('click', (e)=>{
   e.stopPropagation();
   mainNav.classList.remove('search-open');
   buscador.value='';
 });
-
-document.addEventListener('click', (e)=>{
-  if(window.innerWidth<=700 && mainNav.classList.contains('search-open') &&!mainNav.contains(e.target)){
-    mainNav.classList.remove('search-open');
-  }
-});
-
 let idx=0;let heroImgs=document.querySelectorAll('#hero img');let heroDots=document.querySelectorAll('#dots span');
 setInterval(()=>{heroImgs[idx].classList.remove('active');heroDots[idx].classList.remove('active');idx=(idx+1)%heroImgs.length;heroImgs[idx].classList.add('active');heroDots[idx].classList.add('active')},3500);
 let idx2=0;let aboutImgs=document.querySelectorAll('#carouselAbout img');let aboutDots=document.querySelectorAll('#dotsAbout span');
 setInterval(()=>{aboutImgs[idx2].classList.remove('active');aboutDots[idx2].classList.remove('active');idx2=(idx2+1)%aboutImgs.length;aboutImgs[idx2].classList.add('active');aboutDots[idx2].classList.add('active')},3000);
-
 const LIGAS = {"esp.1":"LaLiga","eng.1":"Premier","ger.1":"Bundes","ita.1":"Serie A","fra.1":"Ligue 1"};
 async function cargarLive(){
   let todos=[];
