@@ -73,24 +73,24 @@ footer{background:#000;color:#666;text-align:center;padding:40px 20px;border-top
 .dots-about span.active{background:#fff;width:18px}
 .btn-about{display:inline-block;margin-top:16px;background:#fff;color:#000;padding:12px 22px;border-radius:100px;font-weight:800;text-decoration:none;font-size:13px}
 
-/* CORREGIDO - APPLE EN MOVIL E IPAD */
+/* APPLE IGUAL QUE TU FOTO - MOVIL E IPAD */
 @media(max-width:1024px){
 .nav-search{display:none!important}
 .mobile-lupa-btn{display:flex;align-items:center;justify-content:center;width:40px;height:40px;border:none;background:transparent;cursor:pointer;margin-left:auto}
 .mobile-lupa-btn svg{width:21px;height:21px;color:#000}
-.search-modal{position:fixed;inset:0;z-index:200;background:rgba(0,0,0,0.92);backdrop-filter:blur(24px) saturate(180%);-webkit-backdrop-filter:blur(24px) saturate(180%);display:flex;flex-direction:column;opacity:0;pointer-events:none;transform:translateY(12px);transition:all.35s cubic-bezier(.32,.72,0,1)}
+.search-modal{position:fixed;inset:0;z-index:200;background:#000;backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);display:flex;flex-direction:column;opacity:0;pointer-events:none;transform:translateY(10px);transition:.3s}
 .search-modal.open{opacity:1;pointer-events:auto;transform:translateY(0)}
-.search-modal.top{height:56px;display:flex;align-items:center;justify-content:flex-end;padding:0 20px}
-.search-modal.top button{background:rgba(255,255,255,.12);border:none;width:32px;height:32px;border-radius:100px;color:#fff;font-size:16px;cursor:pointer;display:flex;align-items:center;justify-content:center}
-.search-modal.main{flex:1;padding:14px 24px 0;max-width:600px;width:100%;margin:0 auto;overflow-y:auto}
-.search-modal.field{display:flex;align-items:center;gap:12px;padding:0 0 20px;border-bottom:1px solid rgba(255,255,255,.12)}
-.search-modal.field svg{width:20px;height:20px;color:#6e6e73;flex-shrink:0}
-.search-modal.field input{flex:1;background:transparent;border:none;outline:none;color:#fff;font-size:28px;font-weight:700;letter-spacing:-.5px;font-family:'Inter',sans-serif}
-.search-modal.field input::placeholder{color:#6e6e73;font-weight:700}
-.search-modal.links{margin-top:28px}
-.search-modal.links h4{color:#6e6e73;font-size:14px;font-weight:400;margin-bottom:12px}
-.search-modal.links a{display:flex;align-items:center;gap:12px;padding:14px 0;text-decoration:none;color:#f5f5f7;font-size:17px;font-weight:500;border-bottom:1px solid rgba(255,255,255,.06)}
-.search-modal.links a.arrow{color:#6e6e73;font-size:15px}
+.search-modal.top{height:60px;display:flex;align-items:center;justify-content:flex-end;padding:0 20px}
+.search-modal.top button{background:transparent;border:none;color:#fff;font-size:22px;font-weight:300;cursor:pointer;width:32px;height:32px}
+.search-modal.main{flex:1;padding:0 32px;max-width:700px;width:100%;margin:0 auto}
+.search-modal.field{display:flex;align-items:center;gap:14px;padding:10px 0 24px}
+.search-modal.field svg{width:22px!important;height:22px!important;color:#6e6e73;flex-shrink:0}
+.search-modal.field input{flex:1;background:transparent;border:none;outline:none;color:#f5f5f7;font-size:29px;font-weight:600;letter-spacing:-.4px}
+.search-modal.field input::placeholder{color:#6e6e73}
+.search-modal.links{margin-top:18px}
+.search-modal.links h4{color:#6e6e73;font-size:15px;font-weight:400;margin-bottom:16px}
+.search-modal.links a{display:flex;align-items:center;gap:10px;padding:12px 0;text-decoration:none;color:#f5f5f7;font-size:17px;font-weight:500}
+.search-modal.links a.arrow{color:#6e6e73;font-size:14px}
 }
 @media(min-width:1025px){
 .mobile-lupa-btn{display:none!important}
@@ -101,6 +101,7 @@ footer{background:#000;color:#666;text-align:center;padding:40px 20px;border-top
 .hero{height:190px}
 .about-grid{grid-template-columns:1fr}
 .carousel-about{height:380px}
+.search-modal.main{padding:0 22px}
 }
 </style>
 </head>
@@ -139,11 +140,11 @@ footer{background:#000;color:#666;text-align:center;padding:40px 20px;border-top
     </div>
     <div class="links">
       <h4>Enlaces rápidos</h4>
-      <a href="laliga.html"><span class="arrow">→</span> LaLiga</a>
-      <a href="premier.html"><span class="arrow">→</span> Premier League</a>
-      <a href="ligue1.html"><span class="arrow">→</span> Ligue 1</a>
-      <a href="seriea.html"><span class="arrow">→</span> Serie A</a>
-      <a href="bundesliga.html"><span class="arrow">→</span> Bundesliga</a>
+      <a href="laliga.html"><span class="arrow">→</span> Encontrar una tienda</a>
+      <a href="premier.html"><span class="arrow">→</span> Accesorios</a>
+      <a href="ligue1.html"><span class="arrow">→</span> AirPods</a>
+      <a href="seriea.html"><span class="arrow">→</span> Apple Intelligence</a>
+      <a href="bundesliga.html"><span class="arrow">→</span> Apple Trade In</a>
       <a href="acerca.html"><span class="arrow">→</span> Acerca de GOALZONE</a>
     </div>
   </div>
