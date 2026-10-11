@@ -11,8 +11,9 @@ body{font-family:'Inter',Arial,sans-serif;background:#0a0a0a;color:#fff;-webkit-
 header{background:#000;padding:10px 24px;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid #1a1a1a;height:78px}
 .logo img{height:72px;width:auto;transform:scale(1.15)}
 .tiktok-mini{color:#fff;text-decoration:none;font-size:13px;font-weight:600;border:1px solid #222;padding:8px 14px;border-radius:100px}
-nav{background:#fff;position:sticky;top:0;z-index:10;border-bottom:1px solid #eee;display:flex;align-items:center;justify-content:space-between;gap:12px;padding-right:12px;height:56px}
-.nav-content{display:flex;gap:28px;padding:0 24px;flex:1;align-items:center}
+nav{background:#fff;position:sticky;top:0;z-index:10;border-bottom:1px solid #eee;display:flex;align-items:center;justify-content:space-between;gap:12px;padding-right:12px;height:56px;transition:transform.3s}
+nav.hide{transform:translateY(-100%);opacity:0;pointer-events:none}
+.nav-content{display:flex;gap:28px;padding:0 24px;flex:1;align-items:center;overflow:visible}
 .nav-content a{cursor:pointer;font-weight:700;color:#888;font-size:12px;letter-spacing:.8px;text-transform:uppercase;padding:18px 0 16px;border-bottom:2px solid transparent;white-space:nowrap;text-decoration:none}
 .nav-content a.active{color:#000;border-bottom:2px solid #E10600}
 .nav-item-wrap{display:flex;align-items:center}
@@ -69,37 +70,35 @@ footer{background:#000;color:#666;text-align:center;padding:40px 20px;border-top
 .dots-about span.active{background:#fff;width:18px}
 .btn-about{display:inline-block;margin-top:16px;background:#fff;color:#000;padding:12px 22px;border-radius:100px;font-weight:800;text-decoration:none;font-size:13px}
 
-/* BUSCADOR ESTILO GOOGLE NEGRO - COMO TU CAPTURA */
-.search-modal{position:fixed;inset:0;z-index:9999;background:#202124;display:flex;flex-direction:column;opacity:0;pointer-events:none;transition:.3s}
+/* BUSCADOR PROFESIONAL - SE VA LO BLANCO */
+.search-modal{position:fixed;inset:0;z-index:9999;background:#0a0a0a;display:flex;flex-direction:column;opacity:0;pointer-events:none;transition:all.3s}
 .search-modal.open{opacity:1;pointer-events:auto}
-.search-modal.top{height:60px;display:flex;align-items:center;justify-content:flex-end;padding:0 20px}
-.search-modal.top button{background:transparent;border:none;color:#e8eaed;font-size:20px;width:36px;height:36px;cursor:pointer}
-.search-modal.main{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:0 20px;margin-top:-80px}
-.google-logo{color:#fff;font-size:52px;font-weight:400;letter-spacing:-2px;margin-bottom:28px;font-family:Arial,sans-serif}
-.google-logo span{font-weight:400}
-.search-box-google{display:flex;align-items:center;gap:12px;width:100%;max-width:560px;height:46px;background:transparent;border:1px solid #5f6368;border-radius:24px;padding:0 16px 0 18px}
-.search-box-google:hover{box-shadow:0 1px 6px rgba(32,33,36,.28);border-color:rgba(223,225,229,0)}
-.search-box-google svg{width:16px;height:16px;color:#9aa0a6;flex-shrink:0}
-.search-box-google input{flex:1;background:transparent;border:none;outline:none;color:#e8eaed;font-size:16px}
-.search-box-google input::placeholder{color:#9aa0a6}
-.google-btns{display:flex;gap:12px;margin-top:28px}
-.google-btns button{background:#303134;border:1px solid #303134;color:#e8eaed;padding:10px 16px;border-radius:4px;font-size:14px;cursor:pointer}
-.google-btns button:hover{border-color:#8ab4f8}
+.search-modal.top{height:78px;display:flex;align-items:center;justify-content:space-between;padding:0 24px;border-bottom:1px solid #1a1a1a;background:#000}
+.search-modal.top.logo-text{font-size:28px;font-weight:800;letter-spacing:-1px;color:#fff}
+.search-modal.top button{background:#1a1a1a;border:1px solid #2a2a2a;color:#fff;width:36px;height:36px;border-radius:100px;cursor:pointer}
+.search-modal.main{flex:1;display:flex;flex-direction:column;align-items:center;padding-top:70px}
+.search-modal.field{display:flex;align-items:center;gap:12px;width:90%;max-width:560px;height:52px;background:#161616;border:1px solid #2a2a2a;border-radius:100px;padding:0 20px}
+.search-modal.field svg{width:18px;height:18px;color:#666;flex-shrink:0;display:block}
+.search-modal.field input{flex:1;background:transparent;border:none;outline:none;color:#fff;font-size:16px;font-weight:500}
+.search-modal.field input::placeholder{color:#555}
+.search-modal.links{display:flex;gap:8px;margin-top:22px;flex-wrap:wrap;justify-content:center}
+.search-modal.links a{background:#1a1a1a;border:1px solid #2a2a2a;color:#fff;padding:8px 16px;border-radius:100px;text-decoration:none;font-size:13px;font-weight:600}
+.search-modal.links a:hover{background:#222}
+
 @media(max-width:700px){
 .hero-wrap,.live-ticker-wrap{padding:0 14px}
 .hero{height:190px}
 .about-grid{grid-template-columns:1fr}
 .carousel-about{height:380px}
-.google-logo{font-size:38px}
-.search-box-google{max-width:90%}
+.search-modal.main{padding-top:40px}
 }
 </style>
 </head>
 <body>
 <header><div class="logo"><img src="IMG_3855.png" alt="GOALZONE"></div><a class="tiktok-mini" href="https://www.tiktok.com/@goalzone_go" target="_blank">TikTok →</a></header>
-<nav>
+<nav id="mainNav">
 <div class="nav-content">
-<a id="btn-todas" class="active">ÚLTIMAS</a>
+<a id="btn-todas" class="active" onclick="filtrar('todas')">ÚLTIMAS</a>
 <div class="nav-item-wrap">
   <select id="compSelect" onchange="if(this.value){location.href=this.value}">
     <option value="">COMPETICIONES ▼</option>
@@ -115,18 +114,19 @@ footer{background:#000;color:#666;text-align:center;padding:40px 20px;border-top
 <div class="hamburger" onclick="openMenu()"><span></span><span></span><span></span></div>
 </nav>
 
-<!-- BUSCADOR GOOGLE ESTILO -->
 <div class="search-modal" id="searchModal">
-  <div class="top"><button id="closeSearch">✕</button></div>
+  <div class="top"><div class="logo-text">GOALZONE</div><button id="closeSearch">✕</button></div>
   <div class="main">
-    <div class="google-logo">GOALZONE</div>
-    <div class="search-box-google">
+    <div class="field">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="6"/><path d="m21 21-4.3-4.3"/></svg>
-      <input id="buscadorMobile" type="text" placeholder="Buscar en GOALZONE">
+      <input id="buscadorMobile" type="text" placeholder="Buscar en GOALZONE" autocomplete="off">
     </div>
-    <div class="google-btns">
-      <button onclick="location.href='laliga.html'">LaLiga</button>
-      <button onclick="location.href='premier.html'">Premier League</button>
+    <div class="links">
+      <a href="laliga.html">LaLiga</a>
+      <a href="premier.html">Premier League</a>
+      <a href="ligue1.html">Ligue 1</a>
+      <a href="seriea.html">Serie A</a>
+      <a href="bundesliga.html">Bundesliga</a>
     </div>
   </div>
 </div>
@@ -134,14 +134,16 @@ footer{background:#000;color:#666;text-align:center;padding:40px 20px;border-top
 <div id="overlay" onclick="closeMenu()"></div>
 <div id="sideMenu">
 <h2>MENÚ <span onclick="closeMenu()" style="cursor:pointer">✕</span></h2>
-<a>ÚLTIMAS <small>Todo</small></a>
+<a onclick="filtrar('todas')">ÚLTIMAS <small>Todo</small></a>
 <a href="laliga.html">LALIGA <small>EA Sports</small></a>
 <a href="premier.html">PREMIER <small>Premier League</small></a>
 <a href="ligue1.html">LIGUE 1 <small>Francia</small></a>
 <a href="seriea.html">SERIE A <small>Italia</small></a>
 <a href="bundesliga.html">BUNDESLIGA <small>Alemania</small></a>
+<a href="#redes" onclick="closeMenu()">REDES <small>Sociales</small></a>
+<a href="acerca.html">ACERCA DE NOSOTROS <small>Quiénes somos</small></a>
+<a href="contacto.html">CONTACTO <small>Goalzone.go@gmail.com</small></a>
 </div>
-
 <div class="live-ticker-wrap">
   <div class="live-ticker">
     <span class="live-label" id="live-count">● CARGANDO 26/27...</span>
@@ -156,19 +158,53 @@ footer{background:#000;color:#666;text-align:center;padding:40px 20px;border-top
     <div class="hero-dots" id="dots"><span class="active"></span><span></span><span></span></div>
   </div>
 </div>
-<footer><p>© 2026 GOALZONE</p></footer>
-
+<div class="section" id="redes"><h2>Redes</h2><p>Síguenos en todas nuestras plataformas para no perderte nada.</p><div class="redes"><a href="https://www.tiktok.com/@goalzone_go" target="_blank">TikTok @goalzone_go</a><a href="#">Instagram</a></div></div>
+<div class="section" id="nosotros" style="padding:0;background:transparent;border:none">
+  <div class="about-grid">
+    <div class="section" style="margin:0">
+      <div style="display:inline-block;background:#fff;color:#000;padding:5px 12px;border-radius:100px;font-size:10px;font-weight:800;margin-bottom:14px">NUESTRA HISTORIA</div>
+      <div class="about-text">
+        <h2>El fútbol no son solo 90 minutos.</h2>
+        <p><b>Queremos contar el fútbol de una forma diferente, combinando creatividad, objetividad y pasión para que cada aficionado pueda disfrutar, descubrir y opinar sobre este deporte.</b></p>
+        <p>Desde las grandes estrellas hasta las historias que muchas veces pasan desapercibidas, desde Goalzone_go buscamos ir más allá del resultado: analizar, informar y entretener con nuestro estilo único.</p>
+        <p>Porque el fútbol no son solo 90 minutos. Son historias, opiniones, emociones, polémicas, curiosidades y momentos que merecen ser contados.</p>
+      </div>
+      <a class="btn-about" href="acerca.html">Conoce nuestra historia completa →</a>
+    </div>
+    <div class="carousel-about" id="carouselAbout">
+      <div class="tag-about">TikTok @goalzone_go</div>
+      <img class="active" src="tk1.jpg">
+      <img src="tk2.jpg">
+      <img src="tk3.jpg">
+      <img src="tk4.jpg">
+      <div class="dots-about" id="dotsAbout"><span class="active"></span><span></span><span></span><span></span></div>
+    </div>
+  </div>
+</div>
+<footer><p>© 2026 GOALZONE</p><a class="tiktok-btn" href="https://www.tiktok.com/@goalzone_go" target="_blank">Ver en TikTok @goalzone_go</a></footer>
 <script>
 function openMenu(){document.getElementById('sideMenu').classList.add('show');document.getElementById('overlay').classList.add('show')}
 function closeMenu(){document.getElementById('sideMenu').classList.remove('show');document.getElementById('overlay').classList.remove('show')}
+function filtrar(cat){closeMenu();document.querySelectorAll('.nav-content a').forEach(a=>a.classList.remove('active'));let b=document.getElementById('btn-'+cat); if(b) b.classList.add('active');}
+const mainNav=document.getElementById('mainNav');
 const mobileLupaBtn=document.getElementById('mobileLupaBtn');
 const searchModal=document.getElementById('searchModal');
 const closeSearch=document.getElementById('closeSearch');
 const buscadorMobile=document.getElementById('buscadorMobile');
-mobileLupaBtn.addEventListener('click',()=>{searchModal.classList.add('open');setTimeout(()=>buscadorMobile.focus(),100)});
-closeSearch.addEventListener('click',()=>{searchModal.classList.remove('open')});
+mobileLupaBtn.addEventListener('click',()=>{
+  searchModal.classList.add('open');
+  mainNav.classList.add('hide');
+  setTimeout(()=>buscadorMobile.focus(),100)
+});
+closeSearch.addEventListener('click',()=>{
+  searchModal.classList.remove('open');
+  mainNav.classList.remove('hide');
+});
+searchModal.addEventListener('click',(e)=>{if(e.target===searchModal){searchModal.classList.remove('open');mainNav.classList.remove('hide')}});
 let idx=0;let heroImgs=document.querySelectorAll('#hero img');let heroDots=document.querySelectorAll('#dots span');
 setInterval(()=>{heroImgs[idx].classList.remove('active');heroDots[idx].classList.remove('active');idx=(idx+1)%heroImgs.length;heroImgs[idx].classList.add('active');heroDots[idx].classList.add('active')},3500);
+let idx2=0;let aboutImgs=document.querySelectorAll('#carouselAbout img');let aboutDots=document.querySelectorAll('#dotsAbout span');
+setInterval(()=>{aboutImgs[idx2].classList.remove('active');aboutDots[idx2].classList.remove('active');idx2=(idx2+1)%aboutImgs.length;aboutImgs[idx2].classList.add('active');aboutDots[idx2].classList.add('active')},3000);
 const LIGAS = {"esp.1":"LaLiga","eng.1":"Premier","ger.1":"Bundes","ita.1":"Serie A","fra.1":"Ligue 1"};
 async function cargarLive(){
   let todos=[];
@@ -181,21 +217,23 @@ async function cargarLive(){
         const comp=ev.competitions[0];
         const home=comp.competitors.find(c=>c.homeAway=='home');
         const away=comp.competitors.find(c=>c.homeAway=='away');
-        todos.push({home:home.team.abbreviation,away:away.team.abbreviation,homeLogo:home.team.logo,awayLogo:away.team.logo,score:`${home.score} - ${away.score}`,clock:comp.status.displayClock || comp.status.type.shortDetail,state:comp.status.type.state,isLive:comp.status.type.state=='in'});
+        todos.push({liga:LIGAS[code],home:home.team.abbreviation,away:away.team.abbreviation,homeLogo:home.team.logo,awayLogo:away.team.logo,score:`${home.score} - ${away.score}`,clock:comp.status.displayClock || comp.status.type.shortDetail,state:comp.status.type.state,isLive:comp.status.type.state=='in'});
       });
     }catch(e){}
   }
   const live=todos.filter(x=>x.isLive);
-  const proximos=todos.filter(x=>x.state=='pre').slice(0,10);
+  const proximos=todos.filter(x=>x.state=='pre').slice(0,12);
   document.getElementById('live-count').innerText=live.length>0?`● EN DIRECTO (${live.length})`:`● HOY 26/27`;
   let html="";
   if(live.length>0){
-    html+=live.map(p=>`<span class="live-item"><span class="dot"></span><img src="${p.homeLogo}">${p.home} <b>${p.score}</b> <img src="${p.awayLogo}">${p.away}</span>`).join('<span class="sep">|</span>');
+    html+=live.map(p=>`<span class="live-item"><span class="dot"></span><img src="${p.homeLogo}">${p.home} <b>${p.score}</b> <img src="${p.awayLogo}">${p.away} <span style="color:#E10600;font-weight:900;font-size:11px">${p.clock}</span></span>`).join('<span class="sep">|</span>');
+    if(proximos.length) html+='<span class="sep">|</span><span style="color:#444;font-size:10px;font-weight:800">PRÓXIMOS</span><span class="sep">|</span>';
   }
-  html+=proximos.map(p=>`<span class="live-item next"><img src="${p.homeLogo}">${p.home} <b>${p.score}</b> <img src="${p.awayLogo}">${p.away}</span>`).join('<span class="sep">|</span>');
-  document.getElementById('live-scroll').innerHTML=html;
+  html+=proximos.map(p=>`<span class="live-item next"><img src="${p.homeLogo}">${p.home} <b>${p.home} - ${p.away}</b> <img src="${p.awayLogo}">${p.away} <span style="font-size:10px;color:#555">${p.clock}</span></span>`).join('<span class="sep">|</span>');
+  document.getElementById('live-scroll').innerHTML=html || '<span style="color:#666;font-size:12px">Sin partidos hoy</span>';
 }
 cargarLive();
+setInterval(cargarLive,60000);
 </script>
 </body>
 </html>
