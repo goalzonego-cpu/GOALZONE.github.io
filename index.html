@@ -11,7 +11,7 @@ body{font-family:'Inter',Arial,sans-serif;background:#0a0a0a;color:#fff}
 header{background:#000;padding:10px 24px;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid #1a1a1a;height:78px}
 .logo img{height:72px;width:auto;transform:scale(1.15)}
 .tiktok-mini{color:#fff;text-decoration:none;font-size:13px;font-weight:600;border:1px solid #222;padding:8px 14px;border-radius:100px}
-nav{background:#fff;position:sticky;top:0;z-index:10;border-bottom:1px solid #eee;display:flex;align-items:center;justify-content:space-between;gap:12px;padding-right:12px}
+nav{background:#fff;position:sticky;top:0;z-index:10;border-bottom:1px solid #eee;display:flex;align-items:center;justify-content:space-between;gap:12px;padding-right:12px;height:56px}
 .nav-content{display:flex;gap:28px;padding:0 24px;flex:1;align-items:center;overflow:visible}
 .nav-content a{cursor:pointer;font-weight:700;color:#888;font-size:12px;letter-spacing:.8px;text-transform:uppercase;padding:18px 0 16px;border-bottom:2px solid transparent;white-space:nowrap;text-decoration:none}
 .nav-content a.active{color:#000;border-bottom:2px solid #E10600}
@@ -22,9 +22,8 @@ nav{background:#fff;position:sticky;top:0;z-index:10;border-bottom:1px solid #ee
 .nav-search.icon-search{position:absolute;left:14px;width:17px;height:17px;color:#9A9A9A;pointer-events:none}
 .nav-search.kbd{position:absolute;right:8px;background:#fff;border:1px solid #EDEDED;padding:3px 7px;border-radius:7px;font-size:10px;font-weight:800;color:#9A9A9A}
 .nav-search.icon-close{position:absolute;right:12px;width:16px;height:16px;color:#000;cursor:pointer;display:none}
-
-/* MOVIL SIMPLE MODERNO */
-.mobile-search-bar{display:none}
+.mobile-lupa-btn{display:none}
+.apple-search{display:none}
 .hamburger{padding:18px 12px 18px 8px;cursor:pointer;display:flex;flex-direction:column;gap:4px;flex-shrink:0}
 .hamburger span{width:22px;height:2px;background:#000;border-radius:2px;display:block}
 .hero-wrap{max-width:1100px;margin:0 auto 28px;padding:0 24px}
@@ -73,16 +72,16 @@ footer{background:#000;color:#666;text-align:center;padding:40px 20px;border-top
 .dots-about span{width:6px;height:6px;background:rgba(255,255,255,.4);border-radius:10px}
 .dots-about span.active{background:#fff;width:18px}
 .btn-about{display:inline-block;margin-top:16px;background:#fff;color:#000;padding:12px 22px;border-radius:100px;font-weight:800;text-decoration:none;font-size:13px}
-
 @media(max-width:700px){
- nav{height:56px}
 .nav-search{display:none!important}
-.mobile-search-bar{display:block;background:#fff;padding:10px 14px}
-.mobile-search-bar.search-wrap{position:relative;display:flex;align-items:center;background:#F5F5F6;border:1px solid #E8E8EA;border-radius:100px;height:44px;padding:0 16px}
-.mobile-search-bar.search-wrap:focus-within{background:#fff;border-color:#000}
-.mobile-search-bar.search-wrap.icon-search{width:16px;height:16px;color:#8A8A8E;flex-shrink:0;margin-right:10px}
-.mobile-search-bar.search-wrap input{flex:1;background:transparent;border:none;outline:none;color:#000;font-size:14px;font-weight:500;font-family:'Inter',sans-serif}
-.mobile-search-bar.search-wrap input::placeholder{color:#9A9AA0}
+.mobile-lupa-btn{display:flex;align-items:center;justify-content:center;width:36px;height:36px;border:none;background:transparent;cursor:pointer;margin-left:auto}
+.mobile-lupa-btn svg{width:20px;height:20px;color:#000}
+.apple-search{position:fixed;top:0;left:0;right:0;height:56px;background:#fff;z-index:100;display:flex;align-items:center;padding:0 12px;transform:translateY(-100%);transition:transform.3s ease;box-shadow:0 4px 20px rgba(0,0,0,.08)}
+.apple-search.open{transform:translateY(0)}
+.apple-search.search-inner{flex:1;display:flex;align-items:center;background:#F5F5F7;border-radius:10px;height:36px;padding:0 10px}
+.apple-search.search-inner svg{width:16px;height:16px;color:#8E8E93;margin-right:8px;flex-shrink:0}
+.apple-search.search-inner input{flex:1;border:none;outline:none;background:transparent;font-size:15px;font-family:'Inter',sans-serif;color:#000}
+.apple-search.cancel{margin-left:12px;background:none;border:none;color:#007AFF;font-size:15px;font-weight:400;cursor:pointer}
 .hero-wrap,.live-ticker-wrap{padding:0 14px}
 .hero{height:190px}
 .about-grid{grid-template-columns:1fr}
@@ -112,14 +111,20 @@ footer{background:#000;color:#666;text-align:center;padding:40px 20px;border-top
   <span class="kbd">⌘K</span>
   <svg class="icon-close" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6 6 18M6 6l12 12"/></svg>
 </div>
+<button class="mobile-lupa-btn" id="mobileLupaBtn" aria-label="Buscar">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="6"/><path d="m21 21-4.3-4.3"/></svg>
+</button>
 <div class="hamburger" onclick="openMenu()"><span></span><span></span><span></span></div>
 </nav>
-<div class="mobile-search-bar">
-  <div class="search-wrap">
-    <svg class="icon-search" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="6"/><path d="m21 21-4.3-4.3"/></svg>
+
+<div class="apple-search" id="appleSearch">
+  <div class="search-inner">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="6"/><path d="m21 21-4.3-4.3"/></svg>
     <input id="buscadorMobile" type="text" placeholder="Buscar equipo, liga, jugador..." onkeyup="document.getElementById('buscador').value=this.value;buscar()">
   </div>
+  <button class="cancel" id="appleClose">Cancelar</button>
 </div>
+
 <div id="overlay" onclick="closeMenu()"></div>
 <div id="sideMenu">
 <h2>MENÚ <span onclick="closeMenu()" style="cursor:pointer">✕</span></h2>
@@ -176,6 +181,12 @@ function openMenu(){document.getElementById('sideMenu').classList.add('show');do
 function closeMenu(){document.getElementById('sideMenu').classList.remove('show');document.getElementById('overlay').classList.remove('show')}
 function filtrar(cat){closeMenu();document.querySelectorAll('.nav-content a').forEach(a=>a.classList.remove('active'));let b=document.getElementById('btn-'+cat); if(b) b.classList.add('active');}
 function buscar(){}
+const mobileLupaBtn=document.getElementById('mobileLupaBtn');
+const appleSearch=document.getElementById('appleSearch');
+const appleClose=document.getElementById('appleClose');
+const buscadorMobile=document.getElementById('buscadorMobile');
+mobileLupaBtn.addEventListener('click',()=>{appleSearch.classList.add('open');setTimeout(()=>buscadorMobile.focus(),100)});
+appleClose.addEventListener('click',()=>{appleSearch.classList.remove('open');buscadorMobile.value='';document.getElementById('buscador').value='';});
 let idx=0;let heroImgs=document.querySelectorAll('#hero img');let heroDots=document.querySelectorAll('#dots span');
 setInterval(()=>{heroImgs[idx].classList.remove('active');heroDots[idx].classList.remove('active');idx=(idx+1)%heroImgs.length;heroImgs[idx].classList.add('active');heroDots[idx].classList.add('active')},3500);
 let idx2=0;let aboutImgs=document.querySelectorAll('#carouselAbout img');let aboutDots=document.querySelectorAll('#dotsAbout span');
