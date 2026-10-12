@@ -26,14 +26,13 @@ nav{background:#fff;position:sticky;top:0;z-index:20;border-bottom:1px solid #ee
 .champ-badge{position:relative;z-index:2;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.15);backdrop-filter:blur(10px);padding:8px 14px;border-radius:100px;font-size:10px;font-weight:800;letter-spacing:1px;display:inline-flex;gap:6px}
 .champ-hero h1{position:relative;z-index:2;font-size:42px;font-weight:900;letter-spacing:-1.5px;line-height:.9;margin-top:12px}
 .champ-hero h1 span{color:#6aa8ff}
-.champ-stars{position:absolute;right:8%;top:50%;transform:translateY(-50%);font-size:120px;opacity:.06;z-index:1}
 .live-ticker-wrap{max-width:1100px;margin:0 auto 18px;padding:0 24px}
 .live-ticker{background:#080e23;border:1px solid #162a54;border-radius:16px;padding:14px 18px;display:flex;align-items:center;gap:16px;overflow-x:auto;scrollbar-width:none}
 .live-ticker::-webkit-scrollbar{display:none}
 .live-label{background:#0a2a6b;color:#fff;font-size:10px;font-weight:900;padding:7px 12px;border-radius:999px;white-space:nowrap}
 .live-scroll{display:flex;gap:20px;align-items:center}
 .live-item{display:flex;align-items:center;gap:7px;font-size:12px;font-weight:700;white-space:nowrap;color:#fff}
-.live-item img{width:18px;height:18px;object-fit:contain;background:#fff;border-radius:50%;padding:2px}
+.live-item img{width:18px!important;height:18px!important;max-width:18px!important;max-height:18px!important;object-fit:contain;background:#fff;border-radius:50%;padding:2px;flex-shrink:0}
 .live-item b{background:#fff;color:#0a1931;padding:3px 7px;border-radius:6px;font-size:11px;min-width:42px;text-align:center}
 .sep{color:#1a2e5a}
 .dot{width:6px;height:6px;background:#3b82f6;border-radius:50%;display:inline-block;animation:pulse 1s infinite}
@@ -46,24 +45,19 @@ nav{background:#fff;position:sticky;top:0;z-index:20;border-bottom:1px solid #ee
 .mini-match{background:#0f1a38;border:1px solid #1c335f;border-radius:12px;padding:10px 10px;display:flex;flex-direction:column;gap:5px}
 .mini-match.live{border-color:#3b82f6;box-shadow:0 0 0 1px rgba(59,130,246,.3), 0 0 18px rgba(59,130,246,.2);background:#10224a}
 .mini-team{height:24px;display:flex;align-items:center;justify-content:space-between;font-size:11px;font-weight:700;line-height:1}
-
-/* FIX ESCUDOS A LA ALTURA DE LA LETRA */
-.mini-team.left{
-  display:flex;
-  align-items:center;
-  gap:8px;
-  line-height:1;
-}
+.mini-team.left{display:flex;align-items:center;gap:8px;line-height:1}
 .mini-team.left img{
-  width:20px;
-  height:20px;
+  width:20px!important;
+  height:20px!important;
+  max-width:20px!important;
+  max-height:20px!important;
+  min-width:20px!important;
+  min-height:20px!important;
   background:#fff;
   border-radius:50%;
   padding:2px;
-  display:block;
-  flex-shrink:0;
   object-fit:contain;
-  vertical-align:middle;
+  flex-shrink:0;
 }
 .mini-team.left span{
   display:flex;
@@ -71,7 +65,6 @@ nav{background:#fff;position:sticky;top:0;z-index:20;border-bottom:1px solid #ee
   height:20px;
   line-height:20px;
 }
-
 .mini-score{font-size:10px;font-weight:800;color:#fff;background:#1a2e5a;padding:2px 6px;border-radius:6px;min-width:18px;text-align:center}
 .mini-footer{display:flex;justify-content:space-between;align-items:center;margin-top:4px}
 .mini-footer.status{font-size:9px;color:#5a7194;font-weight:700;text-transform:uppercase;display:flex;align-items:center;gap:4px}
@@ -81,7 +74,7 @@ nav{background:#fff;position:sticky;top:0;z-index:20;border-bottom:1px solid #ee
 .clasifica-row:last-child{border-bottom:none}
 .clasifica-row.left{display:flex;align-items:center;gap:8px}
 .clasifica-row b{width:16px;text-align:center;color:#7a8db0;font-size:10px}
-.clasifica-row img{width:18px;height:18px;background:#fff;border-radius:50%;padding:2px;object-fit:contain;display:block}
+.clasifica-row img{width:18px!important;height:18px!important;max-width:18px!important;max-height:18px!important;background:#fff;border-radius:50%;padding:2px;object-fit:contain;flex-shrink:0}
 .clasifica-row.pts{background:#162a54;color:#fff;padding:3px 7px;border-radius:6px;font-weight:800;font-size:11px}
 #overlay{position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:20;opacity:0;pointer-events:none;transition:.3s}
 #overlay.show{opacity:1;pointer-events:auto}
@@ -138,7 +131,7 @@ footer{background:#000;color:#666;text-align:center;padding:40px 20px;border-top
 <div class="search-modal" id="searchModal"><div class="search-wrap"><div class="search-bar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="11" cy="11" r="6"/><path d="m21 21-4.3-4.3"/></svg><input id="buscadorMobile" type="text" placeholder="SEARCH" autocomplete="off"><button class="close-x" id="closeSearch">×</button></div><div class="popular-box"><h3>POPULAR SEARCHES</h3><a href="champions.html">champions league</a><a href="laliga.html">laliga</a><a href="premier.html">premier league</a></div></div></div>
 <div id="overlay" onclick="closeMenu()"></div>
 <div id="sideMenu"><h2>MENÚ <span onclick="closeMenu()" style="cursor:pointer">✕</span></h2><a href="index.html">ÚLTIMAS</a><div class="menu-parent" id="ligasParent" onclick="toggleMenu('ligas')">LIGAS <span>+</span></div><div class="menu-sub" id="ligasSub"><a href="laliga.html">LALIGA</a><a href="premier.html">PREMIER</a><a href="ligue1.html">LIGUE 1</a><a href="seriea.html">SERIE A</a><a href="bundesliga.html">BUNDESLIGA</a></div><div class="menu-parent open" id="compParent" onclick="toggleMenu('comp')">COMPETICIONES <span>+</span></div><div class="menu-sub open" id="compSub"><a href="champions.html">CHAMPIONS LEAGUE</a></div></div>
-<div class="champ-hero"><div class="champ-hero-inner"><div style="position:relative;z-index:2"><div class="champ-badge">● UEFA CHAMPIONS LEAGUE 25/26</div><h1>CHAMPIONS<br><span>LEAGUE</span></h1></div><div class="champ-stars">★</div></div></div>
+<div class="champ-hero"><div class="champ-hero-inner"><div style="position:relative;z-index:2"><div class="champ-badge">● UEFA CHAMPIONS LEAGUE 25/26</div><h1>CHAMPIONS<br><span>LEAGUE</span></h1></div></div></div>
 <div class="live-ticker-wrap"><div class="live-ticker"><span class="live-label" id="live-count">● CHAMPIONS</span><div class="live-scroll" id="live-scroll">Cargando...</div></div></div>
 <div class="main-grid"><div class="card"><h2>Partidos <span id="fechaPartidos">--</span></h2><div id="partidosList"></div></div><div class="card"><h2>Clasificación <span>LIVE FASE LIGA</span></h2><div id="clasificaList">Cargando...</div></div></div>
 <footer><p>© 2026 GOALZONE - Champions League</p></footer>
