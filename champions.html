@@ -12,8 +12,7 @@ header{background:#000;padding:10px 24px;display:flex;justify-content:space-betw
 .logo img{height:72px;width:auto;transform:scale(1.15)}
 .tiktok-mini{color:#fff;text-decoration:none;font-size:13px;font-weight:600;border:1px solid #222;padding:8px 14px;border-radius:100px}
 nav{background:#fff;position:sticky;top:0;z-index:20;border-bottom:1px solid #eee;display:flex;align-items:center;justify-content:space-between;gap:12px;padding-right:12px;height:56px}
-.nav-content{display:flex;gap:28px;padding:0 24px;flex:1;align-items:center;overflow-x:auto;scrollbar-width:none}
-.nav-content::-webkit-scrollbar{display:none}
+.nav-content{display:flex;gap:28px;padding:0 24px;flex:1;align-items:center}
 .nav-content a{cursor:pointer;font-weight:700;color:#888;font-size:12px;letter-spacing:.8px;text-transform:uppercase;padding:18px 0 16px;border-bottom:2px solid transparent;white-space:nowrap;text-decoration:none}
 .nav-content a.active{color:#000;border-bottom:2px solid #0a2a6b}
 #compSelect{background:#fff;color:#000;font-weight:800;font-size:12px;letter-spacing:.8px;padding:18px 10px;border:none;outline:none;cursor:pointer}
@@ -22,44 +21,51 @@ nav{background:#fff;position:sticky;top:0;z-index:20;border-bottom:1px solid #ee
 .hamburger{padding:18px 12px 18px 8px;cursor:pointer;display:flex;flex-direction:column;gap:4px;flex-shrink:0}
 .hamburger span{width:22px;height:2px;background:#000;border-radius:2px;display:block}
 
-/* HERO CHAMPIONS */
-.champ-hero{max-width:1100px;margin:18px auto 24px;padding:0 24px}
-.champ-hero-inner{position:relative;height:360px;border-radius:22px;overflow:hidden;background:linear-gradient(135deg,#020617 0%,#0a1931 40%,#12307a 100%);border:1px solid #1a2e5a;display:flex;align-items:center;padding:0 36px}
-.champ-hero-inner::before{content:'';position:absolute;inset:0;background:radial-gradient(600px at 20% 20%,rgba(0,216,255,.15),transparent), radial-gradient(500px at 80% 80%,rgba(18,48,122,.6),transparent)}
-.champ-badge{position:relative;z-index:2;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.15);backdrop-filter:blur(10px);padding:8px 14px;border-radius:100px;font-size:10px;font-weight:800;letter-spacing:1px;display:inline-flex;align-items:center;gap:6px}
-.champ-hero h1{position:relative;z-index:2;font-size:48px;font-weight:900;letter-spacing:-1.5px;line-height:.9;margin-top:14px}
+.champ-hero{max-width:1100px;margin:18px auto 18px;padding:0 24px}
+.champ-hero-inner{position:relative;height:220px;border-radius:22px;overflow:hidden;background:linear-gradient(135deg,#020617 0%,#0a1931 40%,#12307a 100%);border:1px solid #1a2e5a;display:flex;align-items:center;padding:0 36px}
+.champ-hero-inner::before{content:'';position:absolute;inset:0;background:radial-gradient(600px at 20% 20%,rgba(0,216,255,.12),transparent), radial-gradient(500px at 80% 80%,rgba(18,48,122,.6),transparent)}
+.champ-badge{position:relative;z-index:2;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.15);backdrop-filter:blur(10px);padding:8px 14px;border-radius:100px;font-size:10px;font-weight:800;letter-spacing:1px;display:inline-flex;gap:6px}
+.champ-hero h1{position:relative;z-index:2;font-size:44px;font-weight:900;letter-spacing:-1.5px;line-height:.9;margin-top:14px}
 .champ-hero h1 span{color:#6aa8ff}
-.champ-hero p{position:relative;z-index:2;color:#a9b9d6;font-size:14px;margin-top:12px;max-width:460px;line-height:1.6}
-.champ-stars{position:absolute;right:10%;top:50%;transform:translateY(-50%);font-size:180px;opacity:.06;z-index:1;letter-spacing:20px}
+.champ-stars{position:absolute;right:8%;top:50%;transform:translateY(-50%);font-size:140px;opacity:.06;z-index:1}
 
-.live-ticker-wrap{max-width:1100px;margin:0 auto 24px;padding:0 24px}
-.live-ticker{background:#080e23;border:1px solid #162a54;border-radius:16px;padding:14px 18px;display:flex;align-items:center;gap:16px;box-shadow:0 8px 30px rgba(10,42,107,.35), inset 0 0 0 1px rgba(255,255,255,0.05);overflow-x:auto;scrollbar-width:none}
+.live-ticker-wrap{max-width:1100px;margin:0 auto 18px;padding:0 24px}
+.live-ticker{background:#080e23;border:1px solid #162a54;border-radius:16px;padding:14px 18px;display:flex;align-items:center;gap:16px;overflow-x:auto;scrollbar-width:none}
 .live-ticker::-webkit-scrollbar{display:none}
 .live-label{background:#0a2a6b;color:#fff;font-size:10px;font-weight:900;padding:7px 12px;border-radius:999px;white-space:nowrap}
 .live-scroll{display:flex;gap:20px;align-items:center}
-.live-item{display:flex;align-items:center;gap:7px;font-size:13px;font-weight:700;white-space:nowrap;color:#fff}
-.live-item img{width:20px;height:20px;object-fit:contain;background:#fff;border-radius:50%;padding:2px}
-.live-item b{background:#fff;color:#0a1931;padding:3px 7px;border-radius:6px;font-size:12px;min-width:42px;text-align:center}
+.live-item{display:flex;align-items:center;gap:7px;font-size:12px;font-weight:700;white-space:nowrap;color:#fff}
+.live-item img{width:18px;height:18px;object-fit:contain;background:#fff;border-radius:50%;padding:2px}
+.live-item b{background:#fff;color:#0a1931;padding:3px 7px;border-radius:6px;font-size:11px;min-width:42px;text-align:center}
 .sep{color:#1a2e5a}
 .dot{width:6px;height:6px;background:#3b82f6;border-radius:50%;display:inline-block;animation:pulse 1s infinite}
 @keyframes pulse{0%{opacity:1}50%{opacity:.3}100%{opacity:1}}
 
-.main-grid{max-width:1100px;margin:0 auto 28px;padding:0 24px;display:grid;grid-template-columns:1.7fr.9fr;gap:18px}
-.card{background:#0b122a;border:1px solid #162a54;border-radius:18px;padding:20px}
-.card h2{font-size:16px;font-weight:800;margin-bottom:14px;display:flex;align-items:center;justify-content:space-between}
-.card h2 span{font-size:10px;font-weight:700;background:#162a54;padding:5px 10px;border-radius:100px;color:#6aa8ff}
-.match{background:#0f1a38;border:1px solid #1c335f;border-radius:14px;padding:12px 14px;display:flex;align-items:center;justify-content:space-between;margin-bottom:10px}
-.match.teams{display:flex;align-items:center;gap:10px;font-size:13px;font-weight:700}
-.match.teams img{width:22px;height:22px;background:#fff;border-radius:50%;padding:2px}
-.match.score{background:#fff;color:#0a1931;padding:5px 10px;border-radius:8px;font-weight:900;font-size:13px;min-width:52px;text-align:center}
-.match.meta{font-size:10px;color:#7a8db0;font-weight:600;margin-top:2px}
-.match.live{border-color:#3b82f6;box-shadow:0 0 0 1px rgba(59,130,246,.3)}
-.clasifica-row{display:flex;align-items:center;justify-content:space-between;padding:10px 0;border-bottom:1px solid #162a54;font-size:13px}
+/* GRID */
+.main-grid{max-width:1100px;margin:0 auto 28px;padding:0 24px;display:grid;grid-template-columns:1.6fr.9fr;gap:18px}
+.card{background:#0b122a;border:1px solid #162a54;border-radius:18px;padding:18px}
+.card h2{font-size:13px;font-weight:800;margin-bottom:14px;display:flex;align-items:center;justify-content:space-between;letter-spacing:.6px;text-transform:uppercase}
+.card h2 span{font-size:9px;font-weight:700;background:#162a54;padding:5px 10px;border-radius:100px;color:#6aa8ff}
+
+/* PARTIDOS PEQUEÑOS EN COLUMNAS */
+#partidosList{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.mini-match{background:#0f1a38;border:1px solid #1c335f;border-radius:12px;padding:10px 10px;display:flex;flex-direction:column;gap:6px;transition:.2s}
+.mini-match:hover{border-color:#2a4a8a}
+.mini-match.live{border-color:#3b82f6;box-shadow:0 0 0 1px rgba(59,130,246,.25)}
+.mini-team{display:flex;align-items:center;justify-content:space-between;font-size:11px;font-weight:700}
+.mini-team.left{display:flex;align-items:center;gap:6px}
+.mini-team img{width:18px;height:18px;background:#fff;border-radius:50%;padding:2px;flex-shrink:0}
+.mini-score{font-size:10px;font-weight:800;color:#7a8db0;background:#0b122a;padding:3px 6px;border-radius:6px}
+.mini-footer{display:flex;justify-content:space-between;align-items:center;margin-top:2px}
+.mini-footer span{font-size:9px;color:#5a7194;font-weight:600}
+.mini-footer b{font-size:11px;background:#fff;color:#0a1931;padding:3px 8px;border-radius:6px;min-width:38px;text-align:center}
+
+.clasifica-row{display:flex;align-items:center;justify-content:space-between;padding:9px 0;border-bottom:1px solid #162a54;font-size:12px}
 .clasifica-row:last-child{border-bottom:none}
-.clasifica-row.left{display:flex;align-items:center;gap:10px}
-.clasifica-row b{width:18px;text-align:center;color:#7a8db0;font-size:11px}
-.clasifica-row img{width:20px;height:20px;background:#fff;border-radius:50%;padding:2px}
-.clasifica-row.pts{background:#162a54;color:#fff;padding:4px 8px;border-radius:6px;font-weight:800;font-size:12px}
+.clasifica-row.left{display:flex;align-items:center;gap:8px}
+.clasifica-row b{width:16px;text-align:center;color:#7a8db0;font-size:10px}
+.clasifica-row img{width:18px;height:18px;background:#fff;border-radius:50%;padding:2px}
+.clasifica-row.pts{background:#162a54;color:#fff;padding:3px 7px;border-radius:6px;font-weight:800;font-size:11px}
 
 #overlay{position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:20;opacity:0;pointer-events:none;transition:.3s}
 #overlay.show{opacity:1;pointer-events:auto}
@@ -84,15 +90,15 @@ nav{background:#fff;position:sticky;top:0;z-index:20;border-bottom:1px solid #ee
 .popular-box{margin-top:14px;background:#E8E2D9;border-radius:22px;padding:22px 22px 10px}
 .popular-box h3{color:#000;font-size:22px;font-weight:900;margin-bottom:14px}
 .popular-box a{display:block;color:#000;text-decoration:none;font-size:15px;font-weight:700;padding:12px 4px;border-bottom:1px solid rgba(0,0,0,.06)}
-
 footer{background:#000;color:#666;text-align:center;padding:40px 20px;border-top:1px solid #1a1a1a}
-
-@media(max-width:800px){
+@media(max-width:900px){
+#partidosList{grid-template-columns:repeat(2,1fr)}
 .main-grid{grid-template-columns:1fr}
-.champ-hero-inner{height:300px;padding:0 22px}
-.champ-hero h1{font-size:36px}
-.champ-hero,.live-ticker-wrap{padding:0 14px}
-.search-modal{padding-top:16px}
+.champ-hero-inner{height:180px;padding:0 22px}
+.champ-hero h1{font-size:34px}
+}
+@media(max-width:500px){
+#partidosList{grid-template-columns:1fr}
 }
 </style>
 </head>
@@ -101,7 +107,6 @@ footer{background:#000;color:#666;text-align:center;padding:40px 20px;border-top
 <nav>
 <div class="nav-content">
 <a href="index.html">ÚLTIMAS</a>
-<a class="active" href="champions.html">CHAMPIONS</a>
 <select id="compSelect" onchange="if(this.value){location.href=this.value}">
     <option value="">COMPETICIONES ▼</option>
     <option value="champions.html" selected>Champions League</option>
@@ -155,7 +160,6 @@ footer{background:#000;color:#666;text-align:center;padding:40px 20px;border-top
     <div style="position:relative;z-index:2">
       <div class="champ-badge">● UEFA CHAMPIONS LEAGUE 25/26</div>
       <h1>CHAMPIONS<br><span>LEAGUE</span></h1>
-      <p>Resultados en directo, clasificación y próximos partidos de la máxima competición europea. Datos en vivo de ESPN.</p>
     </div>
     <div class="champ-stars">★</div>
   </div>
@@ -163,7 +167,7 @@ footer{background:#000;color:#666;text-align:center;padding:40px 20px;border-top
 
 <div class="live-ticker-wrap">
   <div class="live-ticker">
-    <span class="live-label" id="live-count">● CHAMPIONS EN DIRECTO</span>
+    <span class="live-label" id="live-count">● CHAMPIONS</span>
     <div class="live-scroll" id="live-scroll">Cargando...</div>
   </div>
 </div>
@@ -171,11 +175,11 @@ footer{background:#000;color:#666;text-align:center;padding:40px 20px;border-top
 <div class="main-grid">
   <div class="card">
     <h2>Partidos <span id="fechaPartidos">HOY</span></h2>
-    <div id="partidosList"><p style="color:#7a8db0;font-size:13px">Cargando partidos...</p></div>
+    <div id="partidosList"></div>
   </div>
   <div class="card">
     <h2>Clasificación <span>FASE LIGA</span></h2>
-    <div id="clasificaList"><p style="color:#7a8db0;font-size:13px">Cargando tabla...</p></div>
+    <div id="clasificaList">Cargando...</div>
   </div>
 </div>
 
@@ -201,57 +205,77 @@ async function cargarChampions(){
     const d = await r.json();
     const eventos = d.events || [];
 
-    // Ticker
     const live = eventos.filter(ev=>ev.competitions[0].status.type.state==='in');
     document.getElementById('live-count').innerText = live.length>0? `● EN DIRECTO (${live.length})` : `● CHAMPIONS LEAGUE`;
-    let tickerHtml = eventos.slice(0,8).map(ev=>{
+
+    let tickerHtml = eventos.slice(0,10).map(ev=>{
       const c=ev.competitions[0];
       const h=c.competitors.find(x=>x.homeAway==='home');
       const a=c.competitors.find(x=>x.homeAway==='away');
       const isLive=c.status.type.state==='in';
-      return `<span class="live-item ${isLive?'':''}">${isLive?'<span class="dot"></span>':''}<img src="${h.team.logo}">${h.team.abbreviation} <b>${h.score} - ${a.score}</b> <img src="${a.team.logo}">${a.team.abbreviation} <span style="font-size:10px;color:#6aa8ff">${c.status.displayClock || c.status.type.shortDetail}</span></span>`;
+      return `<span class="live-item">${isLive?'<span class="dot"></span>':''}<img src="${h.team.logo}">${h.team.abbreviation} <b>${h.score} - ${a.score}</b> <img src="${a.team.logo}">${a.team.abbreviation}</span>`;
     }).join('<span class="sep">|</span>');
     document.getElementById('live-scroll').innerHTML = tickerHtml || 'Sin partidos hoy';
 
-    // Partidos lista
+    // Partidos en columnas pequeñas
     let htmlPartidos = eventos.map(ev=>{
       const c=ev.competitions[0];
       const h=c.competitors.find(x=>x.homeAway==='home');
       const a=c.competitors.find(x=>x.homeAway==='away');
       const isLive=c.status.type.state==='in';
-      return `<div class="match ${isLive?'live':''}">
-        <div>
-          <div class="teams"><img src="${h.team.logo}">${h.team.displayName} <span style="color:#7a8db0">vs</span> <img src="${a.team.logo}">${a.team.displayName}</div>
-          <div class="meta">${c.status.type.shortDetail} ${isLive?'<span style="color:#3b82f6">● EN DIRECTO</span>':''}</div>
-        </div>
-        <div class="score">${h.score} - ${a.score}</div>
+      return `<div class="mini-match ${isLive?'live':''}">
+        <div class="mini-team"><div class="left"><img src="${h.team.logo}">${h.team.abbreviation}</div><div class="mini-score">${h.score}</div></div>
+        <div class="mini-team"><div class="left"><img src="${a.team.logo}">${a.team.abbreviation}</div><div class="mini-score">${a.score}</div></div>
+        <div class="mini-footer"><span>${c.status.type.shortDetail}</span><b>${isLive?'LIVE':h.score+' - '+a.score}</b></div>
       </div>`;
     }).join('');
-    document.getElementById('partidosList').innerHTML = htmlPartidos || '<p style="color:#7a8db0">No hay partidos hoy</p>';
+    document.getElementById('partidosList').innerHTML = htmlPartidos || '<p style="color:#7a8db0;font-size:12px">No hay partidos hoy</p>';
     document.getElementById('fechaPartidos').innerText = new Date().toLocaleDateString('es-ES',{day:'2-digit',month:'short'}).toUpperCase();
 
-  }catch(e){document.getElementById('partidosList').innerHTML='Error cargando datos';}
+  }catch(e){document.getElementById('partidosList').innerHTML='Error cargando';}
 }
 
 async function cargarClasificacion(){
   try{
-    const r = await fetch('https://site.api.espn.com/apis/site/v2/sports/soccer/uefa.champions/standings');
-    const d = await r.json();
+    // Intento 1 - API nueva ESPN
+    let r = await fetch('https://site.web.api.espn.com/apis/v2/sports/soccer/uefa.champions/standings');
+    let d = await r.json();
     let entries = [];
-    if(d.children) entries = d.children[0].standings.entries;
-    else if(d.standings) entries = d.standings[0].entries;
+    if(d.standings && d.standings.length){
+      entries = d.standings[0].entries || d.standings;
+    }
+    // Intento 2 - API vieja si falla
+    if(!entries.length){
+      r = await fetch('https://site.api.espn.com/apis/site/v2/sports/soccer/uefa.champions/standings');
+      d = await r.json();
+      if(d.children && d.children[0]) entries = d.children[0].standings.entries || [];
+    }
 
-    let html = entries.slice(0,16).map((e,i)=>{
+    if(!entries.length) throw new Error('sin tabla');
+
+    let html = entries.slice(0,24).map((e,i)=>{
       const team=e.team;
-      const stats=e.stats || [];
-      const get = (name)=>{const s=stats.find(x=>x.name===name); return s? s.value : 0};
+      const logo = team.logos?team.logos[0].href:team.logo;
+      const name = team.abbreviation || team.shortDisplayName || team.displayName;
+      let pts=0,w=0,dw=0,l=0;
+      if(e.stats){
+        e.stats.forEach(s=>{
+          if(s.name==='points' || s.name==='PTS') pts=s.value;
+          if(s.name==='wins' || s.name==='W') w=s.value;
+          if(s.name==='draws' || s.name==='D') dw=s.value;
+          if(s.name==='losses' || s.name==='L') l=s.value;
+          if(s.name==='pointsFor') pts=s.value;
+        });
+      }
       return `<div class="clasifica-row">
-        <div class="left"><b>${i+1}</b><img src="${team.logos?team.logos[0].href:team.logo}">${team.displayName || team.name}</div>
-        <div style="display:flex;gap:12px;align-items:center"><span style="color:#7a8db0;font-size:11px">${get('wins')||get('W')}W ${get('draws')||get('D')}D ${get('losses')||get('L')}L</span><span class="pts">${get('points')||get('PTS')||get('pointsFor')||0} PTS</span></div>
+        <div class="left"><b>${i+1}</b><img src="${logo}"><span style="font-weight:700">${name}</span></div>
+        <div style="display:flex;gap:8px;align-items:center"><span style="color:#5a7194;font-size:10px">${w}W ${dw}D ${l}L</span><span class="pts">${pts} PTS</span></div>
       </div>`;
     }).join('');
-    document.getElementById('clasificaList').innerHTML = html || 'Clasificación no disponible';
-  }catch(e){document.getElementById('clasificaList').innerHTML='Tabla no disponible ahora';}
+    document.getElementById('clasificaList').innerHTML = html;
+  }catch(e){
+    document.getElementById('clasificaList').innerHTML = '<p style="color:#7a8db0;font-size:12px">Clasificación no disponible hoy, la Champions vuelve pronto.</p>';
+  }
 }
 
 cargarChampions();
