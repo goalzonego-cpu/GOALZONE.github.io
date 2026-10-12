@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Champions League - GOALZONE</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap');
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Inter',Arial,sans-serif;background:#020617;color:#fff;-webkit-font-smoothing:antialiased}
+header{background:#000;padding:10px 24px;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid #1a1a1a;height:78px}
+.logo img{height:72px;width:auto;transform:scale(1.15)}
+.tiktok-mini{color:#fff;text-decoration:none;font-size:13px;font-weight:600;border:1px solid #222;padding:8px 14px;border-radius:100px}
+nav{background:#fff;position:sticky;top:0;z-index:20;border-bottom:1px solid #eee;display:flex;align-items:center;justify-content:space-between;gap:12px;padding-right:12px;height:56px}
+.nav-content{display:flex;gap:28px;padding:0 24px;flex:1;align-items:center;overflow-x:auto;scrollbar-width:none}
+.nav-content::-webkit-scrollbar{display:none}
+.nav-content a{cursor:pointer;font-weight:700;color:#888;font-size:12px;letter-spacing:.8px;text-transform:uppercase;padding:18px 0 16px;border-bottom:2px solid transparent;white-space:nowrap;text-decoration:none}
+.nav-content a.active{color:#000;border-bottom:2px solid #0a2a6b}
+#compSelect{background:#fff;color:#000;font-weight:800;font-size:12px;letter-spacing:.8px;padding:18px 10px;border:none;outline:none;cursor:pointer}
+.mobile-lupa-btn{display:flex;align-items:center;justify-content:center;width:40px;height:40px;border:none;background:transparent;cursor:pointer;margin-left:auto}
+.mobile-lupa-btn svg{width:21px;height:21px;color:#000}
+.hamburger{padding:18px 12px 18px 8px;cursor:pointer;display:flex;flex-direction:column;gap:4px;flex-shrink:0}
+.hamburger span{width:22px;height:2px;background:#000;border-radius:2px;display:block}
+
+/* HERO CHAMPIONS */
+.champ-hero{max-width:1100px;margin:18px auto 24px;padding:0 24px}
+.champ-hero-inner{position:relative;height:360px;border-radius:22px;overflow:hidden;background:linear-gradient(135deg,#020617 0%,#0a1931 40%,#12307a 100%);border:1px solid #1a2e5a;display:flex;align-items:center;padding:0 36px}
+.champ-hero-inner::before{content:'';position:absolute;inset:0;background:radial-gradient(600px at 20% 20%,rgba(0,216,255,.15),transparent), radial-gradient(500px at 80% 80%,rgba(18,48,122,.6),transparent)}
+.champ-badge{position:relative;z-index:2;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.15);backdrop-filter:blur(10px);padding:8px 14px;border-radius:100px;font-size:10px;font-weight:800;letter-spacing:1px;display:inline-flex;align-items:center;gap:6px}
+.champ-hero h1{position:relative;z-index:2;font-size:48px;font-weight:900;letter-spacing:-1.5px;line-height:.9;margin-top:14px}
+.champ-hero h1 span{color:#6aa8ff}
+.champ-hero p{position:relative;z-index:2;color:#a9b9d6;font-size:14px;margin-top:12px;max-width:460px;line-height:1.6}
+.champ-stars{position:absolute;right:10%;top:50%;transform:translateY(-50%);font-size:180px;opacity:.06;z-index:1;letter-spacing:20px}
+
+.live-ticker-wrap{max-width:1100px;margin:0 auto 24px;padding:0 24px}
+.live-ticker{background:#080e23;border:1px solid #162a54;border-radius:16px;padding:14px 18px;display:flex;align-items:center;gap:16px;box-shadow:0 8px 30px rgba(10,42,107,.35), inset 0 0 0 1px rgba(255,255,255,0.05);overflow-x:auto;scrollbar-width:none}
+.live-ticker::-webkit-scrollbar{display:none}
+.live-label{background:#0a2a6b;color:#fff;font-size:10px;font-weight:900;padding:7px 12px;border-radius:999px;white-space:nowrap}
+.live-scroll{display:flex;gap:20px;align-items:center}
+.live-item{display:flex;align-items:center;gap:7px;font-size:13px;font-weight:700;white-space:nowrap;color:#fff}
+.live-item img{width:20px;height:20px;object-fit:contain;background:#fff;border-radius:50%;padding:2px}
+.live-item b{background:#fff;color:#0a1931;padding:3px 7px;border-radius:6px;font-size:12px;min-width:42px;text-align:center}
+.sep{color:#1a2e5a}
+.dot{width:6px;height:6px;background:#3b82f6;border-radius:50%;display:inline-block;animation:pulse 1s infinite}
+@keyframes pulse{0%{opacity:1}50%{opacity:.3}100%{opacity:1}}
+
+.main-grid{max-width:1100px;margin:0 auto 28px;padding:0 24px;display:grid;grid-template-columns:1.7fr.9fr;gap:18px}
+.card{background:#0b122a;border:1px solid #162a54;border-radius:18px;padding:20px}
+.card h2{font-size:16px;font-weight:800;margin-bottom:14px;display:flex;align-items:center;justify-content:space-between}
+.card h2 span{font-size:10px;font-weight:700;background:#162a54;padding:5px 10px;border-radius:100px;color:#6aa8ff}
+.match{background:#0f1a38;border:1px solid #1c335f;border-radius:14px;padding:12px 14px;display:flex;align-items:center;justify-content:space-between;margin-bottom:10px}
+.match.teams{display:flex;align-items:center;gap:10px;font-size:13px;font-weight:700}
+.match.teams img{width:22px;height:22px;background:#fff;border-radius:50%;padding:2px}
+.match.score{background:#fff;color:#0a1931;padding:5px 10px;border-radius:8px;font-weight:900;font-size:13px;min-width:52px;text-align:center}
+.match.meta{font-size:10px;color:#7a8db0;font-weight:600;margin-top:2px}
+.match.live{border-color:#3b82f6;box-shadow:0 0 0 1px rgba(59,130,246,.3)}
+.clasifica-row{display:flex;align-items:center;justify-content:space-between;padding:10px 0;border-bottom:1px solid #162a54;font-size:13px}
+.clasifica-row:last-child{border-bottom:none}
+.clasifica-row.left{display:flex;align-items:center;gap:10px}
+.clasifica-row b{width:18px;text-align:center;color:#7a8db0;font-size:11px}
+.clasifica-row img{width:20px;height:20px;background:#fff;border-radius:50%;padding:2px}
+.clasifica-row.pts{background:#162a54;color:#fff;padding:4px 8px;border-radius:6px;font-weight:800;font-size:12px}
+
+#overlay{position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:20;opacity:0;pointer-events:none;transition:.3s}
+#overlay.show{opacity:1;pointer-events:auto}
+#sideMenu{position:fixed;top:0;right:0;width:320px;height:100%;background:#fff;color:#000;z-index:30;transform:translateX(100%);transition:.3s;padding:24px;overflow-y:auto}
+#sideMenu.show{transform:translateX(0)}
+#sideMenu h2{display:flex;justify-content:space-between;font-size:18px;font-weight:800;margin-bottom:20px}
+#sideMenu a{display:block;padding:14px 0;border-bottom:1px solid #eee;text-decoration:none;color:#000;font-weight:700;font-size:13px}
+.menu-parent{display:flex;justify-content:space-between;align-items:center;cursor:pointer;padding:14px 0;border-bottom:1px solid #eee;font-weight:700;font-size:13px}
+.menu-parent span{font-size:18px;transition:.2s}
+.menu-parent.open span{transform:rotate(45deg)}
+.menu-sub{max-height:0;overflow:hidden;transition:max-height.3s ease;background:#fafafa;border-radius:12px}
+.menu-sub.open{max-height:400px;margin-top:8px;margin-bottom:8px}
+.menu-sub a{padding:12px 16px!important;font-size:12px!important;border-bottom:1px solid #eee!important}
+
+.search-modal{position:fixed;inset:0;z-index:9999;background:rgba(0,0,0,.75);backdrop-filter:blur(12px);display:flex;justify-content:center;align-items:flex-start;padding-top:88px;opacity:0;pointer-events:none;transition:all.25s}
+.search-modal.open{opacity:1;pointer-events:auto}
+.search-wrap{width:90%;max-width:640px}
+.search-bar{width:100%;height:52px;background:#E8E2D9;border-radius:100px;display:flex;align-items:center;padding:0 18px;gap:14px}
+.search-bar svg{width:20px;height:20px;color:#000}
+.search-bar input{flex:1;background:transparent;border:none;outline:none;color:#000;font-size:14px;font-weight:700;text-transform:uppercase}
+.close-x{width:28px;height:28px;display:flex;align-items:center;justify-content:center;cursor:pointer;color:#000;font-size:22px;background:transparent;border:none}
+.popular-box{margin-top:14px;background:#E8E2D9;border-radius:22px;padding:22px 22px 10px}
+.popular-box h3{color:#000;font-size:22px;font-weight:900;margin-bottom:14px}
+.popular-box a{display:block;color:#000;text-decoration:none;font-size:15px;font-weight:700;padding:12px 4px;border-bottom:1px solid rgba(0,0,0,.06)}
+
+footer{background:#000;color:#666;text-align:center;padding:40px 20px;border-top:1px solid #1a1a1a}
+
+@media(max-width:800px){
+.main-grid{grid-template-columns:1fr}
+.champ-hero-inner{height:300px;padding:0 22px}
+.champ-hero h1{font-size:36px}
+.champ-hero,.live-ticker-wrap{padding:0 14px}
+.search-modal{padding-top:16px}
+}
+</style>
+</head>
+<body>
+<header><div class="logo"><a href="index.html"><img src="IMG_3855.png" alt="GOALZONE"></a></div><a class="tiktok-mini" href="https://www.tiktok.com/@goalzone_go" target="_blank">TikTok →</a></header>
+<nav>
+<div class="nav-content">
+<a href="index.html">ÚLTIMAS</a>
+<a class="active" href="champions.html">CHAMPIONS</a>
+<select id="compSelect" onchange="if(this.value){location.href=this.value}">
+    <option value="">COMPETICIONES ▼</option>
+    <option value="champions.html" selected>Champions League</option>
+    <option value="laliga.html">LaLiga</option>
+    <option value="premier.html">Premier League</option>
+    <option value="ligue1.html">Ligue 1</option>
+    <option value="seriea.html">Serie A</option>
+    <option value="bundesliga.html">Bundesliga</option>
+  </select>
+</div>
+<button class="mobile-lupa-btn" id="mobileLupaBtn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="6"/><path d="m21 21-4.3-4.3"/></svg></button>
+<div class="hamburger" onclick="openMenu()"><span></span><span></span><span></span></div>
+</nav>
+
+<div class="search-modal" id="searchModal">
+  <div class="search-wrap">
+    <div class="search-bar">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="11" cy="11" r="6"/><path d="m21 21-4.3-4.3"/></svg>
+      <input id="buscadorMobile" type="text" placeholder="SEARCH" autocomplete="off">
+      <button class="close-x" id="closeSearch">×</button>
+    </div>
+    <div class="popular-box">
+      <h3>POPULAR SEARCHES</h3>
+      <a href="champions.html">champions league</a>
+      <a href="laliga.html">laliga</a>
+      <a href="premier.html">premier league</a>
+    </div>
+  </div>
+</div>
+
+<div id="overlay" onclick="closeMenu()"></div>
+<div id="sideMenu">
+<h2>MENÚ <span onclick="closeMenu()" style="cursor:pointer">✕</span></h2>
+<a href="index.html">ÚLTIMAS <small>Todo</small></a>
+<div class="menu-parent" id="ligasParent" onclick="toggleMenu('ligas')">LIGAS <span>+</span></div>
+<div class="menu-sub" id="ligasSub">
+  <a href="laliga.html">LALIGA</a>
+  <a href="premier.html">PREMIER</a>
+  <a href="ligue1.html">LIGUE 1</a>
+  <a href="seriea.html">SERIE A</a>
+  <a href="bundesliga.html">BUNDESLIGA</a>
+</div>
+<div class="menu-parent open" id="compParent" onclick="toggleMenu('comp')">COMPETICIONES <span>+</span></div>
+<div class="menu-sub open" id="compSub">
+  <a href="champions.html">CHAMPIONS LEAGUE</a>
+</div>
+</div>
+
+<div class="champ-hero">
+  <div class="champ-hero-inner">
+    <div style="position:relative;z-index:2">
+      <div class="champ-badge">● UEFA CHAMPIONS LEAGUE 25/26</div>
+      <h1>CHAMPIONS<br><span>LEAGUE</span></h1>
+      <p>Resultados en directo, clasificación y próximos partidos de la máxima competición europea. Datos en vivo de ESPN.</p>
+    </div>
+    <div class="champ-stars">★</div>
+  </div>
+</div>
+
+<div class="live-ticker-wrap">
+  <div class="live-ticker">
+    <span class="live-label" id="live-count">● CHAMPIONS EN DIRECTO</span>
+    <div class="live-scroll" id="live-scroll">Cargando...</div>
+  </div>
+</div>
+
+<div class="main-grid">
+  <div class="card">
+    <h2>Partidos <span id="fechaPartidos">HOY</span></h2>
+    <div id="partidosList"><p style="color:#7a8db0;font-size:13px">Cargando partidos...</p></div>
+  </div>
+  <div class="card">
+    <h2>Clasificación <span>FASE LIGA</span></h2>
+    <div id="clasificaList"><p style="color:#7a8db0;font-size:13px">Cargando tabla...</p></div>
+  </div>
+</div>
+
+<footer><p>© 2026 GOALZONE - Champions League</p></footer>
+
+<script>
+function openMenu(){document.getElementById('sideMenu').classList.add('show');document.getElementById('overlay').classList.add('show')}
+function closeMenu(){document.getElementById('sideMenu').classList.remove('show');document.getElementById('overlay').classList.remove('show')}
+function toggleMenu(tipo){
+  const sub=document.getElementById(tipo==='ligas'?'ligasSub':'compSub');
+  const parent=document.getElementById(tipo==='ligas'?'ligasParent':'compParent');
+  sub.classList.toggle('open');
+  parent.classList.toggle('open');
+}
+const searchModal=document.getElementById('searchModal');
+document.getElementById('mobileLupaBtn').addEventListener('click',()=>{searchModal.classList.add('open');setTimeout(()=>document.getElementById('buscadorMobile').focus(),100)});
+document.getElementById('closeSearch').addEventListener('click',()=>searchModal.classList.remove('open'));
+searchModal.addEventListener('click',(e)=>{if(e.target===searchModal) searchModal.classList.remove('open')});
+
+async function cargarChampions(){
+  try{
+    const r = await fetch('https://site.api.espn.com/apis/site/v2/sports/soccer/uefa.champions/scoreboard');
+    const d = await r.json();
+    const eventos = d.events || [];
+
+    // Ticker
+    const live = eventos.filter(ev=>ev.competitions[0].status.type.state==='in');
+    document.getElementById('live-count').innerText = live.length>0? `● EN DIRECTO (${live.length})` : `● CHAMPIONS LEAGUE`;
+    let tickerHtml = eventos.slice(0,8).map(ev=>{
+      const c=ev.competitions[0];
+      const h=c.competitors.find(x=>x.homeAway==='home');
+      const a=c.competitors.find(x=>x.homeAway==='away');
+      const isLive=c.status.type.state==='in';
+      return `<span class="live-item ${isLive?'':''}">${isLive?'<span class="dot"></span>':''}<img src="${h.team.logo}">${h.team.abbreviation} <b>${h.score} - ${a.score}</b> <img src="${a.team.logo}">${a.team.abbreviation} <span style="font-size:10px;color:#6aa8ff">${c.status.displayClock || c.status.type.shortDetail}</span></span>`;
+    }).join('<span class="sep">|</span>');
+    document.getElementById('live-scroll').innerHTML = tickerHtml || 'Sin partidos hoy';
+
+    // Partidos lista
+    let htmlPartidos = eventos.map(ev=>{
+      const c=ev.competitions[0];
+      const h=c.competitors.find(x=>x.homeAway==='home');
+      const a=c.competitors.find(x=>x.homeAway==='away');
+      const isLive=c.status.type.state==='in';
+      return `<div class="match ${isLive?'live':''}">
+        <div>
+          <div class="teams"><img src="${h.team.logo}">${h.team.displayName} <span style="color:#7a8db0">vs</span> <img src="${a.team.logo}">${a.team.displayName}</div>
+          <div class="meta">${c.status.type.shortDetail} ${isLive?'<span style="color:#3b82f6">● EN DIRECTO</span>':''}</div>
+        </div>
+        <div class="score">${h.score} - ${a.score}</div>
+      </div>`;
+    }).join('');
+    document.getElementById('partidosList').innerHTML = htmlPartidos || '<p style="color:#7a8db0">No hay partidos hoy</p>';
+    document.getElementById('fechaPartidos').innerText = new Date().toLocaleDateString('es-ES',{day:'2-digit',month:'short'}).toUpperCase();
+
+  }catch(e){document.getElementById('partidosList').innerHTML='Error cargando datos';}
+}
+
+async function cargarClasificacion(){
+  try{
+    const r = await fetch('https://site.api.espn.com/apis/site/v2/sports/soccer/uefa.champions/standings');
+    const d = await r.json();
+    let entries = [];
+    if(d.children) entries = d.children[0].standings.entries;
+    else if(d.standings) entries = d.standings[0].entries;
+
+    let html = entries.slice(0,16).map((e,i)=>{
+      const team=e.team;
+      const stats=e.stats || [];
+      const get = (name)=>{const s=stats.find(x=>x.name===name); return s? s.value : 0};
+      return `<div class="clasifica-row">
+        <div class="left"><b>${i+1}</b><img src="${team.logos?team.logos[0].href:team.logo}">${team.displayName || team.name}</div>
+        <div style="display:flex;gap:12px;align-items:center"><span style="color:#7a8db0;font-size:11px">${get('wins')||get('W')}W ${get('draws')||get('D')}D ${get('losses')||get('L')}L</span><span class="pts">${get('points')||get('PTS')||get('pointsFor')||0} PTS</span></div>
+      </div>`;
+    }).join('');
+    document.getElementById('clasificaList').innerHTML = html || 'Clasificación no disponible';
+  }catch(e){document.getElementById('clasificaList').innerHTML='Tabla no disponible ahora';}
+}
+
+cargarChampions();
+cargarClasificacion();
+setInterval(cargarChampions,60000);
+</script>
+</body>
+</html>
