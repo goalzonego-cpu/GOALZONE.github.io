@@ -141,13 +141,23 @@ footer{background:#000;color:#666;text-align:center;padding:40px 20px;border-top
 <a onclick="filtrar('todas')">ÚLTIMAS <small>Todo</small></a>
 
 <!-- LIGAS SOLO LIGAS NACIONALES -->
-<div class="menu-parent" id="ligasParent" onclick="toggleMenu('ligas')">LIGAS <span>+</span></div>
+<div class="menu-parent" id="ligasParent" onclick="toggleMenu('ligas')">LIGAS EUROPEAS <span>+</span></div>
 <div class="menu-sub" id="ligasSub">
   <a href="laliga.html">LALIGA <small>EA Sports</small></a>
   <a href="premier.html">PREMIER <small>Premier League</small></a>
   <a href="ligue1.html">LIGUE 1 <small>Francia</small></a>
   <a href="seriea.html">SERIE A <small>Italia</small></a>
   <a href="bundesliga.html">BUNDESLIGA <small>Alemania</small></a>
+</div>
+
+<!-- LIGAS AMERICANAS - NUEVO -->
+<div class="menu-parent" id="ligasAmeParent" onclick="toggleMenu('ligasAme')">LIGAS AMERICANAS <span>+</span></div>
+<div class="menu-sub" id="ligasAmeSub">
+  <a href="mls.html">MLS <small>Estados Unidos</small></a>
+  <a href="ligamx.html">LIGA MX <small>México</small></a>
+  <a href="brasileirao.html">BRASILEIRÃO <small>Brasil</small></a>
+  <a href="libertadores.html">LIBERTADORES <small>Conmebol</small></a>
+  <a href="sudamericana.html">SUDAMERICANA <small>Conmebol</small></a>
 </div>
 
 <!-- COMPETICIONES APARTE -->
@@ -204,10 +214,13 @@ function openMenu(){document.getElementById('sideMenu').classList.add('show');do
 function closeMenu(){document.getElementById('sideMenu').classList.remove('show');document.getElementById('overlay').classList.remove('show')}
 function filtrar(cat){closeMenu();document.querySelectorAll('.nav-content a').forEach(a=>a.classList.remove('active'));let b=document.getElementById('btn-'+cat); if(b) b.classList.add('active');}
 function toggleMenu(tipo){
-  const sub=document.getElementById(tipo==='ligas'?'ligasSub':'compSub');
-  const parent=document.getElementById(tipo==='ligas'?'ligasParent':'compParent');
-  sub.classList.toggle('open');
-  parent.classList.toggle('open');
+  let sub, parent;
+  if(tipo==='ligas'){ sub=document.getElementById('ligasSub'); parent=document.getElementById('ligasParent'); }
+  else if(tipo==='comp'){ sub=document.getElementById('compSub'); parent=document.getElementById('compParent'); }
+  else if(tipo==='ligasAme'){ sub=document.getElementById('ligasAmeSub'); parent=document.getElementById('ligasAmeParent'); }
+  else { sub=document.getElementById(tipo+'Sub'); parent=document.getElementById(tipo+'Parent'); }
+  if(sub) sub.classList.toggle('open');
+  if(parent) parent.classList.toggle('open');
 }
 const searchModal=document.getElementById('searchModal');
 const mobileLupaBtn=document.getElementById('mobileLupaBtn');
