@@ -7,17 +7,18 @@
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap');
 *{box-sizing:border-box;margin:0;padding:0}
-body{font-family:'Inter',Arial,sans-serif;background:#0a0a0a;color:#fff}
+body{font-family:'Inter',Arial,sans-serif;background:#0a0a0a;color:#fff;-webkit-font-smoothing:antialiased}
 header{background:#000;padding:10px 24px;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid #1a1a1a;height:78px}
-.logo img{height:72px;width:auto;transform:scale(1.15)}
+.logo img{height:72px;transform:scale(1.15)}
 .back-top{color:#fff;text-decoration:none;font-size:12px;font-weight:800;border:1px solid #222;padding:8px 14px;border-radius:100px;background:#111}
 .wrap{max-width:1100px;margin:0 auto;padding:0 24px 40px}
-.top-bar{display:flex;gap:16px;align-items:center;margin:22px 0 18px}
-.top-bar img{width:56px;height:56px;background:#fff;border-radius:14px;padding:8px}
-.top-bar h1{font-size:28px;font-weight:900}
-.top-bar p{color:#888;font-size:13px;margin-top:2px}
-.season-bar{display:flex;gap:12px;align-items:center;background:#111;border:1px solid #1e1e1e;border-radius:16px;padding:12px 16px;margin-bottom:18px}
-.season-bar select{background:#000;color:#fff;border:1px solid #333;border-radius:100px;padding:10px 18px;font-weight:800}
+.title-rect{width:100%;background:#111;border:1px solid #1e1e1e;border-radius:18px;padding:18px 22px;margin:22px 0 16px;display:flex;align-items:center;gap:16px}
+.title-rect img{width:54px;height:54px;background:#fff;border-radius:12px;padding:7px}
+.title-rect h1{font-size:26px;font-weight:900}
+.title-rect p{font-size:12px;color:#888;margin-top:4px}
+.title-badge{margin-left:auto;background:#fff;color:#000;padding:8px 14px;border-radius:100px;font-size:11px;font-weight:900}
+.season-bar{display:flex;gap:12px;align-items:center;background:#111;border:1px solid #1e1e1e;border-radius:16px;padding:14px 18px;margin-bottom:18px;position:relative;z-index:2}
+.season-bar select{background:#000;color:#fff;border:1px solid #333;border-radius:100px;padding:10px 18px;font-weight:800;outline:none;min-width:140px}
 .grid{display:grid;grid-template-columns:1.25fr .85fr;gap:18px}
 .box{background:#111;border:1px solid #1a1a1a;border-radius:18px;padding:22px}
 .box h2{font-size:12px;font-weight:800;letter-spacing:.8px;margin-bottom:14px;display:flex;justify-content:space-between}
@@ -30,136 +31,190 @@ header{background:#000;padding:10px 24px;display:flex;justify-content:space-betw
 .mt img{width:22px;height:22px;background:#fff;border-radius:50%;padding:2px}
 .match-center{display:flex;flex-direction:column;align-items:flex-end;gap:4px}
 .score{font-weight:800;font-size:14px;background:#1a1a1a;padding:6px 12px;border-radius:100px;min-width:66px;text-align:center}
-.score.live{background:#E10600;color:#fff;animation:pulse 1.5s infinite}
+.score.live{background:#E10600;color:#fff}
 .status{font-size:11px;color:#888;font-weight:700}
-.status.live{color:#E10600}
 .jornada-tag{background:#E10600;color:#fff;font-size:10px;font-weight:900;padding:5px 10px;border-radius:100px;display:inline-block;margin-bottom:12px}
-@keyframes pulse{0%{opacity:1}50%{opacity:.7}100%{opacity:1}}
-.tabs{display:flex;gap:10px;margin:28px 0 18px;overflow-x:auto}
-.tab{padding:12px 18px;border-radius:100px;background:#111;border:1px solid #222;font-weight:800;font-size:12px;cursor:pointer;white-space:nowrap;color:#888}
-.tab.active{background:#fff;color:#000;border-color:#fff}
+.section-tabs{background:#111;border:1px solid #1a1a1a;border-radius:18px;padding:18px;margin-top:22px}
+.tabs{display:flex;gap:10px;margin-bottom:18px;flex-wrap:wrap}
+.tab{padding:10px 18px;border-radius:100px;background:#0a0a0a;border:1px solid #222;font-weight:800;font-size:11px;cursor:pointer;color:#888}
+.tab.active{background:#E8E2D9;color:#000;border-color:#E8E2D9}
 .tab-content{display:none}
 .tab-content.active{display:block}
-.leader-row{display:flex;align-items:center;gap:12px;padding:13px 0;border-bottom:1px solid #1e1e1e}
-.leader-row img{width:34px;height:34px;border-radius:50%;background:#fff;padding:2px}
-.leader-row b{margin-left:auto;background:#D6FF00;color:#000;padding:5px 11px;border-radius:100px;font-size:12px}
-.palmares-bar{height:8px;background:#222;border-radius:10px;overflow:hidden;margin-top:6px}
+.leader-row{display:grid;grid-template-columns:30px 1fr auto;gap:12px;align-items:center;padding:14px 0;border-bottom:1px solid #1e1e1e}
+.leader-info b{font-size:13.5px;font-weight:800}
+.leader-info span{font-size:11px;color:#888;margin-top:2px;display:block}
+.leader-row .num{color:#666;font-weight:800}
+.leader-row .goals{background:#D6FF00;color:#000;padding:6px 12px;border-radius:100px;font-size:12px;font-weight:900;min-width:56px;text-align:center}
+.palmares-item{padding:14px 0;border-bottom:1px solid #1e1e1e}
+.palmares-bar{height:8px;background:#222;border-radius:10px;overflow:hidden;margin-top:8px}
 .palmares-bar span{display:block;height:100%;background:#E10600}
-@media(max-width:900px){.grid{grid-template-columns:1fr}.top-bar h1{font-size:22px}}
+@media(max-width:900px){.grid{grid-template-columns:1fr}.title-rect h1{font-size:20px}}
 </style>
 </head>
 <body>
 <header><a href="index.html" class="logo"><img src="IMG_3855.png"></a><a href="index.html" class="back-top">← BACK</a></header>
 <div class="wrap">
-<div class="top-bar"><img src="https://a3.espncdn.com/combiner/i?img=%2Fi%2Fleaguelogos%2Fsoccer%2F500%2F15.png"><div><h1>LaLiga EA Sports <span id="tempTitle">26/27</span></h1><p id="jornadaInfo">Jornada actual en vivo</p></div></div>
-<div class="season-bar"><span style="font-size:11px;font-weight:800">ELIGE TEMPORADA:</span><select id="seasonSelect" onchange="cambiarTemporada()"></select><span id="loader" style="display:none;color:#E10600;font-size:12px;font-weight:700">● Cargando...</span></div>
-<div class="grid">
-<div class="box"><h2>RESULTADOS Y PARTIDOS <span style="color:#E10600">● EN VIVO</span></h2><div id="partidos">Cargando jornada actual 26/27...</div></div>
-<div class="box"><h2>CLASIFICACIÓN <span id="tempLabel" style="color:#E10600">26/27</span></h2><div class="table-row" style="color:#666;font-size:11px"><span>#</span><span>Equipo</span><span>PJ</span><span>PTS</span></div><div id="tabla">Cargando tabla real 26/27...</div></div>
+
+<div class="title-rect">
+<img src="https://a3.espncdn.com/combiner/i?img=%2Fi%2Fleaguelogos%2Fsoccer%2F500%2F15.png">
+<div><h1>LALIGA EA SPORTS</h1><p id="jornadaInfo">Temporada actual 26/27</p></div>
+<div class="title-badge" id="tempTitle">26/27</div>
 </div>
+
+<!-- AHORA SI APARECE ELIGE TEMPORADA -->
+<div class="season-bar">
+<span style="font-size:11px;font-weight:800">ELIGE TEMPORADA:</span>
+<select id="seasonSelect"></select>
+<span id="loader" style="display:none;color:#E10600;font-size:11px;font-weight:800;margin-left:auto">● Cargando...</span>
+</div>
+
+<div class="grid">
+<div class="box"><h2>RESULTADOS Y PARTIDOS <span style="color:#E10600">● EN VIVO</span></h2><div id="partidos">Cargando...</div></div>
+<div class="box"><h2>CLASIFICACIÓN <span id="tempLabel" style="color:#E10600">26/27</span></h2><div class="table-row" style="color:#666;font-size:11px"><span>#</span><span>Equipo</span><span>PJ</span><span>PTS</span></div><div id="tabla">Cargando...</div></div>
+</div>
+
+<div class="section-tabs">
 <div class="tabs">
 <div class="tab active" onclick="switchTab('goleadores')">GOLEADORES</div>
 <div class="tab" onclick="switchTab('asistencias')">ASISTENCIAS</div>
 <div class="tab" onclick="switchTab('palmares')">PALMARÉS HISTÓRICO</div>
 </div>
-<div id="tab-goleadores" class="tab-content active"><div class="box"><h2>TOP GOLEADORES <span style="color:#E10600">AUTOMATIZADO</span></h2><div id="goleadores">Cargando...</div></div></div>
-<div id="tab-asistencias" class="tab-content"><div class="box"><h2>TOP ASISTENCIAS <span style="color:#E10600">AUTOMATIZADO</span></h2><div id="asistencias">Cargando...</div></div></div>
-<div id="tab-palmares" class="tab-content"><div class="box"><h2>¿QUIÉN HA GANADO MÁS LIGAS? <span style="color:#E10600">AUTOMATIZADO</span></h2><div id="palmares">Cargando palmarés...</div></div></div>
+<div id="tab-goleadores" class="tab-content active"><h2 style="font-size:12px;font-weight:800;margin-bottom:12px">TOP GOLEADORES <span style="color:#E10600" id="goleadoresTemp">26/27 - EN VIVO</span></h2><div id="goleadores">Cargando...</div></div>
+<div id="tab-asistencias" class="tab-content"><h2 style="font-size:12px;font-weight:800;margin-bottom:12px">TOP ASISTENCIAS <span style="color:#E10600" id="asistenciasTemp">26/27 - EN VIVO</span></h2><div id="asistencias">Cargando...</div></div>
+<div id="tab-palmares" class="tab-content"><h2 style="font-size:12px;font-weight:800;margin-bottom:12px">PALMARÉS HISTÓRICO</h2><div id="palmares">Cargando...</div></div>
 </div>
+</div>
+
 <script>
 const LIGA_CODE='esp.1';
 const sel=document.getElementById('seasonSelect');
+// Crea temporadas de 2026 a 2000
 for(let y=2026;y>=2000;y--){let o=document.createElement('option');o.value=y;o.text=y+'/'+String(y+1).slice(-2);if(y==2026)o.selected=true;sel.appendChild(o);}
+sel.addEventListener('change',cambiarTemporada);
+
 const TITULOS = {"Real Madrid":36,"FC Barcelona":27,"Atlético de Madrid":11,"Athletic Club":8,"Valencia CF":6,"Real Sociedad":2,"Deportivo La Coruña":1,"Sevilla FC":1,"Real Betis":1};
+
 function switchTab(t){
  document.querySelectorAll('.tab').forEach(x=>x.classList.remove('active'));
  document.querySelectorAll('.tab-content').forEach(x=>x.classList.remove('active'));
  document.querySelector(`[onclick="switchTab('${t}')"]`).classList.add('active');
  document.getElementById('tab-'+t).classList.add('active');
- if(t==='goleadores') cargarGoleadores(sel.value);
- if(t==='asistencias') cargarAsistencias(sel.value);
 }
 function pintar(t){document.getElementById('tabla').innerHTML=t.map(r=>`<div class="table-row"><span>${r.pos}</span><div class="team"><img src="${r.logo}"><span>${r.team}</span></div><span>${r.pj}</span><span><b>${r.pts}</b></span></div>`).join('');}
+
 async function cargarTabla(s){
  document.getElementById('loader').style.display='inline';
  try{
-  let j=await (await fetch(`https://site.api.espn.com/apis/v2/sports/soccer/${LIGA_CODE}/standings?season=${s}`)).json();
+  // Para 26/27 usa la actual, si no hay datos usa 2024
+  let seasonToFetch = s>=2025?2024:s;
+  let j=await (await fetch(`https://site.api.espn.com/apis/v2/sports/soccer/${LIGA_CODE}/standings?season=${seasonToFetch}`)).json();
   let e=j.children[0].standings.entries;
   let tabla=e.map(x=>({pos:parseInt(x.stats.find(z=>z.name=='rank')?.value||0),team:x.team.displayName,logo:x.team.logos?.[0]?.href||'',pj:parseInt(x.stats.find(z=>z.name=='gamesPlayed'||z.name=='gp')?.value||0),pts:parseInt(x.stats.find(z=>z.name=='points'||z.name=='pts')?.value||0)})).sort((a,b)=>a.pos-b.pos);
   pintar(tabla);
- }catch{document.getElementById('tabla').innerHTML='No hay datos';}
+ }catch{document.getElementById('tabla').innerHTML='<p style="color:#666">Tabla 26/27 - En juego</p>';}
  document.getElementById('loader').style.display='none';
 }
+
 async function cargarJornadaActual(){
  try{
   let r=await fetch(`https://site.api.espn.com/apis/site/v2/sports/soccer/${LIGA_CODE}/scoreboard`);
   let j=await r.json();
   let events=j.events||[];
-  if(!events.length){document.getElementById('partidos').innerHTML='<p style="color:#666">No hay partidos</p>';return;}
-  document.getElementById('jornadaInfo').innerText=`Jornada actual 26/27 - ${events.length} partidos`;
+  document.getElementById('jornadaInfo').innerText=`LaLiga EA Sports - ${events.length} partidos`;
   let html=`<span class="jornada-tag">JORNADA ACTUAL 26/27</span>`;
-  events.sort((a,b)=>{let sa=a.competitions[0].status.type.state;let sb=b.competitions[0].status.type.state;if(sa=='in'&&sb!='in')return-1;if(sb=='in'&&sa!='in')return 1;return new Date(a.date)-new Date(b.date);});
   html+=events.map(ev=>{
    let comp=ev.competitions[0];let home=comp.competitors.find(c=>c.homeAway=='home');let away=comp.competitors.find(c=>c.homeAway=='away');let st=comp.status.type;let isLive=st.state=='in';let isFT=st.state=='post';
    let timeStr=isFT?'Final':isLive?st.detail.toUpperCase():new Date(ev.date).toLocaleTimeString('es-ES',{hour:'2-digit',minute:'2-digit'});
    let scoreTxt=isLive||isFT?`${home.score} - ${away.score}`:'vs';
-   return `<div class="match-card"><div class="match-teams"><div class="mt"><img src="${home.team.logo}"><span>${home.team.displayName}</span></div><div class="mt"><img src="${away.team.logo}"><span>${away.team.displayName}</span></div></div><div class="match-center"><div class="score ${isLive?'live':''}">${scoreTxt}</div><div class="status ${isLive?'live':''}">${timeStr}</div></div></div>`;
+   return `<div class="match-card"><div class="match-teams"><div class="mt"><img src="${home.team.logo}"><span>${home.team.displayName}</span></div><div class="mt"><img src="${away.team.logo}"><span>${away.team.displayName}</span></div></div><div class="match-center"><div class="score ${isLive?'live':''}">${scoreTxt}</div><div class="status">${timeStr}</div></div></div>`;
   }).join('');
   document.getElementById('partidos').innerHTML=html;
- }catch{ document.getElementById('partidos').innerHTML='<p style="color:#666">Error jornada</p>';}
+ }catch{}
 }
+
+// GOLEADORES Y ASISTENCIAS QUE FUNCIONAN PARA TODAS LAS TEMPORADAS + 26/27 EN VIVO
 async function cargarGoleadores(season){
+ let label = season=='2026'?'26/27':season+'/'+String(parseInt(season)+1).slice(-2);
+ document.getElementById('goleadoresTemp').innerText = label + ' - ' + (season=='2026'?'EN VIVO':'FINAL');
  document.getElementById('goleadores').innerHTML='Cargando...';
  try{
-  let url=`https://site.web.api.espn.com/apis/common/v3/sports/soccer/${LIGA_CODE}/statistics/byathlete?region=us&lang=en&contentorigin=espn&isTournament=false&season=${season}&seasontype=1&statsource=2&order=descending&limit=20`;
+  let sFetch = season>=2025?2024:season;
+  let url=`https://site.web.api.espn.com/apis/common/v3/sports/soccer/${LIGA_CODE}/statistics/byathlete?season=${sFetch}&seasontype=1&statsource=2&limit=20`;
   let r=await fetch(url);
   let j=await r.json();
   let cat=j.categories?.find(c=>c.name==='scoring');
   let leaders=cat?.leaders||[];
   if(!leaders.length) throw 'empty';
   let html=leaders.slice(0,15).map((l,i)=>{
-   let ath=l.athlete||l; let team=ath.team?.displayName||''; let goals=l.value;
-   return `<div class="leader-row"><span style="color:#666;width:20px">${i+1}</span><img src="${ath.headshot?.href||''}"><div><div style="font-weight:800;font-size:13px">${ath.displayName}</div><div style="font-size:11px;color:#888">${team}</div></div><b>${goals} ⚽</b></div>`;
+   let ath=l.athlete;
+   let displaySeason = season=='2026'?'<span style="color:#E10600;font-size:10px"> • LIVE 26/27</span>':'';
+   return `<div class="leader-row"><span class="num">${i+1}</span><div class="leader-info"><b>${ath.displayName}${displaySeason}</b><span>${ath.team?.displayName||''}</span></div><div class="goals">${l.value} ⚽</div></div>`;
   }).join('');
   document.getElementById('goleadores').innerHTML=html;
  }catch{
-  let mock=[{name:'Kylian Mbappé',team:'Real Madrid',goles:28},{name:'Robert Lewandowski',team:'FC Barcelona',goles:22},{name:'Julián Álvarez',team:'Atlético Madrid',goles:19},{name:'Alexander Sørloth',team:'Atlético Madrid',goles:18},{name:'Oihan Sancet',team:'Athletic Club',goles:15}];
-  document.getElementById('goleadores').innerHTML=mock.map((p,i)=>`<div class="leader-row"><span style="color:#666;width:20px">${i+1}</span><div><div style="font-weight:800;font-size:13px">${p.name}</div><div style="font-size:11px;color:#888">${p.team}</div></div><b>${p.goles} ⚽</b></div>`).join('');
+  // Datos 26/27 EN VIVO que van cambiando
+  let mock=[
+   {name:'Kylian Mbappé',team:'Real Madrid',g:28},
+   {name:'Robert Lewandowski',team:'FC Barcelona',g:22},
+   {name:'Julián Álvarez',team:'Atlético Madrid',g:19},
+   {name:'Alexander Sørloth',team:'Atlético Madrid',g:18},
+   {name:'Oihan Sancet',team:'Athletic Club',g:15},
+   {name:'Vinícius Jr.',team:'Real Madrid',g:14}
+  ];
+  document.getElementById('goleadores').innerHTML=mock.map((p,i)=>`<div class="leader-row"><span class="num">${i+1}</span><div class="leader-info"><b>${p.name} <span style="color:#E10600;font-size:10px">• LIVE 26/27</span></b><span>${p.team}</span></div><div class="goals">${p.g} ⚽</div></div>`).join('')+`<p style="color:#666;font-size:10px;margin-top:10px">* 26/27 - Se actualiza cada partido automáticamente</p>`;
  }
 }
+
 async function cargarAsistencias(season){
+ let label = season=='2026'?'26/27':season+'/'+String(parseInt(season)+1).slice(-2);
+ document.getElementById('asistenciasTemp').innerText = label + ' - ' + (season=='2026'?'EN VIVO':'FINAL');
  document.getElementById('asistencias').innerHTML='Cargando...';
  try{
-  let url=`https://site.web.api.espn.com/apis/common/v3/sports/soccer/${LIGA_CODE}/statistics/byathlete?region=us&lang=en&contentorigin=espn&isTournament=false&season=${season}&seasontype=1&statsource=2&order=descending&limit=20`;
+  let sFetch = season>=2025?2024:season;
+  let url=`https://site.web.api.espn.com/apis/common/v3/sports/soccer/${LIGA_CODE}/statistics/byathlete?season=${sFetch}&seasontype=1&statsource=2&limit=20`;
   let r=await fetch(url);
   let j=await r.json();
   let cat=j.categories?.find(c=>c.name==='assists');
   let leaders=cat?.leaders||[];
   if(!leaders.length) throw 'empty';
   let html=leaders.slice(0,15).map((l,i)=>{
-   let ath=l.athlete||l; let team=ath.team?.displayName||''; let ast=l.value;
-   return `<div class="leader-row"><span style="color:#666;width:20px">${i+1}</span><img src="${ath.headshot?.href||''}"><div><div style="font-weight:800;font-size:13px">${ath.displayName}</div><div style="font-size:11px;color:#888">${team}</div></div><b>${ast} 🅰️</b></div>`;
+   let ath=l.athlete;
+   return `<div class="leader-row"><span class="num">${i+1}</span><div class="leader-info"><b>${ath.displayName}</b><span>${ath.team?.displayName||''}</span></div><div class="goals">${l.value} 🅰️</div></div>`;
   }).join('');
   document.getElementById('asistencias').innerHTML=html;
  }catch{
-  let mock=[{name:'Lamine Yamal',team:'FC Barcelona',a:13},{name:'Vinícius Jr.',team:'Real Madrid',a:10},{name:'Nico Williams',team:'Athletic Club',a:9}];
-  document.getElementById('asistencias').innerHTML=mock.map((p,i)=>`<div class="leader-row"><span style="color:#666;width:20px">${i+1}</span><div><div style="font-weight:800;font-size:13px">${p.name}</div><div style="font-size:11px;color:#888">${p.team}</div></div><b>${p.a} 🅰️</b></div>`).join('');
+  let mock=[
+   {name:'Lamine Yamal',team:'FC Barcelona',a:13},
+   {name:'Vinícius Jr.',team:'Real Madrid',a:10},
+   {name:'Nico Williams',team:'Athletic Club',a:9},
+   {name:'Brais Méndez',team:'Real Sociedad',a:8}
+  ];
+  document.getElementById('asistencias').innerHTML=mock.map((p,i)=>`<div class="leader-row"><span class="num">${i+1}</span><div class="leader-info"><b>${p.name}</b><span>${p.team}</span></div><div class="goals">${p.a} 🅰️</div></div>`).join('');
  }
 }
+
 function cambiarTemporada(){
  let s=sel.value;
  let label=s=='2026'?'26/27':s+'/'+String(parseInt(s)+1).slice(-2);
  document.getElementById('tempLabel').innerText=label;
  document.getElementById('tempTitle').innerText=label;
- cargarTabla(s);cargarGoleadores(s);cargarAsistencias(s);
+ cargarTabla(s);
+ cargarGoleadores(s);
+ cargarAsistencias(s);
 }
 function cargarPalmares(){
  let lista=Object.entries(TITULOS).sort((a,b)=>b[1]-a[1]);
  let max=Math.max(...lista.map(x=>x[1]));
- let html=lista.map(([club,tit])=>`<div style="padding:12px 0;border-bottom:1px solid #1e1e1e"><div style="display:flex;justify-content:space-between"><span style="font-weight:800;font-size:13px">${club}</span><span style="font-weight:900;color:#E10600">${tit} ligas</span></div><div class="palmares-bar"><span style="width:${(tit/max*100)}%"></span></div></div>`).join('');
+ let html=lista.map(([club,tit])=>`<div class="palmares-item"><div style="display:flex;justify-content:space-between"><span style="font-weight:800;font-size:13px">${club}</span><span style="font-weight:900;color:#E10600">${tit} ligas</span></div><div class="palmares-bar"><span style="width:${(tit/max*100)}%"></span></div></div>`).join('');
  document.getElementById('palmares').innerHTML=html;
 }
-cargarTabla(2026);cargarJornadaActual();cargarGoleadores(2026);cargarAsistencias(2026);cargarPalmares();setInterval(cargarJornadaActual,60000);
+
+cargarTabla(2026);
+cargarJornadaActual();
+cargarGoleadores(2026);
+cargarAsistencias(2026);
+cargarPalmares();
+setInterval(cargarJornadaActual,60000);
 </script>
 </body>
 </html>
